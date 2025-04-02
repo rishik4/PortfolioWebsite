@@ -76,6 +76,7 @@ class _PortfolioHomeState extends State<PortfolioHome>
   int _currentSection = 0;
   bool _showGlitch = false;
   bool _showMainContent = false;
+  bool _isScrolling = false;
 
   Future<void> _launchUrl(String urlString) async {
     final Uri url = Uri.parse(urlString);
@@ -132,7 +133,76 @@ class _PortfolioHomeState extends State<PortfolioHome>
       _triggerRandomGlitch();
     });
 
-    _scrollController.addListener(_updateCurrentSection);
+    _scrollController.addListener(_handleScroll);
+  }
+
+  void _handleScroll() {
+    if (!_isScrolling) {
+      _updateCurrentSection();
+    }
+  }
+
+  void _updateCurrentSection() {
+    double offset = _scrollController.offset;
+    for (int i = 0; i < _sectionKeys.length; i++) {
+      final context = _sectionKeys[i].currentContext;
+      if (context != null) {
+        final RenderBox box = context.findRenderObject() as RenderBox;
+        final position = box.localToGlobal(Offset.zero);
+        if (position.dy <= 100 && position.dy + box.size.height > 0) {
+          if (_currentSection != i) {
+            setState(() {
+              _currentSection = i;
+            });
+          }
+          break;
+        }
+      }
+    }
+  }
+
+  void _scrollToSection(int index) {
+    final context = _sectionKeys[index].currentContext;
+    if (context != null) {
+      setState(() {
+        _isScrolling = true;
+      });
+
+      Scrollable.ensureVisible(
+        context,
+        duration: const Duration(milliseconds: 800),
+        curve: Curves.easeInOutCubic,
+      ).then((_) {
+        setState(() {
+          _isScrolling = false;
+          _currentSection = index;
+        });
+      });
+    }
+  }
+
+  void _snapToNearestSection() {
+    if (_isScrolling) return;
+
+    double minDistance = double.infinity;
+    int targetIndex = _currentSection;
+
+    for (int i = 0; i < _sectionKeys.length; i++) {
+      final context = _sectionKeys[i].currentContext;
+      if (context != null) {
+        final RenderBox box = context.findRenderObject() as RenderBox;
+        final position = box.localToGlobal(Offset.zero);
+        final distance = position.dy.abs();
+        if (distance < minDistance) {
+          minDistance = distance;
+          targetIndex = i;
+        }
+      }
+    }
+
+    if (targetIndex != _currentSection) {
+      _scrollToSection(targetIndex);
+    }
   }
 
   void _triggerRandomGlitch() {
@@ -154,25 +224,6 @@ class _PortfolioHomeState extends State<PortfolioHome>
         _triggerRandomGlitch();
       });
     });
-  }
-
-  void _updateCurrentSection() {
-    double offset = _scrollController.offset;
-    for (int i = 0; i < _sectionKeys.length; i++) {
-      final context = _sectionKeys[i].currentContext;
-      if (context != null) {
-        final RenderBox box = context.findRenderObject() as RenderBox;
-        final position = box.localToGlobal(Offset.zero);
-        if (position.dy <= 100 && position.dy + box.size.height > 0) {
-          if (_currentSection != i) {
-            setState(() {
-              _currentSection = i;
-            });
-          }
-          break;
-        }
-      }
-    }
   }
 
   @override
@@ -299,18 +350,7 @@ class _PortfolioHomeState extends State<PortfolioHome>
                               (index) => NavButton(
                                 title: _sectionTitles[index],
                                 isSelected: _currentSection == index,
-                                onTap: () {
-                                  final context =
-                                      _sectionKeys[index].currentContext;
-                                  if (context != null) {
-                                    Scrollable.ensureVisible(
-                                      context,
-                                      duration:
-                                          const Duration(milliseconds: 500),
-                                      curve: Curves.easeInOut,
-                                    );
-                                  }
-                                },
+                                onTap: () => _scrollToSection(index),
                               ),
                             ),
                           ),
@@ -319,50 +359,56 @@ class _PortfolioHomeState extends State<PortfolioHome>
                     ),
                   ),
                   Expanded(
-                    child: SingleChildScrollView(
-                      controller: _scrollController,
-                      physics: const BouncingScrollPhysics(
-                        decelerationRate: ScrollDecelerationRate.fast,
-                      ),
-                      child: Column(
-                        children: [
-                          Container(
-                            key: _sectionKeys[0],
-                            height: MediaQuery.of(context).size.height,
-                            child: HomePage(showGlitch: _showGlitch),
-                          ),
-                          const SizedBox(height: 150),
-                          Container(
-                            key: _sectionKeys[1],
-                            height: MediaQuery.of(context).size.height,
-                            child: const AboutPage(),
-                          ),
-                          const SizedBox(height: 150),
-                          Container(
-                            key: _sectionKeys[2],
-                            height: MediaQuery.of(context).size.height,
-                            child: const ProjectsPage(),
-                          ),
-                          const SizedBox(height: 150),
-                          Container(
-                            key: _sectionKeys[3],
-                            height: MediaQuery.of(context).size.height + 200,
-                            child: const ExperiencesPage(),
-                          ),
-                          const SizedBox(height: 150),
-                          Container(
-                            key: _sectionKeys[4],
-                            height: MediaQuery.of(context).size.height,
-                            child: const SkillsPage(),
-                          ),
-                          const SizedBox(height: 150),
-                          Container(
-                            key: _sectionKeys[5],
-                            height: MediaQuery.of(context).size.height,
-                            child: const ContactPage(),
-                          ),
-                          const SizedBox(height: 50),
-                        ],
+                    child: NotificationListener<ScrollNotification>(
+                      onNotification: (notification) {
+                        if (notification is ScrollEndNotification) {
+                          _snapToNearestSection();
+                        }
+                        return true;
+                      },
+                      child: SingleChildScrollView(
+                        controller: _scrollController,
+                        physics: const ClampingScrollPhysics(),
+                        child: Column(
+                          children: [
+                            Container(
+                              key: _sectionKeys[0],
+                              height: MediaQuery.of(context).size.height,
+                              child: HomePage(showGlitch: _showGlitch),
+                            ),
+                            const SizedBox(height: 150),
+                            Container(
+                              key: _sectionKeys[1],
+                              height: MediaQuery.of(context).size.height,
+                              child: const AboutPage(),
+                            ),
+                            const SizedBox(height: 150),
+                            Container(
+                              key: _sectionKeys[2],
+                              height: MediaQuery.of(context).size.height,
+                              child: const ProjectsPage(),
+                            ),
+                            const SizedBox(height: 150),
+                            Container(
+                              key: _sectionKeys[3],
+                              height: MediaQuery.of(context).size.height + 200,
+                              child: const ExperiencesPage(),
+                            ),
+                            const SizedBox(height: 150),
+                            Container(
+                              key: _sectionKeys[4],
+                              height: MediaQuery.of(context).size.height,
+                              child: const SkillsPage(),
+                            ),
+                            const SizedBox(height: 150),
+                            Container(
+                              key: _sectionKeys[5],
+                              height: MediaQuery.of(context).size.height,
+                              child: const ContactPage(),
+                            ),
+                            const SizedBox(height: 50),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -695,7 +741,17 @@ class HomePage extends StatelessWidget {
               child: AnimatedTextKit(
                 animatedTexts: [
                   TypewriterAnimatedText(
-                    '01010011 01001111 01000110 01010100 01010111 01000001 01010010 01000101 \n01000100 01000101 01010110 01000101 01001100 01001111 01010000 01000101 01010010',
+                    'ELECTRICAL & COMPUTER ENGINEERING STUDENT | APP DEVELOPER | INNOVATOR',
+                    textStyle: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w300,
+                      letterSpacing: 2,
+                      color: Colors.cyanAccent,
+                    ),
+                    speed: const Duration(milliseconds: 50),
+                  ),
+                  TypewriterAnimatedText(
+                    '01010011 01000101 01000011 01010010 01000101 01010100',
                     textStyle: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w300,
@@ -706,20 +762,117 @@ class HomePage extends StatelessWidget {
                     speed: const Duration(milliseconds: 50),
                   ),
                   TypewriterAnimatedText(
-                    'ELECTRICAL & COMPUTER ENGINEERING STUDENT | APP DEVELOPER | INNOVATOR',
+                    'DECODING REALITY ONE BUG AT A TIME',
                     textStyle: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w300,
                       letterSpacing: 2,
                       color: Colors.cyanAccent,
                     ),
-                    speed: const Duration(milliseconds: 100),
+                    speed: const Duration(milliseconds: 50),
+                  ),
+                  TypewriterAnimatedText(
+                    '01001110 01001111 01010100 00100000 01000001 00100000 01000010 01010101 01000111',
+                    textStyle: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w300,
+                      letterSpacing: 1,
+                      fontFamily: 'monospace',
+                      color: Colors.cyanAccent,
+                    ),
+                    speed: const Duration(milliseconds: 50),
+                  ),
+                  TypewriterAnimatedText(
+                    'JUST A FEATURE IN DISGUISE',
+                    textStyle: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w300,
+                      letterSpacing: 2,
+                      color: Colors.cyanAccent,
+                    ),
+                    speed: const Duration(milliseconds: 50),
+                  ),
+                  TypewriterAnimatedText(
+                    '01010000 01010010 01001111 01000111 01010010 01000001 01001101 01001101 01001001 01001110 01000111',
+                    textStyle: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w300,
+                      letterSpacing: 1,
+                      fontFamily: 'monospace',
+                      color: Colors.cyanAccent,
+                    ),
+                    speed: const Duration(milliseconds: 50),
+                  ),
+                  TypewriterAnimatedText(
+                    'TURNING COFFEE INTO CODE SINCE 2015',
+                    textStyle: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w300,
+                      letterSpacing: 2,
+                      color: Colors.cyanAccent,
+                    ),
+                    speed: const Duration(milliseconds: 50),
+                  ),
+                  TypewriterAnimatedText(
+                    '01010011 01001100 01000101 01000101 01010000 00100000 01001101 01001111 01000100 01000101',
+                    textStyle: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w300,
+                      letterSpacing: 1,
+                      fontFamily: 'monospace',
+                      color: Colors.cyanAccent,
+                    ),
+                    speed: const Duration(milliseconds: 50),
+                  ),
+                  TypewriterAnimatedText(
+                    'ERROR 404: SLEEP NOT FOUND',
+                    textStyle: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w300,
+                      letterSpacing: 2,
+                      color: Colors.cyanAccent,
+                    ),
+                    speed: const Duration(milliseconds: 50),
+                  ),
+                  TypewriterAnimatedText(
+                    '01001000 01000001 01000011 01001011 01000101 01010010 01001101 01000001 01001110',
+                    textStyle: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w300,
+                      letterSpacing: 1,
+                      fontFamily: 'monospace',
+                      color: Colors.cyanAccent,
+                    ),
+                    speed: const Duration(milliseconds: 50),
+                  ),
+                  TypewriterAnimatedText(
+                    'SUDO MAKE ME A SANDWICH',
+                    textStyle: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w300,
+                      letterSpacing: 2,
+                      color: Colors.cyanAccent,
+                    ),
+                    speed: const Duration(milliseconds: 50),
                   ),
                 ],
                 totalRepeatCount: 1,
                 pause: const Duration(milliseconds: 2000),
                 displayFullTextOnTap: true,
                 stopPauseOnTap: true,
+                onTap: () {
+                  // Easter egg: Show a tooltip or snackbar with a hidden message
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: const Text(
+                        'You found a secret! But can you decode the binary?',
+                        style: TextStyle(color: Colors.cyanAccent),
+                      ),
+                      backgroundColor: Colors.black.withOpacity(0.8),
+                      duration: const Duration(seconds: 3),
+                    ),
+                  );
+                },
               ),
             ),
             const SizedBox(height: 50),
@@ -727,7 +880,7 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 final targetContext = context
                     .findAncestorStateOfType<_PortfolioHomeState>()
-                    ?._sectionKeys[3]
+                    ?._sectionKeys[2]
                     .currentContext;
                 if (targetContext != null) {
                   Scrollable.ensureVisible(
@@ -832,13 +985,6 @@ class AboutPage extends StatelessWidget {
                   content:
                       "B.S. Electrical and Computer Engineering\nUniversity of Texas at Austin, Austin, TX\n(Expected May 2027)",
                   icon: Icons.school,
-                ),
-                const SizedBox(width: 20),
-                TechInfoCard(
-                  title: "EXPERIENCES",
-                  content:
-                      "Creator of award-winning projects including the iCog Dementia Screening App, innovative Passion Projects, and founder of Rdot Apps. Recognized in national competitions and featured in news.",
-                  icon: Icons.work,
                 ),
               ],
             ),
@@ -1592,8 +1738,22 @@ class ProjectsPage extends StatelessWidget {
                           const AllProjectsPage(),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {
-                        return FadeTransition(opacity: animation, child: child);
+                        const begin = Offset(1.0, 0.0);
+                        const end = Offset.zero;
+                        const curve = Curves.easeInOutCubic;
+                        var tween = Tween(begin: begin, end: end).chain(
+                          CurveTween(curve: curve),
+                        );
+                        var offsetAnimation = animation.drive(tween);
+                        return SlideTransition(
+                          position: offsetAnimation,
+                          child: FadeTransition(
+                            opacity: animation,
+                            child: child,
+                          ),
+                        );
                       },
+                      transitionDuration: const Duration(milliseconds: 800),
                     ),
                   );
                 },
@@ -2399,8 +2559,43 @@ class _TechContactButtonState extends State<TechContactButton> {
   }
 }
 
-class AllProjectsPage extends StatelessWidget {
+class AllProjectsPage extends StatefulWidget {
   const AllProjectsPage({super.key});
+
+  @override
+  State<AllProjectsPage> createState() => _AllProjectsPageState();
+}
+
+class _AllProjectsPageState extends State<AllProjectsPage> {
+  final ScrollController _scrollController = ScrollController();
+  bool _showScrollToTop = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_handleScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _handleScroll() {
+    if (!mounted) return;
+    setState(() {
+      _showScrollToTop = _scrollController.offset > 300;
+    });
+  }
+
+  void _scrollToTop() {
+    _scrollController.animateTo(
+      0,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -2419,6 +2614,7 @@ class AllProjectsPage extends StatelessWidget {
             },
           ),
           SingleChildScrollView(
+            controller: _scrollController,
             physics: const BouncingScrollPhysics(),
             child: Padding(
               padding: const EdgeInsets.all(40.0),
@@ -2484,6 +2680,19 @@ class AllProjectsPage extends StatelessWidget {
               ),
             ),
           ),
+          if (_showScrollToTop)
+            Positioned(
+              right: 20,
+              bottom: 20,
+              child: AnimatedOpacity(
+                opacity: _showScrollToTop ? 1.0 : 0.0,
+                duration: const Duration(milliseconds: 200),
+                child: TechButton(
+                  onPressed: _scrollToTop,
+                  label: "SCROLL TO TOP",
+                ),
+              ),
+            ),
         ],
       ),
     );
