@@ -34,7 +34,7 @@ class ProjectsPage extends StatelessWidget {
               height: 2,
               color: Colors.cyanAccent,
             ),
-            const SizedBox(height: 40), // Increased spacing
+            const SizedBox(height: 30),
 
             // Project grid with responsive layout
             GridView.count(
@@ -78,50 +78,41 @@ class ProjectsPage extends StatelessWidget {
                       ))
                   .toList(),
             ),
-            const SizedBox(height: 60), // Increased button spacing
+            const SizedBox(height: 40),
 
             // View all projects button
             Center(
-              child: Container(
-                padding: const EdgeInsets.all(15), // Add padding around button
-                // Add a subtle highlight to make the button more noticeable
-                decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: TechButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            const AllProjectsPage(),
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          const begin = Offset(1.0, 0.0);
-                          const end = Offset.zero;
-                          const curve = Curves.easeInOutCubic;
-                          var tween = Tween(begin: begin, end: end).chain(
-                            CurveTween(curve: curve),
-                          );
-                          var offsetAnimation = animation.drive(tween);
-                          return SlideTransition(
-                            position: offsetAnimation,
-                            child: FadeTransition(
-                              opacity: animation,
-                              child: child,
-                            ),
-                          );
-                        },
-                        transitionDuration: const Duration(milliseconds: 800),
-                      ),
-                    );
-                  },
-                  label: "VIEW ALL PROJECTS",
-                ),
+              child: TechButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          const AllProjectsPage(),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        const begin = Offset(1.0, 0.0);
+                        const end = Offset.zero;
+                        const curve = Curves.easeInOutCubic;
+                        var tween = Tween(begin: begin, end: end).chain(
+                          CurveTween(curve: curve),
+                        );
+                        var offsetAnimation = animation.drive(tween);
+                        return SlideTransition(
+                          position: offsetAnimation,
+                          child: FadeTransition(
+                            opacity: animation,
+                            child: child,
+                          ),
+                        );
+                      },
+                      transitionDuration: const Duration(milliseconds: 800),
+                    ),
+                  );
+                },
+                label: "VIEW ALL PROJECTS",
               ),
             ),
-            const SizedBox(height: 40), // Bottom padding for the section
           ],
         ),
       ),

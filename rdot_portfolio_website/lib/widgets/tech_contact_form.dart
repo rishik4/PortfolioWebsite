@@ -32,7 +32,7 @@ class _TechContactFormState extends State<TechContactForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            "EXECUTE MESSAGE",
+            "SEND MESSAGE",
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -132,7 +132,7 @@ class _TechContactFormState extends State<TechContactForm> {
                 _messageController.clear();
               }
             },
-            label: "EXECUTE",
+            label: "SEND",
           ),
         ],
       ),
