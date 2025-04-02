@@ -960,7 +960,7 @@ class _PortfolioHomeState extends State<PortfolioHome>
                                 height: MediaQuery.of(context).size.height,
                                 child: const ProjectsPage(),
                               ),
-                              const SizedBox(height: 150),
+                              const SizedBox(height: 250),
 
                               // Experiences section
                               Container(
