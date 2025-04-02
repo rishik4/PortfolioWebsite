@@ -33,7 +33,7 @@ class ExperiencesPage extends StatelessWidget {
               height: 2,
               color: Colors.cyanAccent,
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 60), // Increased spacing
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -77,26 +77,37 @@ class ExperiencesPage extends StatelessWidget {
                 );
               },
             ),
-            const SizedBox(height: 60),
+            const SizedBox(height: 80), // Increased spacing
+
+            // View full timeline button with better spacing
             Center(
-              child: TechButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          const AllExperiencesPage(),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        return FadeTransition(opacity: animation, child: child);
-                      },
-                    ),
-                  );
-                },
-                label: "VIEW FULL TIMELINE",
+              child: Container(
+                padding: const EdgeInsets.all(15), // Add padding around button
+                // Add a subtle highlight to make the button more noticeable
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: TechButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            const AllExperiencesPage(),
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          return FadeTransition(
+                              opacity: animation, child: child);
+                        },
+                      ),
+                    );
+                  },
+                  label: "VIEW FULL TIMELINE",
+                ),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 60), // Bottom padding
           ],
         ),
       ),

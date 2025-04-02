@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import '../utils/painters.dart';
 import '../utils/url_launcher_utils.dart';
+import '../utils/responsive_layout.dart';
 import '../widgets/terminal.dart';
 import '../widgets/nav_button.dart';
 import '../widgets/glitch_text.dart';
+import '../widgets/mobile_drawer.dart';
 import 'home_page.dart';
 import 'about_page.dart';
 import 'projects_page.dart';
@@ -21,6 +23,10 @@ class PortfolioHome extends StatefulWidget {
 
 class _PortfolioHomeState extends State<PortfolioHome>
     with TickerProviderStateMixin {
+  // Expose this state to child widgets for navigation
+  static _PortfolioHomeState? of(BuildContext context) =>
+      context.findAncestorStateOfType<_PortfolioHomeState>();
+
   // Animation controllers
   late AnimationController _terminalController;
   late AnimationController _fadeController;
@@ -195,8 +201,47 @@ class _PortfolioHomeState extends State<PortfolioHome>
 
   @override
   Widget build(BuildContext context) {
+    final bool isMobile = ResponsiveLayout.isMobile(context);
+    // Calculate dynamic height for proper spacing between sections
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double sectionHeight =
+        screenHeight + 50; // Add padding to each section
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
+      // Add app bar for mobile view
+      appBar: isMobile && _showMainContent
+          ? AppBar(
+              backgroundColor: Colors.black,
+              elevation: 0,
+              title: GlitchText(
+                text: 'RDOT',
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 2,
+                  color: Colors.cyanAccent,
+                ),
+                glitchEnabled: _showGlitch,
+              ),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.email, color: Colors.cyanAccent),
+                  onPressed: () =>
+                      launchUrlExternal('mailto:rishikb@utexas.edu'),
+                ),
+              ],
+            )
+          : null,
+      // Add drawer for mobile view
+      drawer: isMobile && _showMainContent
+          ? MobileDrawer(
+              sectionTitles: _sectionTitles,
+              currentSection: _currentSection,
+              onSectionSelected: _scrollToSection,
+              showGlitch: _showGlitch,
+            )
+          : null,
       body: Stack(
         children: [
           // Animated background
@@ -237,10 +282,17 @@ class _PortfolioHomeState extends State<PortfolioHome>
                   opacity: _terminalController.value < 0.8
                       ? 1.0
                       : 1.0 - (_terminalController.value - 0.8) * 5,
-                  child: const Terminal(
-                    prompt: '~/user >',
-                    command: 'load user.profile',
-                    response: 'Profile loaded successfully',
+                  child: SizedBox(
+                    width: ResponsiveLayout.value(
+                      context: context,
+                      mobile: 300.0,
+                      desktop: 500.0,
+                    ),
+                    child: const Terminal(
+                      prompt: '~/user >',
+                      command: 'load user.profile',
+                      response: 'Profile loaded successfully',
+                    ),
                   ),
                 );
               },
@@ -251,147 +303,211 @@ class _PortfolioHomeState extends State<PortfolioHome>
           if (_showMainContent)
             FadeTransition(
               opacity: _fadeAnimation,
-              child: Row(
-                children: [
-                  // Sidebar navigation
-                  Container(
-                    width: 200,
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.8),
-                      border: Border(
-                          right: BorderSide(
-                              color: Colors.cyanAccent.withOpacity(0.3))),
-                    ),
+              child: ResponsiveWidget(
+                // Mobile layout
+                mobile: NotificationListener<ScrollNotification>(
+                  onNotification: (notification) {
+                    if (notification is ScrollEndNotification) {
+                      _snapToNearestSection();
+                    }
+                    return true;
+                  },
+                  child: SingleChildScrollView(
+                    controller: _scrollController,
+                    physics: const ClampingScrollPhysics(),
                     child: Column(
                       children: [
-                        // Header with logo and social icons
-                        Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Column(
-                            children: [
-                              GlitchText(
-                                text: 'RDOT',
-                                style: const TextStyle(
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 2,
-                                  color: Colors.cyanAccent,
-                                ),
-                                glitchEnabled: _showGlitch,
-                              ),
-                              const SizedBox(height: 15),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  IconButton(
-                                    icon: const Icon(Icons.email,
-                                        color: Colors.cyanAccent),
-                                    onPressed: () => launchUrlExternal(
-                                        'mailto:rishikb@utexas.edu'),
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(Icons.code,
-                                        color: Colors.cyanAccent),
-                                    onPressed: () => launchUrlExternal(
-                                        'https://github.com/rishik4'),
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(Icons.link,
-                                        color: Colors.cyanAccent),
-                                    onPressed: () => launchUrlExternal(
-                                        'https://www.linkedin.com/in/rishik-boddeti-9773b5239/'),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                        // Home section
+                        Container(
+                          key: _sectionKeys[0],
+                          height: screenHeight,
+                          child: HomePage(showGlitch: _showGlitch),
                         ),
+                        SizedBox(height: 150), // Increased spacing
 
-                        // Navigation buttons
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: List.generate(
-                              _sectionTitles.length,
-                              (index) => NavButton(
-                                title: _sectionTitles[index],
-                                isSelected: _currentSection == index,
-                                onTap: () => _scrollToSection(index),
-                              ),
-                            ),
-                          ),
+                        // About section
+                        Container(
+                          key: _sectionKeys[1],
+                          child: const AboutPage(),
                         ),
+                        SizedBox(height: 200), // Increased spacing
+
+                        // Projects section
+                        Container(
+                          key: _sectionKeys[2],
+                          child: const ProjectsPage(),
+                        ),
+                        SizedBox(height: 200), // Increased spacing
+
+                        // Experiences section
+                        Container(
+                          key: _sectionKeys[3],
+                          child: const ExperiencesPage(),
+                        ),
+                        SizedBox(height: 200), // Increased spacing
+
+                        // Skills section
+                        Container(
+                          key: _sectionKeys[4],
+                          child: const SkillsPage(),
+                        ),
+                        SizedBox(height: 200), // Increased spacing
+
+                        // Contact section
+                        Container(
+                          key: _sectionKeys[5],
+                          child: const ContactPage(),
+                        ),
+                        SizedBox(height: 100), // Increased spacing
                       ],
                     ),
                   ),
+                ),
 
-                  // Main content area with sections
-                  Expanded(
-                    child: NotificationListener<ScrollNotification>(
-                      onNotification: (notification) {
-                        if (notification is ScrollEndNotification) {
-                          _snapToNearestSection();
-                        }
-                        return true;
-                      },
-                      child: SingleChildScrollView(
-                        controller: _scrollController,
-                        physics: const ClampingScrollPhysics(),
-                        child: Column(
-                          children: [
-                            // Home section
-                            Container(
-                              key: _sectionKeys[0],
-                              height: MediaQuery.of(context).size.height,
-                              child: HomePage(showGlitch: _showGlitch),
+                // Desktop layout
+                desktop: Row(
+                  children: [
+                    // Sidebar navigation
+                    Container(
+                      width: 200,
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.8),
+                        border: Border(
+                            right: BorderSide(
+                                color: Colors.cyanAccent.withOpacity(0.3))),
+                      ),
+                      child: Column(
+                        children: [
+                          // Header with logo and social icons
+                          Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Column(
+                              children: [
+                                GlitchText(
+                                  text: 'RDOT',
+                                  style: const TextStyle(
+                                    fontSize: 32,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 2,
+                                    color: Colors.cyanAccent,
+                                  ),
+                                  glitchEnabled: _showGlitch,
+                                ),
+                                const SizedBox(height: 15),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(Icons.email,
+                                          color: Colors.cyanAccent),
+                                      onPressed: () => launchUrlExternal(
+                                          'mailto:rishikb@utexas.edu'),
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.code,
+                                          color: Colors.cyanAccent),
+                                      onPressed: () => launchUrlExternal(
+                                          'https://github.com/rishik4'),
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.link,
+                                          color: Colors.cyanAccent),
+                                      onPressed: () => launchUrlExternal(
+                                          'https://www.linkedin.com/in/rishik-boddeti-9773b5239/'),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                            const SizedBox(height: 150),
+                          ),
 
-                            // About section
-                            Container(
-                              key: _sectionKeys[1],
-                              height: MediaQuery.of(context).size.height,
-                              child: const AboutPage(),
+                          // Navigation buttons
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: List.generate(
+                                _sectionTitles.length,
+                                (index) => NavButton(
+                                  title: _sectionTitles[index],
+                                  isSelected: _currentSection == index,
+                                  onTap: () => _scrollToSection(index),
+                                ),
+                              ),
                             ),
-                            const SizedBox(height: 150),
+                          ),
+                        ],
+                      ),
+                    ),
 
-                            // Projects section
-                            Container(
-                              key: _sectionKeys[2],
-                              height: MediaQuery.of(context).size.height,
-                              child: const ProjectsPage(),
-                            ),
-                            const SizedBox(height: 150),
+                    // Main content area with sections
+                    Expanded(
+                      child: NotificationListener<ScrollNotification>(
+                        onNotification: (notification) {
+                          if (notification is ScrollEndNotification) {
+                            _snapToNearestSection();
+                          }
+                          return true;
+                        },
+                        child: SingleChildScrollView(
+                          controller: _scrollController,
+                          physics: const ClampingScrollPhysics(),
+                          child: Column(
+                            children: [
+                              // Home section
+                              Container(
+                                key: _sectionKeys[0],
+                                height: sectionHeight,
+                                child: HomePage(showGlitch: _showGlitch),
+                              ),
+                              SizedBox(height: 200), // Increased spacing
 
-                            // Experiences section
-                            Container(
-                              key: _sectionKeys[3],
-                              height: MediaQuery.of(context).size.height + 200,
-                              child: const ExperiencesPage(),
-                            ),
-                            const SizedBox(height: 150),
+                              // About section
+                              Container(
+                                key: _sectionKeys[1],
+                                height: sectionHeight,
+                                child: const AboutPage(),
+                              ),
+                              SizedBox(height: 200), // Increased spacing
 
-                            // Skills section
-                            Container(
-                              key: _sectionKeys[4],
-                              height: MediaQuery.of(context).size.height,
-                              child: const SkillsPage(),
-                            ),
-                            const SizedBox(height: 150),
+                              // Projects section
+                              Container(
+                                key: _sectionKeys[2],
+                                height: sectionHeight,
+                                child: const ProjectsPage(),
+                              ),
+                              SizedBox(height: 200), // Increased spacing
 
-                            // Contact section
-                            Container(
-                              key: _sectionKeys[5],
-                              height: MediaQuery.of(context).size.height,
-                              child: const ContactPage(),
-                            ),
-                            const SizedBox(height: 50),
-                          ],
+                              // Experiences section
+                              Container(
+                                key: _sectionKeys[3],
+                                // This section needs more height
+                                height: sectionHeight + 200,
+                                child: const ExperiencesPage(),
+                              ),
+                              SizedBox(height: 200), // Increased spacing
+
+                              // Skills section
+                              Container(
+                                key: _sectionKeys[4],
+                                height: sectionHeight,
+                                child: const SkillsPage(),
+                              ),
+                              SizedBox(height: 200), // Increased spacing
+
+                              // Contact section
+                              Container(
+                                key: _sectionKeys[5],
+                                height: sectionHeight,
+                                child: const ContactPage(),
+                              ),
+                              SizedBox(height: 100), // Bottom padding
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
 

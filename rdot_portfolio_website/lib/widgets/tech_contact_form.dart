@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/responsive_layout.dart';
 import 'tech_text_field.dart';
 import 'tech_button.dart';
 
@@ -40,10 +41,10 @@ class _TechContactFormState extends State<TechContactForm> {
             ),
           ),
           const SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(
-                child: TechTextField(
+          ResponsiveWidget(
+            mobile: Column(
+              children: [
+                TechTextField(
                   controller: _nameController,
                   label: "NAME",
                   validator: (value) {
@@ -53,10 +54,8 @@ class _TechContactFormState extends State<TechContactForm> {
                     return null;
                   },
                 ),
-              ),
-              const SizedBox(width: 20),
-              Expanded(
-                child: TechTextField(
+                const SizedBox(height: 20),
+                TechTextField(
                   controller: _emailController,
                   label: "EMAIL",
                   validator: (value) {
@@ -70,8 +69,41 @@ class _TechContactFormState extends State<TechContactForm> {
                     return null;
                   },
                 ),
-              ),
-            ],
+              ],
+            ),
+            desktop: Row(
+              children: [
+                Expanded(
+                  child: TechTextField(
+                    controller: _nameController,
+                    label: "NAME",
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Required';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                const SizedBox(width: 20),
+                Expanded(
+                  child: TechTextField(
+                    controller: _emailController,
+                    label: "EMAIL",
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Required';
+                      }
+                      if (!RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                          .hasMatch(value)) {
+                        return 'Invalid format';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 20),
           TechTextField(

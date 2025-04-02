@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/responsive_layout.dart';
 import '../widgets/tech_info_card.dart';
 
 class AboutPage extends StatelessWidget {
@@ -80,22 +81,41 @@ class AboutPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 40),
-            const Row(
-              children: [
-                TechInfoCard(
-                  title: "EDUCATION",
-                  content:
-                      "B.S. Electrical and Computer Engineering\nUniversity of Texas at Austin, Austin, TX\n(Expected May 2027)",
-                  icon: Icons.school,
-                ),
-                SizedBox(width: 20),
-                TechInfoCard(
-                  title: "INTERESTS",
-                  content:
-                      "Embedded Systems\nApp Development\nElectronics\nIoT Devices\nHardware Design",
-                  icon: Icons.lightbulb,
-                ),
-              ],
+            ResponsiveWidget(
+              mobile: Column(
+                children: const [
+                  TechInfoCard(
+                    title: "EDUCATION",
+                    content:
+                        "B.S. Electrical and Computer Engineering\nUniversity of Texas at Austin, Austin, TX\n(Expected May 2027)",
+                    icon: Icons.school,
+                  ),
+                  SizedBox(height: 20),
+                  TechInfoCard(
+                    title: "INTERESTS",
+                    content:
+                        "Embedded Systems\nApp Development\nElectronics\nIoT Devices\nHardware Design",
+                    icon: Icons.lightbulb,
+                  ),
+                ],
+              ),
+              desktop: Row(
+                children: const [
+                  TechInfoCard(
+                    title: "EDUCATION",
+                    content:
+                        "B.S. Electrical and Computer Engineering\nUniversity of Texas at Austin, Austin, TX\n(Expected May 2027)",
+                    icon: Icons.school,
+                  ),
+                  SizedBox(width: 20),
+                  TechInfoCard(
+                    title: "INTERESTS",
+                    content:
+                        "Embedded Systems\nApp Development\nElectronics\nIoT Devices\nHardware Design",
+                    icon: Icons.lightbulb,
+                  ),
+                ],
+              ),
             ),
           ],
         ),

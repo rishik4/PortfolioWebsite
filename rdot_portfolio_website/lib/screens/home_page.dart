@@ -143,18 +143,27 @@ class HomePage extends StatelessWidget {
                 },
               ),
             ),
-            const SizedBox(height: 50),
-            TechButton(
-              onPressed: () {
-                // Get portfolio home state for navigation
-                final portfolioState =
-                    context.findAncestorStateOfType<_PortfolioHomeState>();
-                if (portfolioState != null) {
-                  portfolioState._scrollToSection(
-                      2); // 2 is the index of the projects section
-                }
-              },
-              label: "VIEW PROJECTS",
+            const SizedBox(height: 80), // Increased spacing for the button
+            Container(
+              padding:
+                  const EdgeInsets.all(15), // Add padding around the button
+              // Add a subtle highlight to make the button more noticeable
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.5),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: TechButton(
+                onPressed: () {
+                  // Get portfolio home state for navigation
+                  final portfolioState =
+                      context.findAncestorStateOfType<_PortfolioHomeState>();
+                  if (portfolioState != null) {
+                    portfolioState._scrollToSection(
+                        2); // 2 is the index of the projects section
+                  }
+                },
+                label: "VIEW PROJECTS",
+              ),
             ),
           ],
         ),

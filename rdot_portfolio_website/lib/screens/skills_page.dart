@@ -23,7 +23,7 @@ class SkillsPage extends StatelessWidget {
 
     return Container(
       constraints: const BoxConstraints(maxWidth: 900),
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
       child: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,7 +44,7 @@ class SkillsPage extends StatelessWidget {
               height: 2,
               color: Colors.cyanAccent,
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 60), // Increased spacing
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -71,7 +71,7 @@ class SkillsPage extends StatelessWidget {
                       height: 1,
                       color: Colors.cyanAccent.withOpacity(0.5),
                     ),
-                    const SizedBox(height: 15),
+                    const SizedBox(height: 20), // Increased spacing
                     Wrap(
                       spacing: 15,
                       runSpacing: 15,
@@ -79,11 +79,13 @@ class SkillsPage extends StatelessWidget {
                           .map((skill) => TechSkillBadge(skill: skill))
                           .toList(),
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(
+                        height: 40), // Increased spacing between categories
                   ],
                 );
               },
             ),
+            const SizedBox(height: 40), // Added bottom padding
           ],
         ),
       ),
