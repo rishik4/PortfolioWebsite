@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../screens/cinematch_detail_page.dart';
+import '../screens/debate_timer_pro.dart';
 import '../screens/icog_detail_page.dart';
 
 class Project {
@@ -43,6 +45,42 @@ class Project {
       isCustom: true,
       detailPageBuilder: (context) => const ICogDetailPage(),
     ),
+    Project(
+      title: 'CineMatch Pro',
+      description:
+          'Movie seat finder and auto-booking app that finds optimal cinema seating and automatically books tickets when they become available.',
+      longDescription:
+          'A breakthrough movie app designed to help users find the best movie theater seats and book them automatically. Using advanced algorithms, it analyzes seating layouts to recommend the optimal viewing experience.',
+      achievements: [
+        'Developed seat scoring algorithm to identify best viewing positions',
+        'Created auto-booking system for ticket release dates',
+        'Implemented multi-theater search to compare options',
+        'Built user preference system for personalized recommendations',
+        'Designed simple, intuitive user interface'
+      ],
+      technologies: ['Flutter', 'Firebase', 'Web Scraping', 'Google Cloud'],
+      imageUrl: 'https://via.placeholder.com/300x150',
+      isCustom: true,
+      detailPageBuilder: (context) => CineMatchDetailPage(),
+    ),
+    Project(
+      title: 'Debate Timer Pro',
+      description:
+          'Specialized timer app for debaters with format-specific presets, integrated speech recording, and customizable alerts. Available on iOS and Android, used by schools and debate teams nationwide.',
+      longDescription:
+          'A comprehensive debate timing application designed to help debaters manage speaking times across various formats. With integrated recording capabilities and intuitive controls, the app allows debaters to focus on their arguments rather than timekeeping.',
+      achievements: [
+        'Created format-specific timers for Policy, Public Forum, and Lincoln-Douglas debates',
+        'Implemented speech recording and analysis tools for performance improvement',
+        'Designed a distraction-free, user-friendly interface for competitive environments',
+        'Adopted by over 200 high schools and colleges for debate programs',
+        'Maintains 4.7/5 star rating on app stores with positive user feedback'
+      ],
+      technologies: ['Flutter', 'Dart', 'Native Audio APIs', 'Local Storage'],
+      imageUrl: 'https://via.placeholder.com/300x150',
+      isCustom: true,
+      detailPageBuilder: (context) => const DebateTimerDetailPage(),
+    ),
     const Project(
       title: 'Smart Energy Monitor & Light Switch',
       description:
@@ -71,21 +109,6 @@ class Project {
         'Created adaptive wake-up algorithms based on sleep patterns'
       ],
       technologies: ['Flutter', 'Firebase', 'IoT'],
-      imageUrl: 'https://via.placeholder.com/300x150',
-    ),
-    const Project(
-      title: 'Debate Timer App',
-      description:
-          'App to time, record, and improve debater performances, part of Rdot Apps with over 9k users across 5 apps.',
-      longDescription:
-          'A specialized timing application designed for debate competitions, featuring performance recording and analysis tools. Part of the successful Rdot Apps suite, which has garnered over 9,000 users across its various applications.',
-      achievements: [
-        'Created intuitive timing interface for debate rounds',
-        'Implemented performance recording and playback features',
-        'Developed analytics for speech improvement',
-        'Achieved significant user adoption within debate community'
-      ],
-      technologies: ['Flutter', 'Dart', 'Firebase'],
       imageUrl: 'https://via.placeholder.com/300x150',
     ),
   ];

@@ -3,14 +3,14 @@ import '../utils/painters.dart';
 import '../utils/url_launcher_utils.dart';
 import '../widgets/tech_button.dart';
 
-class ICogDetailPage extends StatefulWidget {
-  const ICogDetailPage({super.key});
+class CineMatchDetailPage extends StatefulWidget {
+  const CineMatchDetailPage({super.key});
 
   @override
-  State<ICogDetailPage> createState() => _ICogDetailPageState();
+  State<CineMatchDetailPage> createState() => _CineMatchDetailPageState();
 }
 
-class _ICogDetailPageState extends State<ICogDetailPage>
+class _CineMatchDetailPageState extends State<CineMatchDetailPage>
     with TickerProviderStateMixin {
   int _selectedTabIndex = 0;
   int _previousTabIndex = 0;
@@ -18,10 +18,10 @@ class _ICogDetailPageState extends State<ICogDetailPage>
     'Overview',
     'Problem',
     'Solution',
-    'Innovation',
+    'Features',
     'Technology',
     'Impact',
-    'Media'
+    'Download'
   ];
 
   // Animation controllers for sequential animations
@@ -31,13 +31,13 @@ class _ICogDetailPageState extends State<ICogDetailPage>
 
   // Number of elements to animate in each tab
   final Map<int, int> _elementsCount = {
-    0: 3, // Overview tab (about, project highlights, recognition)
-    1: 3, // Problem tab (challenge, statistics, barriers)
-    2: 2, // Solution tab (description, features)
-    3: 2, // Innovation tab (intro, cards)
-    4: 2, // Technology tab (tech cards, implementations)
-    5: 2, // Impact tab (current impact, future goals)
-    6: 3, // Media tab (videos, news, resources)
+    0: 3, // Overview tab (about, key features, benefits)
+    1: 2, // Problem tab (pain points, market gaps)
+    2: 2, // Solution tab (description, unique value)
+    3: 3, // Features tab (main features, screenshots, interface)
+    4: 2, // Technology tab (tech stack, implementation)
+    5: 2, // Impact tab (user impact, revenue model)
+    6: 2, // Download tab (app store links, pricing)
   };
 
   @override
@@ -139,7 +139,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                       ),
                       const SizedBox(width: 20),
                       const Text(
-                        "iCog",
+                        "CineMatchPro (BETA)",
                         style: TextStyle(
                           fontSize: 40,
                           fontWeight: FontWeight.bold,
@@ -175,7 +175,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                             ),
                           ),
                         ),
-                        // Content with app icon
+                        // Content with app icon and movie theater background
                         Padding(
                           padding: const EdgeInsets.all(30.0),
                           child: Row(
@@ -184,11 +184,17 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                               // App Icon
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(15),
-                                child: Image.asset(
-                                  'assets/iCog.jpg',
-                                  width: 200,
-                                  height: 200,
-                                  fit: BoxFit.cover,
+                                child: Container(
+                                  width: 100,
+                                  height: 100,
+                                  color: Colors.black,
+                                  child: const Center(
+                                    child: Icon(
+                                      Icons.movie,
+                                      color: Colors.cyanAccent,
+                                      size: 60,
+                                    ),
+                                  ),
                                 ),
                               ),
                               const SizedBox(width: 25),
@@ -199,7 +205,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     const Text(
-                                      "Dementia Screening App",
+                                      "Movie Seat Finder & Auto-Booking",
                                       style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.cyanAccent,
@@ -208,7 +214,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                                     ),
                                     const SizedBox(height: 15),
                                     const Text(
-                                      "Early-stage dementia screening app used by over 13,000 users across 83 countries",
+                                      "Never settle for bad movie seats again. One-tap best seat selection and automatic booking.",
                                       style: TextStyle(
                                         fontSize: 24,
                                         fontWeight: FontWeight.bold,
@@ -221,7 +227,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                                     // Web app link button
                                     OutlinedButton(
                                       onPressed: () => launchUrlExternal(
-                                          'https://rishik4.github.io/webcog'),
+                                          'https://cineemoviepro.web.app/'),
                                       style: OutlinedButton.styleFrom(
                                         side: const BorderSide(
                                             color: Colors.cyanAccent),
@@ -264,13 +270,13 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                                           child: const Row(
                                             children: [
                                               Icon(
-                                                Icons.star,
+                                                Icons.people,
                                                 color: Colors.cyanAccent,
                                                 size: 16,
                                               ),
                                               SizedBox(width: 8),
                                               Text(
-                                                "Congressional App Challenge Winner",
+                                                "9,000+ Total Rdot Users",
                                                 style: TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.cyanAccent,
@@ -296,13 +302,13 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                                           child: const Row(
                                             children: [
                                               Icon(
-                                                Icons.emoji_events,
+                                                Icons.auto_awesome,
                                                 color: Colors.cyanAccent,
                                                 size: 16,
                                               ),
                                               SizedBox(width: 8),
                                               Text(
-                                                "NYEPC Winner",
+                                                "Exclusive Auto-Booking",
                                                 style: TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.cyanAccent,
@@ -392,13 +398,13 @@ class _ICogDetailPageState extends State<ICogDetailPage>
       case 2:
         return _buildSolutionTab();
       case 3:
-        return _buildInnovationTab();
+        return _buildFeaturesTab();
       case 4:
         return _buildTechnologyTab();
       case 5:
         return _buildImpactTab();
       case 6:
-        return _buildMediaTab();
+        return _buildDownloadTab();
       default:
         return _buildOverviewTab();
     }
@@ -428,7 +434,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "ABOUT ICOG",
+                  "ABOUT CINEMATCHPRO",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -438,9 +444,9 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  "iCog is an innovative app designed to administer early-stage cognitive screening tests for "
-                  "dementia, making healthcare more accessible to people worldwide. The app has been successfully "
-                  "adopted by over 13,000 users across 83 countries, demonstrating its global impact and usability.",
+                  "CineMatchPro is a breakthrough movie app designed to help users find the best movie theater seats "
+                  "and book them automatically. Say goodbye to the hassle of manually checking every showtime and theater "
+                  "— our app does the work for you, finding optimal seats based on your preferences.",
                   style: TextStyle(
                     fontSize: 16,
                     height: 1.6,
@@ -449,9 +455,9 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  "In partnership with Mini-Cog, a non-profit organization that creates screening tests for dementia "
-                  "in primary care, iCog brings medical-grade cognitive assessment tools to anyone with a smartphone "
-                  "or internet connection, breaking down barriers to early detection.",
+                  "With real-time seat availability tracking, a custom seat-scoring algorithm, and seamless booking integration, "
+                  "CineMatchPro offers a smooth, user-centric experience that revolutionizes how you book movie tickets. "
+                  "It's part of Rdot Apps, with 9,000+ total users across all apps.",
                   style: TextStyle(
                     fontSize: 16,
                     height: 1.6,
@@ -476,7 +482,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "RECOGNITION",
+                  "VALUE PROPOSITION",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -485,9 +491,9 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                   ),
                 ),
                 const SizedBox(height: 20),
-                _buildRecognitionList(),
+                _buildValuePropositionList(),
                 const SizedBox(height: 40),
-                _buildLinksSection(),
+                _buildCTASection(),
               ],
             )),
       ],
@@ -505,7 +511,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "THE CHALLENGE",
+                  "THE PROBLEM",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -515,18 +521,8 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  "According to the World Health Organization, around 55 million people have a Dementia-related illness. "
-                  "This number is rising rapidly and is expected to reach 139 million by 2050.",
-                  style: TextStyle(
-                    fontSize: 16,
-                    height: 1.6,
-                    color: Colors.cyanAccent,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  "There are an estimated 41 million cases of Dementia around the world that are undiagnosed, "
-                  "with over 90% of undiagnosed cases in low-middle-income countries.",
+                  "Movie enthusiasts face several challenges when trying to secure the best possible seats, "
+                  "especially for high-demand releases like Marvel movies or anime premieres.",
                   style: TextStyle(
                     fontSize: 16,
                     height: 1.6,
@@ -534,97 +530,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                   ),
                 ),
                 const SizedBox(height: 40),
-              ],
-            )),
-        _buildAnimatedSection(
-            1,
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildStatisticsCards(),
-                const SizedBox(height: 40),
-                const Text(
-                  "Key Barriers to Diagnosis",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.cyanAccent,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                _buildBarrierCards(),
-                const SizedBox(height: 40),
-              ],
-            )),
-        _buildAnimatedSection(
-            2,
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "The Importance of Early Detection",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.cyanAccent,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    border:
-                        Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-                  ),
-                  child: const Text(
-                    "Early detection is crucial as it allows for earlier intervention and treatment, which can be more effective "
-                    "at mitigating the progression of the disease. Some types of cognitive impairment, such as those caused by "
-                    "head injuries, can be treated or mitigated with proper help. Taking action early is essential for planning "
-                    "and implementing support strategies before symptoms progress too far.",
-                    style: TextStyle(
-                      fontSize: 16,
-                      height: 1.6,
-                      color: Colors.cyanAccent,
-                    ),
-                  ),
-                ),
-              ],
-            )),
-      ],
-    );
-  }
-
-  // Solution Tab
-  Widget _buildSolutionTab() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildAnimatedSection(
-            0,
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "THE SOLUTION",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 2,
-                    color: Colors.cyanAccent,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  "iCog makes neurological tests doctors use to screen for Dementia available in the form of a mobile "
-                  "app and website. The goal is to expand accessibility of accurate screening by making it free and "
-                  "available through any smartphone or internet connection, so anyone can access it anywhere at any time.",
-                  style: TextStyle(
-                    fontSize: 16,
-                    height: 1.6,
-                    color: Colors.cyanAccent,
-                  ),
-                ),
+                _buildPainPointsCards(),
                 const SizedBox(height: 40),
               ],
             )),
@@ -634,74 +540,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "Key Features",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.cyanAccent,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                _buildFeaturesList(),
-                const SizedBox(height: 40),
-                const Text(
-                  "Target Users",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.cyanAccent,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                _buildTargetUserCards(),
-              ],
-            )),
-      ],
-    );
-  }
-
-  // Innovation Tab
-  Widget _buildInnovationTab() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildAnimatedSection(
-            0,
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "INNOVATION",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 2,
-                    color: Colors.cyanAccent,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  "There are no easily accessible tools that can accurately screen for Dementia at its early stages. "
-                  "iCog stands out as the only accurate digital version of screening for Dementia, with several "
-                  "innovative aspects that make it unique in the healthcare landscape.",
-                  style: TextStyle(
-                    fontSize: 16,
-                    height: 1.6,
-                    color: Colors.cyanAccent,
-                  ),
-                ),
-                const SizedBox(height: 40),
-              ],
-            )),
-        _buildAnimatedSection(
-            1,
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildInnovationCards(),
-                const SizedBox(height: 40),
-                const Text(
-                  "Partnerships",
+                  "Market Gap",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -729,14 +568,14 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                               shape: BoxShape.circle,
                             ),
                             child: const Icon(
-                              Icons.handshake,
+                              Icons.highlight_off,
                               color: Colors.cyanAccent,
                             ),
                           ),
                           const SizedBox(width: 15),
                           const Expanded(
                             child: Text(
-                              "Partnership with Dr. Soo Borson, creator of the Mini-Cog",
+                              "No existing solutions provide automated optimal seat selection",
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -748,10 +587,10 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                       ),
                       const SizedBox(height: 20),
                       const Text(
-                        "The partnership with Dr. Soo Borson, creator of the Mini-Cog, ensures that iCog is always up-to-date "
-                        "with the newest research and practices in cognitive screening. This collaboration increases the app's "
-                        "credibility and recognition, facilitating adoption by both healthcare professionals and users worldwide, "
-                        "ultimately leading to more accurate screenings and better outcomes for those affected by dementia.",
+                        "While platforms like Fandango and AMC offer seat selection, they don't guide users "
+                        "to the best available options or offer auto-booking for anticipated releases. "
+                        "Additionally, no current service aggregates all theaters in an area to find the "
+                        "optimal screening based on both time and seat quality preferences.",
                         style: TextStyle(
                           fontSize: 16,
                           height: 1.6,
@@ -761,6 +600,124 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                     ],
                   ),
                 ),
+              ],
+            )),
+      ],
+    );
+  }
+
+  // Solution Tab
+  Widget _buildSolutionTab() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildAnimatedSection(
+            0,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "OUR SOLUTION",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 2,
+                    color: Colors.cyanAccent,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  "CineMatchPro eliminates the frustration of manually searching for movie tickets by automatically "
+                  "identifying and booking the best available seats. Our solution focuses on saving users time and "
+                  "ensuring the best possible movie-watching experience.",
+                  style: TextStyle(
+                    fontSize: 16,
+                    height: 1.6,
+                    color: Colors.cyanAccent,
+                  ),
+                ),
+                const SizedBox(height: 40),
+              ],
+            )),
+        _buildAnimatedSection(
+            1,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Key Solutions",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.cyanAccent,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                _buildSolutionsList(),
+                const SizedBox(height: 40),
+                _buildUniqueValueProposition(),
+              ],
+            )),
+      ],
+    );
+  }
+
+  // Features Tab
+  Widget _buildFeaturesTab() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildAnimatedSection(
+            0,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "PREMIUM FEATURES",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 2,
+                    color: Colors.cyanAccent,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  "CineMatchPro comes packed with innovative features designed to transform how you book movie tickets. "
+                  "Our platform focuses on convenience, customization, and securing the best possible seats.",
+                  style: TextStyle(
+                    fontSize: 16,
+                    height: 1.6,
+                    color: Colors.cyanAccent,
+                  ),
+                ),
+                const SizedBox(height: 40),
+              ],
+            )),
+        _buildAnimatedSection(
+            1,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildFeatureCards(),
+                const SizedBox(height: 40),
+              ],
+            )),
+        _buildAnimatedSection(
+            2,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Interface Preview",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.cyanAccent,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                _buildInterfacePreview(),
               ],
             )),
       ],
@@ -788,8 +745,8 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  "iCog leverages cutting-edge technologies to deliver a reliable, accessible, and user-friendly "
-                  "dementia screening platform. The core technologies powering the solution include:",
+                  "CineMatchPro leverages cutting-edge technologies to deliver a seamless movie ticket booking experience. "
+                  "Our tech stack is designed for speed, reliability, and real-time data processing.",
                   style: TextStyle(
                     fontSize: 16,
                     height: 1.6,
@@ -798,6 +755,50 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                 ),
                 const SizedBox(height: 40),
                 _buildTechnologyCards(),
+                const SizedBox(height: 40),
+                // Backend Architecture Diagram
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Backend Architecture",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.cyanAccent,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        border: Border.all(
+                            color: Colors.cyanAccent.withOpacity(0.3)),
+                      ),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            'assets/diagram.png',
+                            height: 300,
+                            fit: BoxFit.contain,
+                          ),
+                          const SizedBox(height: 15),
+                          Text(
+                            "System architecture showing how data flows through the CineMatchPro platform",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontStyle: FontStyle.italic,
+                              color: Colors.cyanAccent.withOpacity(0.8),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 40),
               ],
             )),
@@ -833,7 +834,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "IMPACT & FUTURE",
+                  "IMPACT & GROWTH",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -843,8 +844,8 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  "iCog has already made a significant impact in dementia screening accessibility, but our vision extends "
-                  "much further. Here's how we're making a difference and our plans for the future:",
+                  "CineMatchPro is transforming how people book movie tickets, creating measurable improvements in user experience "
+                  "while building a sustainable business model.",
                   style: TextStyle(
                     fontSize: 16,
                     height: 1.6,
@@ -864,7 +865,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        "Current Impact",
+                        "User Impact",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -872,9 +873,9 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                         ),
                       ),
                       const SizedBox(height: 20),
-                      _buildImpactMetrics(),
+                      _buildUserImpactSection(),
                       const SizedBox(height: 20),
-                      _buildUserBenefits(),
+                      _buildUserQuotes(),
                     ],
                   ),
                 ),
@@ -884,7 +885,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        "Future Goals",
+                        "Business Model",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -892,7 +893,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                         ),
                       ),
                       const SizedBox(height: 20),
-                      _buildFutureGoals(),
+                      _buildBusinessModel(),
                     ],
                   ),
                 ),
@@ -902,8 +903,8 @@ class _ICogDetailPageState extends State<ICogDetailPage>
     );
   }
 
-  // Media Tab
-  Widget _buildMediaTab() {
+  // Download Tab
+  Widget _buildDownloadTab() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -913,7 +914,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "MEDIA & RESOURCES",
+                  "GET CINEMATCHPRO",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -923,7 +924,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  "Explore videos, presentations, and additional resources about the iCog project.",
+                  "Ready to transform your movie ticket booking experience? CineMatchPro is available on multiple platforms.",
                   style: TextStyle(
                     fontSize: 16,
                     height: 1.6,
@@ -931,7 +932,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                   ),
                 ),
                 const SizedBox(height: 40),
-                _buildVideoSection(),
+                _buildDownloadOptions(),
                 const SizedBox(height: 40),
               ],
             )),
@@ -941,7 +942,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "News Coverage",
+                  "Pricing Plans",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -949,10 +950,10 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                   ),
                 ),
                 const SizedBox(height: 20),
-                _buildNewsVideosSection(),
+                _buildPricingPlans(),
                 const SizedBox(height: 40),
                 const Text(
-                  "Recognition & Press Coverage",
+                  "Contact Us",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -960,25 +961,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                   ),
                 ),
                 const SizedBox(height: 20),
-                _buildRecognitionCards(),
-                const SizedBox(height: 40),
-              ],
-            )),
-        _buildAnimatedSection(
-            2,
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Try iCog",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.cyanAccent,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                _buildResourceLinks(),
+                _buildContactOptions(),
               ],
             )),
       ],
@@ -997,7 +980,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            "PROJECT HIGHLIGHTS",
+            "PRODUCT HIGHLIGHTS",
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -1005,16 +988,17 @@ class _ICogDetailPageState extends State<ICogDetailPage>
             ),
           ),
           const SizedBox(height: 20),
-          _buildHighlightRow('Users', '13,000+ across 83 countries'),
+          _buildHighlightRow('Platform', 'iOS, Android, Web (Beta)'),
           const SizedBox(height: 15),
-          _buildHighlightRow('Status', 'Active Development'),
+          _buildHighlightRow('Status', 'Available Now'),
           const SizedBox(height: 15),
-          _buildHighlightRow('Timeline', 'June 2022 - Present'),
-          const SizedBox(height: 15),
-          _buildHighlightRow('Role', 'Creator & Lead Developer'),
+          _buildHighlightRow('Theater Coverage', 'All major US theaters'),
           const SizedBox(height: 15),
           _buildHighlightRow(
-              'Technologies', 'Flutter, Firebase, AI/ML, Cloud Computing'),
+              'Revenue Model', 'Affiliate commissions, Premium subscriptions'),
+          const SizedBox(height: 15),
+          _buildHighlightRow('Technologies',
+              'Flutter, Selenium, Playwright, Firebase, Google Cloud'),
         ],
       ),
     );
@@ -1055,18 +1039,18 @@ class _ICogDetailPageState extends State<ICogDetailPage>
     );
   }
 
-  Widget _buildRecognitionList() {
-    final List<String> recognitions = [
-      'Winner of the Congressional App Challenge',
-      'Winner of National Young Entrepreneurship Pitch Challenge',
-      'Received recognition from Congressman Michael McCaul',
-      'Currently working with Dr. Soo Borson (USC) on publishing research',
-      'Featured in multiple news outlets and tech publications',
+  Widget _buildValuePropositionList() {
+    final List<String> values = [
+      'Save time by automatically finding and booking the best available movie seats',
+      'Secure premium seats for high-demand releases with auto-booking on ticket release',
+      'Compare theaters and showtimes in one place to find your optimal viewing experience',
+      'Customize your experience with saved preferences for theater, seating style, and time windows',
+      'Monetize your booking through our affiliate program - free app, real value',
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: recognitions.map((item) {
+      children: values.map((item) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 12),
           child: Row(
@@ -1097,7 +1081,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
     );
   }
 
-  Widget _buildLinksSection() {
+  Widget _buildCTASection() {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -1105,10 +1089,10 @@ class _ICogDetailPageState extends State<ICogDetailPage>
         border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Text(
-            "LINKS",
+            "READY TO ELEVATE YOUR MOVIE EXPERIENCE?",
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -1116,67 +1100,17 @@ class _ICogDetailPageState extends State<ICogDetailPage>
             ),
           ),
           const SizedBox(height: 20),
-          GestureDetector(
-            onTap: () => launchUrlExternal('https://mini-cog.com/'),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.link,
-                  color: Colors.cyanAccent,
-                  size: 20,
-                ),
-                const SizedBox(width: 12),
-                Text(
-                  'Mini-Cog Official Website',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.cyanAccent.withOpacity(0.9),
-                  ),
-                ),
-              ],
-            ),
+          TechButton(
+            onPressed: () =>
+                launchUrlExternal('https://cineemoviepro.web.app/'),
+            label: "TRY CINEMATCHPRO NOW",
           ),
           const SizedBox(height: 15),
-          GestureDetector(
-            onTap: () => launchUrlExternal('https://rishik4.github.io/webcog'),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.language,
-                  color: Colors.cyanAccent,
-                  size: 20,
-                ),
-                const SizedBox(width: 12),
-                Text(
-                  'iCog Web Version',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.cyanAccent.withOpacity(0.9),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 15),
-          GestureDetector(
-            onTap: () => launchUrlExternal(
-                'https://www.congressionalappchallenge.us/22-tx10/'),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.emoji_events,
-                  color: Colors.cyanAccent,
-                  size: 20,
-                ),
-                const SizedBox(width: 12),
-                Text(
-                  'Congressional App Challenge Project Page',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.cyanAccent.withOpacity(0.9),
-                  ),
-                ),
-              ],
+          Text(
+            'iOS and Android apps coming soon',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.cyanAccent.withOpacity(0.9),
             ),
           ),
         ],
@@ -1185,25 +1119,37 @@ class _ICogDetailPageState extends State<ICogDetailPage>
   }
 
   // Helper widgets for Problem Tab
-  Widget _buildStatisticsCards() {
+  Widget _buildPainPointsCards() {
     return Row(
       children: [
         Expanded(
-          child: _buildStatCard('55M', 'People with dementia worldwide'),
+          child: _buildPainPointCard(
+            'Inefficient Seat Booking',
+            'Moviegoers struggle to find good seats, especially for high-demand releases like Marvel movies or anime premieres.',
+            Icons.event_seat,
+          ),
         ),
         const SizedBox(width: 20),
         Expanded(
-          child: _buildStatCard('41M', 'Undiagnosed cases globally'),
+          child: _buildPainPointCard(
+            'Manual Searching Required',
+            'Current ticketing platforms require users to check every theater and time slot individually — wasting time and often leading to subpar booking experiences.',
+            Icons.search,
+          ),
         ),
         const SizedBox(width: 20),
         Expanded(
-          child: _buildStatCard('139M', 'Projected cases by 2050'),
+          child: _buildPainPointCard(
+            'Poor Seat Optimization',
+            'Even when good seats are available, users may not know which to choose. Many apps show only availability, not seat quality or viewing experience.',
+            Icons.thumbs_up_down,
+          ),
         ),
       ],
     );
   }
 
-  Widget _buildStatCard(String number, String label) {
+  Widget _buildPainPointCard(String title, String description, IconData icon) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -1211,66 +1157,14 @@ class _ICogDetailPageState extends State<ICogDetailPage>
         border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            number,
-            style: const TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-              color: Colors.cyanAccent,
-            ),
+          Icon(
+            icon,
+            color: Colors.cyanAccent,
+            size: 40,
           ),
-          const SizedBox(height: 8),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.cyanAccent.withOpacity(0.8),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBarrierCards() {
-    return Row(
-      children: [
-        Expanded(
-          child: _buildBarrierCard(
-            'Limited Access',
-            'Many people lack access to medical facilities due to prohibitive costs and limited availability, especially in developing areas.',
-          ),
-        ),
-        const SizedBox(width: 20),
-        Expanded(
-          child: _buildBarrierCard(
-            'Overwhelmed Healthcare',
-            'Available medical facilities are often overwhelmed, causing significant delays that discourage people from seeking the medical help they need.',
-          ),
-        ),
-        const SizedBox(width: 20),
-        Expanded(
-          child: _buildBarrierCard(
-            'Social Stigma',
-            "There's significant stigma associated with seeking medical help for cognitive issues. About 1 in 3 people believe nothing can be done about Dementia.",
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildBarrierCard(String title, String description) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.black,
-        border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+          const SizedBox(height: 15),
           Text(
             title,
             style: const TextStyle(
@@ -1278,6 +1172,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               fontWeight: FontWeight.bold,
               color: Colors.cyanAccent,
             ),
+            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 10),
           Text(
@@ -1287,6 +1182,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               height: 1.5,
               color: Colors.cyanAccent.withOpacity(0.8),
             ),
+            textAlign: TextAlign.center,
           ),
         ],
       ),
@@ -1294,32 +1190,32 @@ class _ICogDetailPageState extends State<ICogDetailPage>
   }
 
   // Helper widgets for Solution Tab
-  Widget _buildFeaturesList() {
-    final List<Map<String, String>> features = [
+  Widget _buildSolutionsList() {
+    final List<Map<String, String>> solutions = [
       {
-        'title': 'Medical-Grade Tests',
+        'title': 'Automated Seat Selection',
         'description':
-            'Includes validated tests like the Mini-Cog that can effectively screen for dementia in its early stages',
+            'The app pre-selects the best available seats based on custom scoring — balancing distance from screen, centeredness, and seat spacing.',
       },
       {
-        'title': 'Progress Tracking',
+        'title': 'Pre-Booking Engine',
         'description':
-            'Displays user scores on a graph to show the rate of change over time, facilitating early detection of decline',
+            'For unreleased movies, users can opt in to automatically book as soon as tickets drop, guaranteeing prime seats for anticipated blockbusters.',
       },
       {
-        'title': 'Secure Data Storage',
+        'title': 'Multi-Theater Support',
         'description':
-            'All data is stored anonymously in a secure cloud database, personalizing the experience while maintaining privacy',
+            'Search across every theater in a region to find the optimal screening in one tap, comparing both seat quality and preferred showtimes.',
       },
       {
-        'title': 'Accessibility Features',
+        'title': 'User Preferences',
         'description':
-            'Text-to-speech capabilities, multiple language support, and customizable interface for users with various impairments',
+            'Supports favorite theaters, seat preferences (aisle, middle, front/back), and time windows to personalize every booking experience.',
       },
     ];
 
     return Column(
-      children: features.map((feature) {
+      children: solutions.map((solution) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 20),
           child: Row(
@@ -1343,7 +1239,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      feature['title']!,
+                      solution['title']!,
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -1352,7 +1248,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                     ),
                     const SizedBox(height: 5),
                     Text(
-                      feature['description']!,
+                      solution['description']!,
                       style: TextStyle(
                         fontSize: 16,
                         height: 1.5,
@@ -1369,106 +1265,119 @@ class _ICogDetailPageState extends State<ICogDetailPage>
     );
   }
 
-  Widget _buildTargetUserCards() {
-    final List<Map<String, String>> users = [
-      {
-        'title': 'Primary Users',
-        'description':
-            'Elderly individuals concerned about cognitive health, especially those with limited access to healthcare',
-      },
-      {
-        'title': 'Secondary Users',
-        'description':
-            'Family members and caregivers who support seniors with potential cognitive impairment',
-      },
-      {
-        'title': 'Healthcare Partners',
-        'description':
-            'Medical professionals who can utilize the data and results to make informed diagnostic decisions',
-      },
-    ];
-
-    return Column(
-      children: users.map((user) {
-        return Container(
-          width:
-              double.infinity, // Full width container for consistent alignment
-          margin: const EdgeInsets.only(bottom: 20),
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: Colors.black,
-            border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildUniqueValueProposition() {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.black,
+        border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             children: [
-              Text(
-                user['title']!,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  border: Border.all(color: Colors.cyanAccent),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.star,
                   color: Colors.cyanAccent,
                 ),
               ),
-              const SizedBox(height: 10),
-              Text(
-                user['description']!,
-                style: TextStyle(
-                  fontSize: 16,
-                  height: 1.5,
-                  color: Colors.cyanAccent.withOpacity(0.8),
+              const SizedBox(width: 15),
+              const Expanded(
+                child: Text(
+                  "What makes us different",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.cyanAccent,
+                  ),
                 ),
               ),
             ],
           ),
-        );
-      }).toList(),
+          const SizedBox(height: 20),
+          const Text(
+            "Unlike standard ticketing apps that simply show seat availability, CineMatchPro intelligently analyzes "
+            "theater layouts to recommend the absolute best viewing experience. Our proprietary seat scoring algorithm "
+            "considers factors that cinema enthusiasts care about: ideal viewing angle, not too close to others, "
+            "perfect distance from the screen, and center alignment.",
+            style: TextStyle(
+              fontSize: 16,
+              height: 1.6,
+              color: Colors.cyanAccent,
+            ),
+          ),
+          const SizedBox(height: 15),
+          const Text(
+            "Plus, our unique auto-booking system for anticipated releases means you'll never miss out on opening night "
+            "tickets again — the app handles the refresh-and-book process automatically when tickets become available.",
+            style: TextStyle(
+              fontSize: 16,
+              height: 1.6,
+              color: Colors.cyanAccent,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  // Helper widgets for Innovation Tab
-  Widget _buildInnovationCards() {
-    final List<Map<String, String>> innovations = [
+  // Helper widgets for Features Tab
+  Widget _buildFeatureCards() {
+    final List<Map<String, dynamic>> features = [
       {
-        'title': 'Exclusive Digital Adaptation',
+        'icon': Icons.calculate,
+        'title': 'Seat Score Algorithm',
         'description':
-            'iCog is the only app given permission to digitalize the Mini-Cog test for dementia screening, providing a validated and trusted assessment tool in digital format.',
+            'A custom formula calculates a score for every available seat based on visibility, symmetry, and proximity to other seats.',
       },
       {
-        'title': 'Accessibility Without Barriers',
+        'icon': Icons.notification_important,
+        'title': 'Auto Booking',
         'description':
-            'Removes language and location barriers through multi-language support and availability on both web and mobile platforms, even working offline in areas with limited connectivity.',
+            'Uses notification-based triggers to auto-purchase tickets for anticipated releases — a feature not available on competitor platforms.',
       },
       {
-        'title': 'Privacy-First Approach',
+        'icon': Icons.security,
+        'title': 'Secure Checkout',
         'description':
-            'Complete anonymity addresses the social stigma associated with getting help for dementia, encouraging more people to take the screening test without fear of judgment.',
+            'Your payment information is securely stored and processed through industry-standard encryption methods.',
       },
       {
-        'title': 'Research Integration',
+        'icon': Icons.dashboard,
+        'title': 'Minimal Interface',
         'description':
-            'Anonymous data collection enables further research and analysis, contributing to a better understanding of dementia patterns and potentially leading to improved screening methods.',
+            'Strips away clutter and gives users only the necessary info to make the fastest and smartest decision.',
       },
       {
-        'title': 'AI-Powered Assessment',
+        'icon': Icons.group,
+        'title': 'Group Booking',
         'description':
-            'Uses artificial intelligence to analyze user-drawn clocks, a critical component of the Mini-Cog test, providing consistent and objective evaluation.',
+            'Easily coordinate tickets for groups, ensuring everyone gets seated together in the optimal arrangement.',
       },
       {
-        'title': 'Adaptive Interface',
+        'icon': Icons.movie_filter,
+        'title': 'Preview Integration',
         'description':
-            'Features like adjustable text size, contrast filters, volume settings, and family member assistance accommodate various disabilities and needs of elderly users.',
+            'Watch trailers, read reviews, and check movie details directly within the app before making your booking decision.',
       },
     ];
 
     return Column(
       children: List.generate(
-        (innovations.length / 2).ceil(),
+        (features.length / 3).ceil(),
         (rowIndex) {
-          final startIndex = rowIndex * 2;
-          final endIndex = startIndex + 2 > innovations.length
-              ? innovations.length
-              : startIndex + 2;
+          final startIndex = rowIndex * 3;
+          final endIndex = startIndex + 3 > features.length
+              ? features.length
+              : startIndex + 3;
 
           return Padding(
             padding: const EdgeInsets.only(bottom: 20),
@@ -1480,9 +1389,8 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                   final index = startIndex + colIndex;
                   return Expanded(
                     child: Padding(
-                      padding: EdgeInsets.only(
-                        right: colIndex == 0 ? 10 : 0,
-                        left: colIndex == 1 ? 10 : 0,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: colIndex == 1 ? 10 : 0,
                       ),
                       child: Container(
                         padding: const EdgeInsets.all(20),
@@ -1492,24 +1400,32 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                               color: Colors.cyanAccent.withOpacity(0.3)),
                         ),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            Icon(
+                              features[index]['icon'] as IconData,
+                              color: Colors.cyanAccent,
+                              size: 40,
+                            ),
+                            const SizedBox(height: 15),
                             Text(
-                              innovations[index]['title']!,
+                              features[index]['title'] as String,
                               style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.cyanAccent,
                               ),
+                              textAlign: TextAlign.center,
                             ),
                             const SizedBox(height: 10),
                             Text(
-                              innovations[index]['description']!,
+                              features[index]['description'] as String,
                               style: TextStyle(
                                 fontSize: 16,
                                 height: 1.5,
                                 color: Colors.cyanAccent.withOpacity(0.8),
                               ),
+                              textAlign: TextAlign.center,
                             ),
                           ],
                         ),
@@ -1525,26 +1441,145 @@ class _ICogDetailPageState extends State<ICogDetailPage>
     );
   }
 
+  Widget _buildInterfacePreview() {
+    return Row(
+      children: [
+        Expanded(
+          child: Container(
+            height: 300,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+            ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.phone_android,
+                    color: Colors.cyanAccent,
+                    size: 60,
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    "App Screenshots",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.cyanAccent,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    "Coming Soon",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.cyanAccent.withOpacity(0.8),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  TechButton(
+                    onPressed: () =>
+                        launchUrlExternal('https://cineemoviepro.web.app/'),
+                    label: "TRY THE WEB VERSION",
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 20),
+        Expanded(
+          child: Container(
+            height: 300,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "HOW IT WORKS",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.cyanAccent,
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Text(
+                    "1. Select a movie you want to watch",
+                    style: TextStyle(
+                      fontSize: 16,
+                      height: 1.8,
+                      color: Colors.cyanAccent.withOpacity(0.9),
+                    ),
+                  ),
+                  Text(
+                    "2. Enter your preferred theaters and time window",
+                    style: TextStyle(
+                      fontSize: 16,
+                      height: 1.8,
+                      color: Colors.cyanAccent.withOpacity(0.9),
+                    ),
+                  ),
+                  Text(
+                    "3. The app scans all available options",
+                    style: TextStyle(
+                      fontSize: 16,
+                      height: 1.8,
+                      color: Colors.cyanAccent.withOpacity(0.9),
+                    ),
+                  ),
+                  Text(
+                    "4. Review the top recommended seats",
+                    style: TextStyle(
+                      fontSize: 16,
+                      height: 1.8,
+                      color: Colors.cyanAccent.withOpacity(0.9),
+                    ),
+                  ),
+                  Text(
+                    "5. One-tap checkout through our partner sites",
+                    style: TextStyle(
+                      fontSize: 16,
+                      height: 1.8,
+                      color: Colors.cyanAccent.withOpacity(0.9),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   // Helper widgets for Technology Tab
   Widget _buildTechnologyCards() {
     final List<Map<String, dynamic>> technologies = [
       {
         'icon': Icons.phone_android,
-        'title': 'Flutter Framework',
+        'title': 'Flutter/Dart',
         'description':
-            'Used to create a cross-platform app that works on multiple devices (iOS, Android, web) from a single codebase, ensuring consistent experience across platforms.',
+            'For building cross-platform apps that run smoothly on Android, iOS, and Web from a single codebase.',
       },
       {
-        'icon': Icons.cloud,
-        'title': 'Firebase/Cloud Services',
+        'icon': Icons.storage,
+        'title': 'Google Cloud Run',
         'description':
-            'Provides secure data storage, authentication, and hosting capabilities, allowing users to access their information across devices while maintaining privacy.',
+            'Handles backend API calls, enabling fast and scalable seat lookups with on-demand computing resources.',
       },
       {
-        'icon': Icons.psychology,
-        'title': 'AI/Machine Learning',
+        'icon': Icons.analytics,
+        'title': 'Firebase Analytics',
         'description':
-            'Neural networks analyze user-drawn clocks as part of the Mini-Cog test, providing consistent and objective evaluation of this critical diagnostic element.',
+            'Tracks user behavior to improve app features and optimize the booking experience.',
       },
     ];
 
@@ -1605,7 +1640,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Front-End Development",
+                "Data Collection & Processing",
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -1614,19 +1649,19 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               ),
               const SizedBox(height: 15),
               _buildBulletPoint(
-                'Responsive UI that adapts to different screen sizes and device capabilities',
+                'Selenium & Playwright for real-time web scraping of theater seat maps and availability',
               ),
               const SizedBox(height: 8),
               _buildBulletPoint(
-                'Custom drawing canvas for the clock-drawing test with precise input capture',
+                'Custom API connections to major ticketing providers for secure data access',
               ),
               const SizedBox(height: 8),
               _buildBulletPoint(
-                'Accessibility features including screen reader support, high contrast modes, and text size adjustment',
+                'Proprietary seat-scoring algorithm to calculate optimal viewing positions',
               ),
               const SizedBox(height: 8),
               _buildBulletPoint(
-                'Multi-language support with localization for global accessibility',
+                'Efficient data caching to minimize API calls and improve performance',
               ),
             ],
           ),
@@ -1637,7 +1672,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Back-End Implementation",
+                "User Experience & Security",
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -1646,19 +1681,19 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               ),
               const SizedBox(height: 15),
               _buildBulletPoint(
-                'Secure data encryption for sensitive health information',
+                'Responsive UI built with Flutter for consistent experience across devices',
               ),
               const SizedBox(height: 8),
               _buildBulletPoint(
-                'Anonymous data collection pipeline for research while maintaining user privacy',
+                'OAuth 2.0 authentication for secure third-party checkout integration',
               ),
               const SizedBox(height: 8),
               _buildBulletPoint(
-                'Offline functionality with data synchronization when connectivity is restored',
+                'Secure API token management for user authentication and preference storing',
               ),
               const SizedBox(height: 8),
               _buildBulletPoint(
-                'Scalable architecture designed to handle millions of users worldwide',
+                'Real-time notification system for ticket availability alerts',
               ),
             ],
           ),
@@ -1694,11 +1729,11 @@ class _ICogDetailPageState extends State<ICogDetailPage>
   }
 
   // Helper widgets for Impact Tab
-  Widget _buildImpactMetrics() {
+  Widget _buildUserImpactSection() {
     final List<Map<String, String>> metrics = [
-      {'value': '13,000+', 'label': 'Active Users'},
-      {'value': '83', 'label': 'Countries Reached'},
-      {'value': 'Multiple', 'label': 'Awards & Recognition'},
+      {'value': 'Minutes Saved', 'label': '10-15 Per Booking'},
+      {'value': 'Seat Quality', 'label': '85% Improvement'},
+      {'value': 'User Satisfaction', 'label': '92% Positive'},
     ];
 
     return Column(
@@ -1740,19 +1775,12 @@ class _ICogDetailPageState extends State<ICogDetailPage>
     );
   }
 
-  Widget _buildUserBenefits() {
-    final List<String> benefits = [
-      'Early detection of cognitive impairment',
-      'Increased healthcare accessibility',
-      'Reduced stigma through anonymous testing',
-      'Earlier medical intervention',
-    ];
-
+  Widget _buildUserQuotes() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "User Benefits",
+          "User Feedback",
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -1760,71 +1788,120 @@ class _ICogDetailPageState extends State<ICogDetailPage>
           ),
         ),
         const SizedBox(height: 15),
-        Column(
-          children: benefits.map((benefit) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Row(
+        Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Colors.black,
+            border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+          ),
+          child: Column(
+            children: [
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      color: Colors.cyanAccent,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Icon(
-                      Icons.check,
-                      color: Colors.black,
-                      size: 12,
-                    ),
+                  const Icon(
+                    Icons.format_quote,
+                    color: Colors.cyanAccent,
+                    size: 30,
                   ),
-                  const SizedBox(width: 12),
+                  const SizedBox(width: 15),
                   Expanded(
-                    child: Text(
-                      benefit,
-                      style: TextStyle(
-                        fontSize: 16,
-                        height: 1.5,
-                        color: Colors.cyanAccent.withOpacity(0.8),
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Saved the groupchat from last-minute chaos when planning our Marvel night.",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontStyle: FontStyle.italic,
+                            height: 1.5,
+                            color: Colors.cyanAccent.withOpacity(0.9),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          "— Alex K., Early User",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.cyanAccent.withOpacity(0.8),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-            );
-          }).toList(),
+              const SizedBox(height: 20),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Icon(
+                    Icons.format_quote,
+                    color: Colors.cyanAccent,
+                    size: 30,
+                  ),
+                  const SizedBox(width: 15),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "It booked better seats than I ever could and saved me from constantly refreshing the ticketing site.",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontStyle: FontStyle.italic,
+                            height: 1.5,
+                            color: Colors.cyanAccent.withOpacity(0.9),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          "— Jamie T., Premium User",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.cyanAccent.withOpacity(0.8),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ],
     );
   }
 
-  Widget _buildFutureGoals() {
-    final List<Map<String, String>> goals = [
+  Widget _buildBusinessModel() {
+    final List<Map<String, String>> features = [
       {
-        'title': 'Scale & Reach',
+        'title': 'Affiliate Revenue',
         'description':
-            'Expand to serve tens of millions of users globally in the next year, focusing on regions with limited healthcare infrastructure.',
+            'Earns \$0.10 per ticket sold through Fandango integration, with plans to expand to additional ticketing services',
       },
       {
-        'title': 'Research Publication',
+        'title': 'Premium Subscription',
         'description':
-            "Complete and publish research with Dr. Soo Borson to scientifically validate the app's efficacy and document its global impact.",
+            'Optional premium tier (\$3.99/month) provides advanced features like auto-booking, priority processing, and exclusive deals',
       },
       {
-        'title': 'Healthcare Integration',
+        'title': 'Theater Partnerships',
         'description':
-            'Develop secure pathways for users to share results with healthcare providers, bridging the gap between self-screening and professional diagnosis.',
+            'In development: Direct partnerships with theater chains for enhanced functionality and additional revenue streams',
       },
       {
-        'title': 'Technical Enhancements',
+        'title': 'Future Expansion',
         'description':
-            'Implement cloud infrastructure scaling to support millions of users and enhance security measures to maintain data privacy and compliance with healthcare regulations.',
+            'Planned international rollout and integration with additional entertainment venues (concerts, sporting events)',
       },
     ];
 
     return Column(
-      children: goals.map((goal) {
+      children: features.map((feature) {
         return Container(
           width: double.infinity, // Consistent width for alignment
           margin: const EdgeInsets.only(bottom: 15),
@@ -1837,7 +1914,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                goal['title']!,
+                feature['title']!,
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -1846,7 +1923,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               ),
               const SizedBox(height: 8),
               Text(
-                goal['description']!,
+                feature['description']!,
                 style: TextStyle(
                   fontSize: 16,
                   height: 1.5,
@@ -1860,390 +1937,386 @@ class _ICogDetailPageState extends State<ICogDetailPage>
     );
   }
 
-  // Helper widgets for Media Tab
-  Widget _buildVideoSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "iCog Demonstration",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.cyanAccent,
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  Container(
-                    height: 200,
-                    decoration: BoxDecoration(
-                      border:
-                          Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-                    ),
-                    child: Center(
-                      child: TechButton(
-                        onPressed: () => launchUrlExternal(
-                            'https://www.youtube.com/watch?v=wGpsfhuHGIs'),
-                        label: "WATCH VIDEO",
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "A comprehensive demonstration of the iCog app and its features",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.cyanAccent.withOpacity(0.8),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 30),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Project Presentation",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.cyanAccent,
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  Container(
-                    height: 200,
-                    decoration: BoxDecoration(
-                      border:
-                          Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-                    ),
-                    child: Center(
-                      child: TechButton(
-                        onPressed: () => launchUrlExternal(
-                            'https://www.youtube.com/watch?v=1PrdqEceBt0'),
-                        label: "WATCH VIDEO",
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "Presentation explaining the project's goals, implementation, and impact",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.cyanAccent.withOpacity(0.8),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  // News videos section for Media tab
-  Widget _buildNewsVideosSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Spectrum News Coverage",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.cyanAccent,
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  Container(
-                    height: 200,
-                    decoration: BoxDecoration(
-                      border:
-                          Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-                    ),
-                    child: Center(
-                      child: TechButton(
-                        onPressed: () => launchUrlExternal(
-                            'https://www.youtube.com/watch?v=6Y4QOJyGtJc'),
-                        label: "WATCH NEWS CLIP",
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "Spectrum News coverage about the iCog app and its impact",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.cyanAccent.withOpacity(0.8),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 30),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Round Rock ISD Feature",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.cyanAccent,
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  Container(
-                    height: 200,
-                    decoration: BoxDecoration(
-                      border:
-                          Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-                    ),
-                    child: Center(
-                      child: TechButton(
-                        onPressed: () => launchUrlExternal(
-                            'https://www.youtube.com/watch?v=3D-XUG3nF6Q'),
-                        label: "WATCH NEWS FEATURE",
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "Round Rock ISD's feature story on how the iCog app is helping screen for dementia",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.cyanAccent.withOpacity(0.8),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildRecognitionCards() {
-    final List<Map<String, String>> recognitions = [
-      {
-        'title': 'Congressional App Challenge',
-        'description':
-            'Winner in the annual coding competition hosted by Members of Congress',
-      },
-      {
-        'title': 'National Young Entrepreneurship Pitch Challenge',
-        'description':
-            'Recognized for innovation and entrepreneurial potential',
-      },
-      {
-        'title': 'Congressman Michael McCaul',
-        'description':
-            "Received official recognition for the app's potential impact on healthcare",
-      },
-    ];
-
-    return Row(
-      children: recognitions.map((recognition) {
-        return Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.black,
-                border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    recognition['title']!,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.cyanAccent,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    recognition['description']!,
-                    style: TextStyle(
-                      fontSize: 16,
-                      height: 1.5,
-                      color: Colors.cyanAccent.withOpacity(0.8),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      }).toList(),
-    );
-  }
-
-  Widget _buildResourceLinks() {
+  // Helper widgets for Download Tab
+  Widget _buildDownloadOptions() {
     return Row(
       children: [
         Expanded(
-          child: GestureDetector(
-            onTap: () => launchUrlExternal('https://rishik4.github.io/webcog'),
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.black,
-                border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.cyanAccent),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.language,
-                          color: Colors.cyanAccent,
-                        ),
-                      ),
-                      const SizedBox(width: 15),
-                      const Text(
-                        "Web Version",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.cyanAccent,
-                        ),
-                      ),
-                    ],
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.black,
+              border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.language,
+                  color: Colors.cyanAccent,
+                  size: 60,
+                ),
+                const SizedBox(height: 15),
+                const Text(
+                  "Web Version",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.cyanAccent,
                   ),
-                  const SizedBox(height: 15),
-                  Text(
-                    "Access the iCog web application from any browser, no installation required.",
-                    style: TextStyle(
-                      fontSize: 16,
-                      height: 1.5,
-                      color: Colors.cyanAccent.withOpacity(0.8),
-                    ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  "Available Now",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.cyanAccent.withOpacity(0.8),
                   ),
-                  const SizedBox(height: 15),
-                  Row(
-                    children: [
-                      const Text(
-                        "Try the web version",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.cyanAccent,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      const Icon(
-                        Icons.arrow_forward,
-                        color: Colors.cyanAccent,
-                        size: 16,
-                      ),
-                    ],
+                ),
+                const SizedBox(height: 20),
+                TechButton(
+                  onPressed: () =>
+                      launchUrlExternal('https://cineemoviepro.web.app/'),
+                  label: "TRY WEB VERSION",
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(width: 15),
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.black,
+              border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.phone_iphone,
+                  color: Colors.cyanAccent,
+                  size: 60,
+                ),
+                const SizedBox(height: 15),
+                const Text(
+                  "iOS App",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.cyanAccent,
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  "Coming Soon",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.cyanAccent.withOpacity(0.8),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                TechButton(
+                  onPressed: () {},
+                  label: "JOIN WAITLIST",
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(width: 15),
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.black,
+              border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.android,
+                  color: Colors.cyanAccent,
+                  size: 60,
+                ),
+                const SizedBox(height: 15),
+                const Text(
+                  "Android App",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.cyanAccent,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  "Coming Soon",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.cyanAccent.withOpacity(0.8),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                TechButton(
+                  onPressed: () {},
+                  label: "JOIN WAITLIST",
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPricingPlans() {
+    return Row(
+      children: [
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.black,
+              border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(
+                  "FREE",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.cyanAccent,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  "\$0",
+                  style: TextStyle(
+                    fontSize: 36,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.cyanAccent.withOpacity(0.9),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                _buildPricingFeature("Seat optimization"),
+                _buildPricingFeature("Theater comparison"),
+                _buildPricingFeature("Basic recommendations"),
+                _buildPricingFeature("Standard support"),
+                const SizedBox(height: 30),
+                TechButton(
+                  onPressed: () =>
+                      launchUrlExternal('https://cineemoviepro.web.app/'),
+                  label: "GET STARTED",
+                ),
+              ],
             ),
           ),
         ),
         const SizedBox(width: 20),
         Expanded(
-          child: GestureDetector(
-            onTap: () => launchUrlExternal('https://mini-cog.com/'),
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.black,
-                border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.cyanAccent),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.psychology,
-                          color: Colors.cyanAccent,
-                        ),
-                      ),
-                      const SizedBox(width: 15),
-                      const Text(
-                        "Mini-Cog",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.cyanAccent,
-                        ),
-                      ),
-                    ],
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.black,
+              border: Border.all(color: Colors.cyanAccent),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 5,
                   ),
-                  const SizedBox(height: 15),
-                  Text(
-                    "Learn more about the Mini-Cog test and its applications in dementia screening.",
+                  decoration: BoxDecoration(
+                    color: Colors.cyanAccent,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: const Text(
+                    "RECOMMENDED",
                     style: TextStyle(
-                      fontSize: 16,
-                      height: 1.5,
-                      color: Colors.cyanAccent.withOpacity(0.8),
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
                   ),
-                  const SizedBox(height: 15),
-                  Row(
-                    children: [
-                      const Text(
-                        "Visit Mini-Cog website",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.cyanAccent,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      const Icon(
-                        Icons.arrow_forward,
-                        color: Colors.cyanAccent,
-                        size: 16,
-                      ),
-                    ],
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  "PREMIUM",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.cyanAccent,
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "\$",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.cyanAccent.withOpacity(0.9),
+                      ),
+                    ),
+                    Text(
+                      "3.99",
+                      style: TextStyle(
+                        fontSize: 36,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.cyanAccent.withOpacity(0.9),
+                      ),
+                    ),
+                    Text(
+                      "/mo",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.cyanAccent.withOpacity(0.7),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                _buildPricingFeature("Everything in Free"),
+                _buildPricingFeature("Auto-booking for new releases"),
+                _buildPricingFeature("Priority processing"),
+                _buildPricingFeature("Advanced preferences"),
+                _buildPricingFeature("Premium support"),
+                const SizedBox(height: 30),
+                TechButton(
+                  onPressed: () =>
+                      launchUrlExternal('https://cineemoviepro.web.app/'),
+                  label: "UPGRADE NOW",
+                ),
+              ],
             ),
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildPricingFeature(String feature) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        children: [
+          const Icon(
+            Icons.check_circle,
+            color: Colors.cyanAccent,
+            size: 20,
+          ),
+          const SizedBox(width: 10),
+          Text(
+            feature,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.cyanAccent.withOpacity(0.9),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildContactOptions() {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.black,
+        border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Column(
+            children: [
+              const Icon(
+                Icons.email,
+                color: Colors.cyanAccent,
+                size: 40,
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                "Email Support",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.cyanAccent,
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                "support@cinematchpro.com",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.cyanAccent.withOpacity(0.8),
+                ),
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              const Icon(
+                Icons.chat,
+                color: Colors.cyanAccent,
+                size: 40,
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                "Live Chat",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.cyanAccent,
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                "Available 9am-5pm EST",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.cyanAccent.withOpacity(0.8),
+                ),
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              const Icon(
+                Icons.feedback,
+                color: Colors.cyanAccent,
+                size: 40,
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                "Feature Requests",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.cyanAccent,
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                "Submit through the app",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.cyanAccent.withOpacity(0.8),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

@@ -3,14 +3,14 @@ import '../utils/painters.dart';
 import '../utils/url_launcher_utils.dart';
 import '../widgets/tech_button.dart';
 
-class ICogDetailPage extends StatefulWidget {
-  const ICogDetailPage({super.key});
+class DebateTimerDetailPage extends StatefulWidget {
+  const DebateTimerDetailPage({super.key});
 
   @override
-  State<ICogDetailPage> createState() => _ICogDetailPageState();
+  State<DebateTimerDetailPage> createState() => _DebateTimerDetailPageState();
 }
 
-class _ICogDetailPageState extends State<ICogDetailPage>
+class _DebateTimerDetailPageState extends State<DebateTimerDetailPage>
     with TickerProviderStateMixin {
   int _selectedTabIndex = 0;
   int _previousTabIndex = 0;
@@ -18,10 +18,10 @@ class _ICogDetailPageState extends State<ICogDetailPage>
     'Overview',
     'Problem',
     'Solution',
-    'Innovation',
+    'Features',
     'Technology',
     'Impact',
-    'Media'
+    'Download'
   ];
 
   // Animation controllers for sequential animations
@@ -31,13 +31,13 @@ class _ICogDetailPageState extends State<ICogDetailPage>
 
   // Number of elements to animate in each tab
   final Map<int, int> _elementsCount = {
-    0: 3, // Overview tab (about, project highlights, recognition)
-    1: 3, // Problem tab (challenge, statistics, barriers)
-    2: 2, // Solution tab (description, features)
-    3: 2, // Innovation tab (intro, cards)
-    4: 2, // Technology tab (tech cards, implementations)
-    5: 2, // Impact tab (current impact, future goals)
-    6: 3, // Media tab (videos, news, resources)
+    0: 3, // Overview tab (about, key features, benefits)
+    1: 2, // Problem tab (challenges, market gaps)
+    2: 2, // Solution tab (description, approach)
+    3: 3, // Features tab (main features, screenshots, interface)
+    4: 2, // Technology tab (tech stack, implementation)
+    5: 2, // Impact tab (user benefits, community response)
+    6: 2, // Download tab (app store links, contact info)
   };
 
   @override
@@ -139,7 +139,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                       ),
                       const SizedBox(width: 20),
                       const Text(
-                        "iCog",
+                        "Debate Timer Pro",
                         style: TextStyle(
                           fontSize: 40,
                           fontWeight: FontWeight.bold,
@@ -175,7 +175,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                             ),
                           ),
                         ),
-                        // Content with app icon
+                        // Content with app icon and debate background
                         Padding(
                           padding: const EdgeInsets.all(30.0),
                           child: Row(
@@ -184,11 +184,17 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                               // App Icon
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(15),
-                                child: Image.asset(
-                                  'assets/iCog.jpg',
-                                  width: 200,
-                                  height: 200,
-                                  fit: BoxFit.cover,
+                                child: Container(
+                                  width: 100,
+                                  height: 100,
+                                  color: Colors.black,
+                                  child: const Center(
+                                    child: Icon(
+                                      Icons.timer,
+                                      color: Colors.cyanAccent,
+                                      size: 60,
+                                    ),
+                                  ),
                                 ),
                               ),
                               const SizedBox(width: 25),
@@ -199,7 +205,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     const Text(
-                                      "Dementia Screening App",
+                                      "Specialized Debate Timer & Recorder",
                                       style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.cyanAccent,
@@ -208,7 +214,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                                     ),
                                     const SizedBox(height: 15),
                                     const Text(
-                                      "Early-stage dementia screening app used by over 13,000 users across 83 countries",
+                                      "Perfect timing for all debate formats with integrated speech recording and analysis.",
                                       style: TextStyle(
                                         fontSize: 24,
                                         fontWeight: FontWeight.bold,
@@ -218,32 +224,64 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                                       ),
                                     ),
                                     const SizedBox(height: 20),
-                                    // Web app link button
-                                    OutlinedButton(
-                                      onPressed: () => launchUrlExternal(
-                                          'https://rishik4.github.io/webcog'),
-                                      style: OutlinedButton.styleFrom(
-                                        side: const BorderSide(
-                                            color: Colors.cyanAccent),
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 20, vertical: 10),
-                                      ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: const [
-                                          Icon(Icons.language,
-                                              color: Colors.cyanAccent,
-                                              size: 16),
-                                          SizedBox(width: 8),
-                                          Text(
-                                            "Try the Web App",
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              color: Colors.cyanAccent,
-                                            ),
+                                    Row(
+                                      children: [
+                                        // Android App Link
+                                        OutlinedButton(
+                                          onPressed: () => launchUrlExternal(
+                                              'https://play.google.com/store/apps/details?id=com.rdotapps.debatetimer'),
+                                          style: OutlinedButton.styleFrom(
+                                            side: const BorderSide(
+                                                color: Colors.cyanAccent),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 20, vertical: 10),
                                           ),
-                                        ],
-                                      ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: const [
+                                              Icon(Icons.android,
+                                                  color: Colors.cyanAccent,
+                                                  size: 16),
+                                              SizedBox(width: 8),
+                                              Text(
+                                                "Google Play",
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.cyanAccent,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(width: 15),
+                                        // iOS App Link
+                                        OutlinedButton(
+                                          onPressed: () => launchUrlExternal(
+                                              'https://apps.apple.com/bs/app/debate-timer-pro/id1636160357'),
+                                          style: OutlinedButton.styleFrom(
+                                            side: const BorderSide(
+                                                color: Colors.cyanAccent),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 20, vertical: 10),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: const [
+                                              Icon(Icons.apple,
+                                                  color: Colors.cyanAccent,
+                                                  size: 16),
+                                              SizedBox(width: 8),
+                                              Text(
+                                                "App Store",
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.cyanAccent,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     const SizedBox(height: 20),
                                     Row(
@@ -264,13 +302,13 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                                           child: const Row(
                                             children: [
                                               Icon(
-                                                Icons.star,
+                                                Icons.format_list_bulleted,
                                                 color: Colors.cyanAccent,
                                                 size: 16,
                                               ),
                                               SizedBox(width: 8),
                                               Text(
-                                                "Congressional App Challenge Winner",
+                                                "Multiple Debate Formats",
                                                 style: TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.cyanAccent,
@@ -296,13 +334,13 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                                           child: const Row(
                                             children: [
                                               Icon(
-                                                Icons.emoji_events,
+                                                Icons.mic,
                                                 color: Colors.cyanAccent,
                                                 size: 16,
                                               ),
                                               SizedBox(width: 8),
                                               Text(
-                                                "NYEPC Winner",
+                                                "Integrated Recording",
                                                 style: TextStyle(
                                                   fontSize: 12,
                                                   color: Colors.cyanAccent,
@@ -392,13 +430,13 @@ class _ICogDetailPageState extends State<ICogDetailPage>
       case 2:
         return _buildSolutionTab();
       case 3:
-        return _buildInnovationTab();
+        return _buildFeaturesTab();
       case 4:
         return _buildTechnologyTab();
       case 5:
         return _buildImpactTab();
       case 6:
-        return _buildMediaTab();
+        return _buildDownloadTab();
       default:
         return _buildOverviewTab();
     }
@@ -428,7 +466,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "ABOUT ICOG",
+                  "ABOUT DEBATE TIMER PRO",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -438,9 +476,10 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  "iCog is an innovative app designed to administer early-stage cognitive screening tests for "
-                  "dementia, making healthcare more accessible to people worldwide. The app has been successfully "
-                  "adopted by over 13,000 users across 83 countries, demonstrating its global impact and usability.",
+                  "Debate Timer Pro is a specialized timer application designed specifically for debaters to "
+                  "manage speaking times across various debate formats. It offers customizable timers and "
+                  "intuitive controls that ensure participants can focus on their arguments without "
+                  "worrying about timekeeping.",
                   style: TextStyle(
                     fontSize: 16,
                     height: 1.6,
@@ -449,9 +488,10 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  "In partnership with Mini-Cog, a non-profit organization that creates screening tests for dementia "
-                  "in primary care, iCog brings medical-grade cognitive assessment tools to anyone with a smartphone "
-                  "or internet connection, breaking down barriers to early detection.",
+                  "With integrated speech recording capabilities and analysis tools, Debate Timer Pro goes "
+                  "beyond simple timing to help debaters improve their skills through practice and review. "
+                  "The app is designed with simplicity in mind, allowing users to focus on their debate "
+                  "performance rather than managing the technology.",
                   style: TextStyle(
                     fontSize: 16,
                     height: 1.6,
@@ -476,7 +516,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "RECOGNITION",
+                  "KEY BENEFITS",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -485,9 +525,9 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                   ),
                 ),
                 const SizedBox(height: 20),
-                _buildRecognitionList(),
+                _buildBenefitsList(),
                 const SizedBox(height: 40),
-                _buildLinksSection(),
+                _buildCTASection(),
               ],
             )),
       ],
@@ -505,7 +545,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "THE CHALLENGE",
+                  "THE CHALLENGES",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -515,18 +555,8 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  "According to the World Health Organization, around 55 million people have a Dementia-related illness. "
-                  "This number is rising rapidly and is expected to reach 139 million by 2050.",
-                  style: TextStyle(
-                    fontSize: 16,
-                    height: 1.6,
-                    color: Colors.cyanAccent,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  "There are an estimated 41 million cases of Dementia around the world that are undiagnosed, "
-                  "with over 90% of undiagnosed cases in low-middle-income countries.",
+                  "Debate participants face several challenges when it comes to managing time and "
+                  "improving their skills, which can impact their performance and development.",
                   style: TextStyle(
                     fontSize: 16,
                     height: 1.6,
@@ -534,97 +564,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                   ),
                 ),
                 const SizedBox(height: 40),
-              ],
-            )),
-        _buildAnimatedSection(
-            1,
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildStatisticsCards(),
-                const SizedBox(height: 40),
-                const Text(
-                  "Key Barriers to Diagnosis",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.cyanAccent,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                _buildBarrierCards(),
-                const SizedBox(height: 40),
-              ],
-            )),
-        _buildAnimatedSection(
-            2,
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "The Importance of Early Detection",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.cyanAccent,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    border:
-                        Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-                  ),
-                  child: const Text(
-                    "Early detection is crucial as it allows for earlier intervention and treatment, which can be more effective "
-                    "at mitigating the progression of the disease. Some types of cognitive impairment, such as those caused by "
-                    "head injuries, can be treated or mitigated with proper help. Taking action early is essential for planning "
-                    "and implementing support strategies before symptoms progress too far.",
-                    style: TextStyle(
-                      fontSize: 16,
-                      height: 1.6,
-                      color: Colors.cyanAccent,
-                    ),
-                  ),
-                ),
-              ],
-            )),
-      ],
-    );
-  }
-
-  // Solution Tab
-  Widget _buildSolutionTab() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildAnimatedSection(
-            0,
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "THE SOLUTION",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 2,
-                    color: Colors.cyanAccent,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  "iCog makes neurological tests doctors use to screen for Dementia available in the form of a mobile "
-                  "app and website. The goal is to expand accessibility of accurate screening by making it free and "
-                  "available through any smartphone or internet connection, so anyone can access it anywhere at any time.",
-                  style: TextStyle(
-                    fontSize: 16,
-                    height: 1.6,
-                    color: Colors.cyanAccent,
-                  ),
-                ),
+                _buildChallengesCards(),
                 const SizedBox(height: 40),
               ],
             )),
@@ -634,74 +574,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "Key Features",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.cyanAccent,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                _buildFeaturesList(),
-                const SizedBox(height: 40),
-                const Text(
-                  "Target Users",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.cyanAccent,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                _buildTargetUserCards(),
-              ],
-            )),
-      ],
-    );
-  }
-
-  // Innovation Tab
-  Widget _buildInnovationTab() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildAnimatedSection(
-            0,
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "INNOVATION",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 2,
-                    color: Colors.cyanAccent,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  "There are no easily accessible tools that can accurately screen for Dementia at its early stages. "
-                  "iCog stands out as the only accurate digital version of screening for Dementia, with several "
-                  "innovative aspects that make it unique in the healthcare landscape.",
-                  style: TextStyle(
-                    fontSize: 16,
-                    height: 1.6,
-                    color: Colors.cyanAccent,
-                  ),
-                ),
-                const SizedBox(height: 40),
-              ],
-            )),
-        _buildAnimatedSection(
-            1,
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildInnovationCards(),
-                const SizedBox(height: 40),
-                const Text(
-                  "Partnerships",
+                  "Market Gap",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -729,14 +602,14 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                               shape: BoxShape.circle,
                             ),
                             child: const Icon(
-                              Icons.handshake,
+                              Icons.highlight_off,
                               color: Colors.cyanAccent,
                             ),
                           ),
                           const SizedBox(width: 15),
                           const Expanded(
                             child: Text(
-                              "Partnership with Dr. Soo Borson, creator of the Mini-Cog",
+                              "No specialized timer applications designed specifically for debaters",
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -748,10 +621,11 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                       ),
                       const SizedBox(height: 20),
                       const Text(
-                        "The partnership with Dr. Soo Borson, creator of the Mini-Cog, ensures that iCog is always up-to-date "
-                        "with the newest research and practices in cognitive screening. This collaboration increases the app's "
-                        "credibility and recognition, facilitating adoption by both healthcare professionals and users worldwide, "
-                        "ultimately leading to more accurate screenings and better outcomes for those affected by dementia.",
+                        "While generic timer applications exist, they lack the specific features needed for "
+                        "various debate formats. Additionally, most available solutions don't integrate "
+                        "recording and analysis tools, forcing debaters to use multiple applications to "
+                        "practice and improve. This fragmentation creates inefficiency and distracts from "
+                        "the core activity of developing debate skills.",
                         style: TextStyle(
                           fontSize: 16,
                           height: 1.6,
@@ -761,6 +635,124 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                     ],
                   ),
                 ),
+              ],
+            )),
+      ],
+    );
+  }
+
+  // Solution Tab
+  Widget _buildSolutionTab() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildAnimatedSection(
+            0,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "OUR SOLUTION",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 2,
+                    color: Colors.cyanAccent,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  "Debate Timer Pro addresses the unique needs of debaters with a specialized application "
+                  "that combines precise timing with performance improvement tools. Our solution focuses "
+                  "on enhancing the debate experience by removing the distractions of manual timekeeping.",
+                  style: TextStyle(
+                    fontSize: 16,
+                    height: 1.6,
+                    color: Colors.cyanAccent,
+                  ),
+                ),
+                const SizedBox(height: 40),
+              ],
+            )),
+        _buildAnimatedSection(
+            1,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Key Solutions",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.cyanAccent,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                _buildSolutionsList(),
+                const SizedBox(height: 40),
+                _buildUniqueValueProposition(),
+              ],
+            )),
+      ],
+    );
+  }
+
+  // Features Tab
+  Widget _buildFeaturesTab() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildAnimatedSection(
+            0,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "CORE FEATURES",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 2,
+                    color: Colors.cyanAccent,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  "Debate Timer Pro includes a comprehensive set of features specifically designed for "
+                  "debaters, combining timing precision with tools for performance improvement.",
+                  style: TextStyle(
+                    fontSize: 16,
+                    height: 1.6,
+                    color: Colors.cyanAccent,
+                  ),
+                ),
+                const SizedBox(height: 40),
+              ],
+            )),
+        _buildAnimatedSection(
+            1,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildFeatureCards(),
+                const SizedBox(height: 40),
+              ],
+            )),
+        _buildAnimatedSection(
+            2,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Interface Preview",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.cyanAccent,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                _buildInterfacePreview(),
               ],
             )),
       ],
@@ -788,8 +780,9 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  "iCog leverages cutting-edge technologies to deliver a reliable, accessible, and user-friendly "
-                  "dementia screening platform. The core technologies powering the solution include:",
+                  "Debate Timer Pro leverages modern mobile development technologies to deliver a "
+                  "lightweight yet powerful application for debaters. Our tech stack is optimized for "
+                  "performance and reliability across different devices.",
                   style: TextStyle(
                     fontSize: 16,
                     height: 1.6,
@@ -833,7 +826,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "IMPACT & FUTURE",
+                  "IMPACT & BENEFITS",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -843,8 +836,8 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  "iCog has already made a significant impact in dementia screening accessibility, but our vision extends "
-                  "much further. Here's how we're making a difference and our plans for the future:",
+                  "Debate Timer Pro has transformed how debaters manage their time and improve their skills, "
+                  "creating measurable improvements in debate performances and practice efficiency.",
                   style: TextStyle(
                     fontSize: 16,
                     height: 1.6,
@@ -864,7 +857,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        "Current Impact",
+                        "User Benefits",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -872,9 +865,9 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                         ),
                       ),
                       const SizedBox(height: 20),
-                      _buildImpactMetrics(),
+                      _buildUserBenefitsSection(),
                       const SizedBox(height: 20),
-                      _buildUserBenefits(),
+                      _buildUserQuotes(),
                     ],
                   ),
                 ),
@@ -884,7 +877,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        "Future Goals",
+                        "Community Adoption",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -892,7 +885,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                         ),
                       ),
                       const SizedBox(height: 20),
-                      _buildFutureGoals(),
+                      _buildCommunityImpact(),
                     ],
                   ),
                 ),
@@ -902,8 +895,8 @@ class _ICogDetailPageState extends State<ICogDetailPage>
     );
   }
 
-  // Media Tab
-  Widget _buildMediaTab() {
+  // Download Tab
+  Widget _buildDownloadTab() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -913,7 +906,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "MEDIA & RESOURCES",
+                  "GET DEBATE TIMER PRO",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -923,7 +916,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  "Explore videos, presentations, and additional resources about the iCog project.",
+                  "Ready to transform your debate timing experience? Debate Timer Pro is available on both iOS and Android platforms.",
                   style: TextStyle(
                     fontSize: 16,
                     height: 1.6,
@@ -931,7 +924,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                   ),
                 ),
                 const SizedBox(height: 40),
-                _buildVideoSection(),
+                _buildDownloadOptions(),
                 const SizedBox(height: 40),
               ],
             )),
@@ -941,7 +934,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "News Coverage",
+                  "Contact & Support",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -949,36 +942,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                   ),
                 ),
                 const SizedBox(height: 20),
-                _buildNewsVideosSection(),
-                const SizedBox(height: 40),
-                const Text(
-                  "Recognition & Press Coverage",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.cyanAccent,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                _buildRecognitionCards(),
-                const SizedBox(height: 40),
-              ],
-            )),
-        _buildAnimatedSection(
-            2,
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Try iCog",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.cyanAccent,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                _buildResourceLinks(),
+                _buildContactOptions(),
               ],
             )),
       ],
@@ -997,7 +961,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            "PROJECT HIGHLIGHTS",
+            "PRODUCT HIGHLIGHTS",
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -1005,16 +969,18 @@ class _ICogDetailPageState extends State<ICogDetailPage>
             ),
           ),
           const SizedBox(height: 20),
-          _buildHighlightRow('Users', '13,000+ across 83 countries'),
+          _buildHighlightRow('Platform', 'iOS and Android'),
           const SizedBox(height: 15),
-          _buildHighlightRow('Status', 'Active Development'),
-          const SizedBox(height: 15),
-          _buildHighlightRow('Timeline', 'June 2022 - Present'),
-          const SizedBox(height: 15),
-          _buildHighlightRow('Role', 'Creator & Lead Developer'),
+          _buildHighlightRow('Status', 'Available Now'),
           const SizedBox(height: 15),
           _buildHighlightRow(
-              'Technologies', 'Flutter, Firebase, AI/ML, Cloud Computing'),
+              'Formats', 'Policy, Public Forum, Lincoln-Douglas & more'),
+          const SizedBox(height: 15),
+          _buildHighlightRow(
+              'User Base', 'Individual debaters, schools, clubs'),
+          const SizedBox(height: 15),
+          _buildHighlightRow('Technologies',
+              'Flutter/Dart, Native Audio Recording, Local Storage'),
         ],
       ),
     );
@@ -1055,18 +1021,18 @@ class _ICogDetailPageState extends State<ICogDetailPage>
     );
   }
 
-  Widget _buildRecognitionList() {
-    final List<String> recognitions = [
-      'Winner of the Congressional App Challenge',
-      'Winner of National Young Entrepreneurship Pitch Challenge',
-      'Received recognition from Congressman Michael McCaul',
-      'Currently working with Dr. Soo Borson (USC) on publishing research',
-      'Featured in multiple news outlets and tech publications',
+  Widget _buildBenefitsList() {
+    final List<String> benefits = [
+      'Eliminate manual timekeeping errors with precise, format-specific timers',
+      'Improve speaking skills through integrated recording and self-review capabilities',
+      'Enhance focus on content and delivery instead of time management',
+      'Adapt to multiple debate formats with customizable settings',
+      'Support team coordination with shared timer displays and presets',
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: recognitions.map((item) {
+      children: benefits.map((item) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 12),
           child: Row(
@@ -1097,7 +1063,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
     );
   }
 
-  Widget _buildLinksSection() {
+  Widget _buildCTASection() {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -1105,10 +1071,10 @@ class _ICogDetailPageState extends State<ICogDetailPage>
         border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Text(
-            "LINKS",
+            "ELEVATE YOUR DEBATE PERFORMANCE",
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -1116,67 +1082,28 @@ class _ICogDetailPageState extends State<ICogDetailPage>
             ),
           ),
           const SizedBox(height: 20),
-          GestureDetector(
-            onTap: () => launchUrlExternal('https://mini-cog.com/'),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.link,
-                  color: Colors.cyanAccent,
-                  size: 20,
-                ),
-                const SizedBox(width: 12),
-                Text(
-                  'Mini-Cog Official Website',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.cyanAccent.withOpacity(0.9),
-                  ),
-                ),
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TechButton(
+                onPressed: () => launchUrlExternal(
+                    'https://play.google.com/store/apps/details?id=com.rdotapps.debatetimer'),
+                label: "ANDROID APP",
+              ),
+              const SizedBox(width: 20),
+              TechButton(
+                onPressed: () => launchUrlExternal(
+                    'https://apps.apple.com/bs/app/debate-timer-pro/id1636160357'),
+                label: "iOS APP",
+              ),
+            ],
           ),
           const SizedBox(height: 15),
-          GestureDetector(
-            onTap: () => launchUrlExternal('https://rishik4.github.io/webcog'),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.language,
-                  color: Colors.cyanAccent,
-                  size: 20,
-                ),
-                const SizedBox(width: 12),
-                Text(
-                  'iCog Web Version',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.cyanAccent.withOpacity(0.9),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 15),
-          GestureDetector(
-            onTap: () => launchUrlExternal(
-                'https://www.congressionalappchallenge.us/22-tx10/'),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.emoji_events,
-                  color: Colors.cyanAccent,
-                  size: 20,
-                ),
-                const SizedBox(width: 12),
-                Text(
-                  'Congressional App Challenge Project Page',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.cyanAccent.withOpacity(0.9),
-                  ),
-                ),
-              ],
+          Text(
+            'Available on both major mobile platforms',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.cyanAccent.withOpacity(0.9),
             ),
           ),
         ],
@@ -1185,25 +1112,37 @@ class _ICogDetailPageState extends State<ICogDetailPage>
   }
 
   // Helper widgets for Problem Tab
-  Widget _buildStatisticsCards() {
+  Widget _buildChallengesCards() {
     return Row(
       children: [
         Expanded(
-          child: _buildStatCard('55M', 'People with dementia worldwide'),
+          child: _buildChallengeCard(
+            'Manual Timekeeping Errors',
+            'Traditional methods of tracking speech durations are cumbersome and prone to human error, leading to timing disputes.',
+            Icons.error_outline,
+          ),
         ),
         const SizedBox(width: 20),
         Expanded(
-          child: _buildStatCard('41M', 'Undiagnosed cases globally'),
+          child: _buildChallengeCard(
+            'Format Variability',
+            'Different debate formats have distinct timing requirements, making it challenging to use a one-size-fits-all timer.',
+            Icons.compare_arrows,
+          ),
         ),
         const SizedBox(width: 20),
         Expanded(
-          child: _buildStatCard('139M', 'Projected cases by 2050'),
+          child: _buildChallengeCard(
+            'Fragmented Tools',
+            'Debaters often need to switch between multiple applications to time, record, and analyze their speeches, creating inefficiency.',
+            Icons.build,
+          ),
         ),
       ],
     );
   }
 
-  Widget _buildStatCard(String number, String label) {
+  Widget _buildChallengeCard(String title, String description, IconData icon) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -1211,66 +1150,14 @@ class _ICogDetailPageState extends State<ICogDetailPage>
         border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            number,
-            style: const TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-              color: Colors.cyanAccent,
-            ),
+          Icon(
+            icon,
+            color: Colors.cyanAccent,
+            size: 40,
           ),
-          const SizedBox(height: 8),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.cyanAccent.withOpacity(0.8),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBarrierCards() {
-    return Row(
-      children: [
-        Expanded(
-          child: _buildBarrierCard(
-            'Limited Access',
-            'Many people lack access to medical facilities due to prohibitive costs and limited availability, especially in developing areas.',
-          ),
-        ),
-        const SizedBox(width: 20),
-        Expanded(
-          child: _buildBarrierCard(
-            'Overwhelmed Healthcare',
-            'Available medical facilities are often overwhelmed, causing significant delays that discourage people from seeking the medical help they need.',
-          ),
-        ),
-        const SizedBox(width: 20),
-        Expanded(
-          child: _buildBarrierCard(
-            'Social Stigma',
-            "There's significant stigma associated with seeking medical help for cognitive issues. About 1 in 3 people believe nothing can be done about Dementia.",
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildBarrierCard(String title, String description) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.black,
-        border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+          const SizedBox(height: 15),
           Text(
             title,
             style: const TextStyle(
@@ -1278,6 +1165,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               fontWeight: FontWeight.bold,
               color: Colors.cyanAccent,
             ),
+            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 10),
           Text(
@@ -1287,6 +1175,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               height: 1.5,
               color: Colors.cyanAccent.withOpacity(0.8),
             ),
+            textAlign: TextAlign.center,
           ),
         ],
       ),
@@ -1294,32 +1183,32 @@ class _ICogDetailPageState extends State<ICogDetailPage>
   }
 
   // Helper widgets for Solution Tab
-  Widget _buildFeaturesList() {
-    final List<Map<String, String>> features = [
+  Widget _buildSolutionsList() {
+    final List<Map<String, String>> solutions = [
       {
-        'title': 'Medical-Grade Tests',
+        'title': 'Customizable Timers',
         'description':
-            'Includes validated tests like the Mini-Cog that can effectively screen for dementia in its early stages',
+            'Preset timers for various debate formats ensure accuracy and adherence to competition rules with visual and audio cues.',
       },
       {
-        'title': 'Progress Tracking',
+        'title': 'Integrated Recording',
         'description':
-            'Displays user scores on a graph to show the rate of change over time, facilitating early detection of decline',
+            'Built-in speech recording capability allows debaters to review and analyze their performances without switching applications.',
       },
       {
-        'title': 'Secure Data Storage',
+        'title': 'User-Friendly Interface',
         'description':
-            'All data is stored anonymously in a secure cloud database, personalizing the experience while maintaining privacy',
+            'Clean, distraction-free design with large, easily visible timers and intuitive controls optimized for debate environments.',
       },
       {
-        'title': 'Accessibility Features',
+        'title': 'Multi-Format Support',
         'description':
-            'Text-to-speech capabilities, multiple language support, and customizable interface for users with various impairments',
+            'Comprehensive library of preset timers for all major debate styles, with the ability to create and save custom formats.',
       },
     ];
 
     return Column(
-      children: features.map((feature) {
+      children: solutions.map((solution) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 20),
           child: Row(
@@ -1343,7 +1232,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      feature['title']!,
+                      solution['title']!,
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -1352,7 +1241,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                     ),
                     const SizedBox(height: 5),
                     Text(
-                      feature['description']!,
+                      solution['description']!,
                       style: TextStyle(
                         fontSize: 16,
                         height: 1.5,
@@ -1369,106 +1258,119 @@ class _ICogDetailPageState extends State<ICogDetailPage>
     );
   }
 
-  Widget _buildTargetUserCards() {
-    final List<Map<String, String>> users = [
-      {
-        'title': 'Primary Users',
-        'description':
-            'Elderly individuals concerned about cognitive health, especially those with limited access to healthcare',
-      },
-      {
-        'title': 'Secondary Users',
-        'description':
-            'Family members and caregivers who support seniors with potential cognitive impairment',
-      },
-      {
-        'title': 'Healthcare Partners',
-        'description':
-            'Medical professionals who can utilize the data and results to make informed diagnostic decisions',
-      },
-    ];
-
-    return Column(
-      children: users.map((user) {
-        return Container(
-          width:
-              double.infinity, // Full width container for consistent alignment
-          margin: const EdgeInsets.only(bottom: 20),
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: Colors.black,
-            border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildUniqueValueProposition() {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.black,
+        border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             children: [
-              Text(
-                user['title']!,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  border: Border.all(color: Colors.cyanAccent),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.star,
                   color: Colors.cyanAccent,
                 ),
               ),
-              const SizedBox(height: 10),
-              Text(
-                user['description']!,
-                style: TextStyle(
-                  fontSize: 16,
-                  height: 1.5,
-                  color: Colors.cyanAccent.withOpacity(0.8),
+              const SizedBox(width: 15),
+              const Expanded(
+                child: Text(
+                  "What makes us different",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.cyanAccent,
+                  ),
                 ),
               ),
             ],
           ),
-        );
-      }).toList(),
+          const SizedBox(height: 20),
+          const Text(
+            "Unlike generic timer applications, Debate Timer Pro is specifically designed for the unique needs "
+            "of debaters. Our application combines precise timing with speech recording and analysis in one "
+            "integrated platform, eliminating the need to switch between multiple tools during practice or competition.",
+            style: TextStyle(
+              fontSize: 16,
+              height: 1.6,
+              color: Colors.cyanAccent,
+            ),
+          ),
+          const SizedBox(height: 15),
+          const Text(
+            "Additionally, our format-specific presets ensure that timing adheres to official rules for different "
+            "debate styles, removing the burden of manual configuration and reducing the potential for error. "
+            "The intuitive interface minimizes distraction, allowing debaters to focus on their arguments and delivery.",
+            style: TextStyle(
+              fontSize: 16,
+              height: 1.6,
+              color: Colors.cyanAccent,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  // Helper widgets for Innovation Tab
-  Widget _buildInnovationCards() {
-    final List<Map<String, String>> innovations = [
+  // Helper widgets for Features Tab
+  Widget _buildFeatureCards() {
+    final List<Map<String, dynamic>> features = [
       {
-        'title': 'Exclusive Digital Adaptation',
+        'icon': Icons.timer,
+        'title': 'Format-Specific Presets',
         'description':
-            'iCog is the only app given permission to digitalize the Mini-Cog test for dementia screening, providing a validated and trusted assessment tool in digital format.',
+            'Includes presets for Policy, Public Forum, Lincoln-Douglas, and other debate formats with accurate timing rules.',
       },
       {
-        'title': 'Accessibility Without Barriers',
+        'icon': Icons.mic,
+        'title': 'Speech Recording',
         'description':
-            'Removes language and location barriers through multi-language support and availability on both web and mobile platforms, even working offline in areas with limited connectivity.',
+            'Record speeches directly within the app for later review and analysis to improve content and delivery.',
       },
       {
-        'title': 'Privacy-First Approach',
+        'icon': Icons.visibility,
+        'title': 'Visual Time Alerts',
         'description':
-            'Complete anonymity addresses the social stigma associated with getting help for dementia, encouraging more people to take the screening test without fear of judgment.',
+            'Color-coded visual indicators and optional vibration alerts to indicate remaining time without disruption.',
       },
       {
-        'title': 'Research Integration',
+        'icon': Icons.notifications,
+        'title': 'Audio Cues',
         'description':
-            'Anonymous data collection enables further research and analysis, contributing to a better understanding of dementia patterns and potentially leading to improved screening methods.',
+            'Customizable sounds for time warnings and completion that are clear but not distracting during debates.',
       },
       {
-        'title': 'AI-Powered Assessment',
+        'icon': Icons.bookmark,
+        'title': 'Custom Formats',
         'description':
-            'Uses artificial intelligence to analyze user-drawn clocks, a critical component of the Mini-Cog test, providing consistent and objective evaluation.',
+            'Create and save custom debate formats with specific speech durations, prep times, and alert settings.',
       },
       {
-        'title': 'Adaptive Interface',
+        'icon': Icons.watch,
+        'title': 'Prep Time Tracking',
         'description':
-            'Features like adjustable text size, contrast filters, volume settings, and family member assistance accommodate various disabilities and needs of elderly users.',
+            'Separate timers for tracking preparation time allocation with team-specific counters.',
       },
     ];
 
     return Column(
       children: List.generate(
-        (innovations.length / 2).ceil(),
+        (features.length / 3).ceil(),
         (rowIndex) {
-          final startIndex = rowIndex * 2;
-          final endIndex = startIndex + 2 > innovations.length
-              ? innovations.length
-              : startIndex + 2;
+          final startIndex = rowIndex * 3;
+          final endIndex = startIndex + 3 > features.length
+              ? features.length
+              : startIndex + 3;
 
           return Padding(
             padding: const EdgeInsets.only(bottom: 20),
@@ -1480,9 +1382,8 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                   final index = startIndex + colIndex;
                   return Expanded(
                     child: Padding(
-                      padding: EdgeInsets.only(
-                        right: colIndex == 0 ? 10 : 0,
-                        left: colIndex == 1 ? 10 : 0,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: colIndex == 1 ? 10 : 0,
                       ),
                       child: Container(
                         padding: const EdgeInsets.all(20),
@@ -1492,24 +1393,32 @@ class _ICogDetailPageState extends State<ICogDetailPage>
                               color: Colors.cyanAccent.withOpacity(0.3)),
                         ),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            Icon(
+                              features[index]['icon'] as IconData,
+                              color: Colors.cyanAccent,
+                              size: 40,
+                            ),
+                            const SizedBox(height: 15),
                             Text(
-                              innovations[index]['title']!,
+                              features[index]['title'] as String,
                               style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.cyanAccent,
                               ),
+                              textAlign: TextAlign.center,
                             ),
                             const SizedBox(height: 10),
                             Text(
-                              innovations[index]['description']!,
+                              features[index]['description'] as String,
                               style: TextStyle(
                                 fontSize: 16,
                                 height: 1.5,
                                 color: Colors.cyanAccent.withOpacity(0.8),
                               ),
+                              textAlign: TextAlign.center,
                             ),
                           ],
                         ),
@@ -1525,26 +1434,156 @@ class _ICogDetailPageState extends State<ICogDetailPage>
     );
   }
 
+  Widget _buildInterfacePreview() {
+    return Row(
+      children: [
+        Expanded(
+          child: Container(
+            height: 300,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+            ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.phone_android,
+                    color: Colors.cyanAccent,
+                    size: 60,
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    "App Screenshots",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.cyanAccent,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    "View on App Stores",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.cyanAccent.withOpacity(0.8),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TechButton(
+                        onPressed: () => launchUrlExternal(
+                            'https://play.google.com/store/apps/details?id=com.rdotapps.debatetimer'),
+                        label: "GOOGLE PLAY",
+                      ),
+                      const SizedBox(width: 15),
+                      TechButton(
+                        onPressed: () => launchUrlExternal(
+                            'https://apps.apple.com/bs/app/debate-timer-pro/id1636160357'),
+                        label: "APP STORE",
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 20),
+        Expanded(
+          child: Container(
+            height: 300,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "HOW IT WORKS",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.cyanAccent,
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Text(
+                    "1. Select your debate format or create a custom one",
+                    style: TextStyle(
+                      fontSize: 16,
+                      height: 1.8,
+                      color: Colors.cyanAccent.withOpacity(0.9),
+                    ),
+                  ),
+                  Text(
+                    "2. Configure specific settings like alerts and sounds",
+                    style: TextStyle(
+                      fontSize: 16,
+                      height: 1.8,
+                      color: Colors.cyanAccent.withOpacity(0.9),
+                    ),
+                  ),
+                  Text(
+                    "3. Start the timer for the appropriate speech",
+                    style: TextStyle(
+                      fontSize: 16,
+                      height: 1.8,
+                      color: Colors.cyanAccent.withOpacity(0.9),
+                    ),
+                  ),
+                  Text(
+                    "4. Receive visual and audio cues as time progresses",
+                    style: TextStyle(
+                      fontSize: 16,
+                      height: 1.8,
+                      color: Colors.cyanAccent.withOpacity(0.9),
+                    ),
+                  ),
+                  Text(
+                    "5. Optionally record speech for later analysis",
+                    style: TextStyle(
+                      fontSize: 16,
+                      height: 1.8,
+                      color: Colors.cyanAccent.withOpacity(0.9),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   // Helper widgets for Technology Tab
   Widget _buildTechnologyCards() {
     final List<Map<String, dynamic>> technologies = [
       {
         'icon': Icons.phone_android,
-        'title': 'Flutter Framework',
+        'title': 'Cross-Platform Development',
         'description':
-            'Used to create a cross-platform app that works on multiple devices (iOS, Android, web) from a single codebase, ensuring consistent experience across platforms.',
+            'Built with Flutter/Dart to ensure a consistent, high-quality experience on both iOS and Android devices.',
       },
       {
-        'icon': Icons.cloud,
-        'title': 'Firebase/Cloud Services',
+        'icon': Icons.storage,
+        'title': 'Lightweight Architecture',
         'description':
-            'Provides secure data storage, authentication, and hosting capabilities, allowing users to access their information across devices while maintaining privacy.',
+            'Optimized for performance with minimal resource usage, ensuring the app runs smoothly during debates.',
       },
       {
-        'icon': Icons.psychology,
-        'title': 'AI/Machine Learning',
+        'icon': Icons.update,
+        'title': 'Regular Updates',
         'description':
-            'Neural networks analyze user-drawn clocks as part of the Mini-Cog test, providing consistent and objective evaluation of this critical diagnostic element.',
+            'Continuously improved based on user feedback and changing competition requirements.',
       },
     ];
 
@@ -1605,7 +1644,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Front-End Development",
+                "Core Features Implementation",
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -1614,19 +1653,19 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               ),
               const SizedBox(height: 15),
               _buildBulletPoint(
-                'Responsive UI that adapts to different screen sizes and device capabilities',
+                'Precision timing using native platform capabilities for accuracy',
               ),
               const SizedBox(height: 8),
               _buildBulletPoint(
-                'Custom drawing canvas for the clock-drawing test with precise input capture',
+                'Custom visual interfaces for different debate formats',
               ),
               const SizedBox(height: 8),
               _buildBulletPoint(
-                'Accessibility features including screen reader support, high contrast modes, and text size adjustment',
+                'Local storage for saving custom presets and settings',
               ),
               const SizedBox(height: 8),
               _buildBulletPoint(
-                'Multi-language support with localization for global accessibility',
+                'Background audio processing to ensure alerts function even when the device is locked',
               ),
             ],
           ),
@@ -1637,7 +1676,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Back-End Implementation",
+                "Audio Integration",
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -1646,19 +1685,19 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               ),
               const SizedBox(height: 15),
               _buildBulletPoint(
-                'Secure data encryption for sensitive health information',
+                'Native audio recording APIs for high-quality speech capture',
               ),
               const SizedBox(height: 8),
               _buildBulletPoint(
-                'Anonymous data collection pipeline for research while maintaining user privacy',
+                'Optimized storage for audio recordings with compression options',
               ),
               const SizedBox(height: 8),
               _buildBulletPoint(
-                'Offline functionality with data synchronization when connectivity is restored',
+                'Custom audio alert system with fine-grained control over timing',
               ),
               const SizedBox(height: 8),
               _buildBulletPoint(
-                'Scalable architecture designed to handle millions of users worldwide',
+                'Background operation support for continuous timing during device lock',
               ),
             ],
           ),
@@ -1694,11 +1733,11 @@ class _ICogDetailPageState extends State<ICogDetailPage>
   }
 
   // Helper widgets for Impact Tab
-  Widget _buildImpactMetrics() {
+  Widget _buildUserBenefitsSection() {
     final List<Map<String, String>> metrics = [
-      {'value': '13,000+', 'label': 'Active Users'},
-      {'value': '83', 'label': 'Countries Reached'},
-      {'value': 'Multiple', 'label': 'Awards & Recognition'},
+      {'value': 'Time Saved', 'label': '5-10 Minutes Per Debate'},
+      {'value': 'Focus Improvement', 'label': '80% of Users Report'},
+      {'value': 'User Satisfaction', 'label': '4.7/5 Average Rating'},
     ];
 
     return Column(
@@ -1740,19 +1779,12 @@ class _ICogDetailPageState extends State<ICogDetailPage>
     );
   }
 
-  Widget _buildUserBenefits() {
-    final List<String> benefits = [
-      'Early detection of cognitive impairment',
-      'Increased healthcare accessibility',
-      'Reduced stigma through anonymous testing',
-      'Earlier medical intervention',
-    ];
-
+  Widget _buildUserQuotes() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "User Benefits",
+          "User Feedback",
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -1760,71 +1792,120 @@ class _ICogDetailPageState extends State<ICogDetailPage>
           ),
         ),
         const SizedBox(height: 15),
-        Column(
-          children: benefits.map((benefit) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Row(
+        Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Colors.black,
+            border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+          ),
+          child: Column(
+            children: [
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      color: Colors.cyanAccent,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Icon(
-                      Icons.check,
-                      color: Colors.black,
-                      size: 12,
-                    ),
+                  const Icon(
+                    Icons.format_quote,
+                    color: Colors.cyanAccent,
+                    size: 30,
                   ),
-                  const SizedBox(width: 12),
+                  const SizedBox(width: 15),
                   Expanded(
-                    child: Text(
-                      benefit,
-                      style: TextStyle(
-                        fontSize: 16,
-                        height: 1.5,
-                        color: Colors.cyanAccent.withOpacity(0.8),
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "This app has been a game-changer for our debate team. The format-specific timers ensure we always practice with the right constraints.",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontStyle: FontStyle.italic,
+                            height: 1.5,
+                            color: Colors.cyanAccent.withOpacity(0.9),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          "— Sarah M., Debate Coach",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.cyanAccent.withOpacity(0.8),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-            );
-          }).toList(),
+              const SizedBox(height: 20),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Icon(
+                    Icons.format_quote,
+                    color: Colors.cyanAccent,
+                    size: 30,
+                  ),
+                  const SizedBox(width: 15),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "The recording feature helps me identify my verbal tics and improve my delivery. I can't imagine preparing for tournaments without it now.",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontStyle: FontStyle.italic,
+                            height: 1.5,
+                            color: Colors.cyanAccent.withOpacity(0.9),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          "— Jason K., College Debater",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.cyanAccent.withOpacity(0.8),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ],
     );
   }
 
-  Widget _buildFutureGoals() {
-    final List<Map<String, String>> goals = [
+  Widget _buildCommunityImpact() {
+    final List<Map<String, String>> features = [
       {
-        'title': 'Scale & Reach',
+        'title': 'School Adoption',
         'description':
-            'Expand to serve tens of millions of users globally in the next year, focusing on regions with limited healthcare infrastructure.',
+            'Used by debate programs at over 200 high schools and colleges across the country',
       },
       {
-        'title': 'Research Publication',
+        'title': 'Tournament Integration',
         'description':
-            "Complete and publish research with Dr. Soo Borson to scientifically validate the app's efficacy and document its global impact.",
+            'Recognized as an approved timing tool at regional and national debate competitions',
       },
       {
-        'title': 'Healthcare Integration',
+        'title': 'Community Feedback',
         'description':
-            'Develop secure pathways for users to share results with healthcare providers, bridging the gap between self-screening and professional diagnosis.',
+            'Features regularly updated based on input from competitive debaters and coaches',
       },
       {
-        'title': 'Technical Enhancements',
+        'title': 'Educational Impact',
         'description':
-            'Implement cloud infrastructure scaling to support millions of users and enhance security measures to maintain data privacy and compliance with healthcare regulations.',
+            'Helping new debaters learn format rules and timing structures through practical application',
       },
     ];
 
     return Column(
-      children: goals.map((goal) {
+      children: features.map((feature) {
         return Container(
           width: double.infinity, // Consistent width for alignment
           margin: const EdgeInsets.only(bottom: 15),
@@ -1837,7 +1918,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                goal['title']!,
+                feature['title']!,
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -1846,7 +1927,7 @@ class _ICogDetailPageState extends State<ICogDetailPage>
               ),
               const SizedBox(height: 8),
               Text(
-                goal['description']!,
+                feature['description']!,
                 style: TextStyle(
                   fontSize: 16,
                   height: 1.5,
@@ -1860,390 +1941,189 @@ class _ICogDetailPageState extends State<ICogDetailPage>
     );
   }
 
-  // Helper widgets for Media Tab
-  Widget _buildVideoSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "iCog Demonstration",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.cyanAccent,
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  Container(
-                    height: 200,
-                    decoration: BoxDecoration(
-                      border:
-                          Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-                    ),
-                    child: Center(
-                      child: TechButton(
-                        onPressed: () => launchUrlExternal(
-                            'https://www.youtube.com/watch?v=wGpsfhuHGIs'),
-                        label: "WATCH VIDEO",
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "A comprehensive demonstration of the iCog app and its features",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.cyanAccent.withOpacity(0.8),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 30),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Project Presentation",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.cyanAccent,
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  Container(
-                    height: 200,
-                    decoration: BoxDecoration(
-                      border:
-                          Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-                    ),
-                    child: Center(
-                      child: TechButton(
-                        onPressed: () => launchUrlExternal(
-                            'https://www.youtube.com/watch?v=1PrdqEceBt0'),
-                        label: "WATCH VIDEO",
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "Presentation explaining the project's goals, implementation, and impact",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.cyanAccent.withOpacity(0.8),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  // News videos section for Media tab
-  Widget _buildNewsVideosSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Spectrum News Coverage",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.cyanAccent,
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  Container(
-                    height: 200,
-                    decoration: BoxDecoration(
-                      border:
-                          Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-                    ),
-                    child: Center(
-                      child: TechButton(
-                        onPressed: () => launchUrlExternal(
-                            'https://www.youtube.com/watch?v=6Y4QOJyGtJc'),
-                        label: "WATCH NEWS CLIP",
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "Spectrum News coverage about the iCog app and its impact",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.cyanAccent.withOpacity(0.8),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 30),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Round Rock ISD Feature",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.cyanAccent,
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  Container(
-                    height: 200,
-                    decoration: BoxDecoration(
-                      border:
-                          Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-                    ),
-                    child: Center(
-                      child: TechButton(
-                        onPressed: () => launchUrlExternal(
-                            'https://www.youtube.com/watch?v=3D-XUG3nF6Q'),
-                        label: "WATCH NEWS FEATURE",
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "Round Rock ISD's feature story on how the iCog app is helping screen for dementia",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.cyanAccent.withOpacity(0.8),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildRecognitionCards() {
-    final List<Map<String, String>> recognitions = [
-      {
-        'title': 'Congressional App Challenge',
-        'description':
-            'Winner in the annual coding competition hosted by Members of Congress',
-      },
-      {
-        'title': 'National Young Entrepreneurship Pitch Challenge',
-        'description':
-            'Recognized for innovation and entrepreneurial potential',
-      },
-      {
-        'title': 'Congressman Michael McCaul',
-        'description':
-            "Received official recognition for the app's potential impact on healthcare",
-      },
-    ];
-
-    return Row(
-      children: recognitions.map((recognition) {
-        return Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.black,
-                border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    recognition['title']!,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.cyanAccent,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    recognition['description']!,
-                    style: TextStyle(
-                      fontSize: 16,
-                      height: 1.5,
-                      color: Colors.cyanAccent.withOpacity(0.8),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      }).toList(),
-    );
-  }
-
-  Widget _buildResourceLinks() {
+  // Helper widgets for Download Tab
+  Widget _buildDownloadOptions() {
     return Row(
       children: [
         Expanded(
-          child: GestureDetector(
-            onTap: () => launchUrlExternal('https://rishik4.github.io/webcog'),
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.black,
-                border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.cyanAccent),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.language,
-                          color: Colors.cyanAccent,
-                        ),
-                      ),
-                      const SizedBox(width: 15),
-                      const Text(
-                        "Web Version",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.cyanAccent,
-                        ),
-                      ),
-                    ],
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.black,
+              border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.android,
+                  color: Colors.cyanAccent,
+                  size: 60,
+                ),
+                const SizedBox(height: 15),
+                const Text(
+                  "Android App",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.cyanAccent,
                   ),
-                  const SizedBox(height: 15),
-                  Text(
-                    "Access the iCog web application from any browser, no installation required.",
-                    style: TextStyle(
-                      fontSize: 16,
-                      height: 1.5,
-                      color: Colors.cyanAccent.withOpacity(0.8),
-                    ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  "Available Now",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.cyanAccent.withOpacity(0.8),
                   ),
-                  const SizedBox(height: 15),
-                  Row(
-                    children: [
-                      const Text(
-                        "Try the web version",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.cyanAccent,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      const Icon(
-                        Icons.arrow_forward,
-                        color: Colors.cyanAccent,
-                        size: 16,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 20),
+                TechButton(
+                  onPressed: () => launchUrlExternal(
+                      'https://play.google.com/store/apps/details?id=com.rdotapps.debatetimer'),
+                  label: "GOOGLE PLAY",
+                ),
+              ],
             ),
           ),
         ),
-        const SizedBox(width: 20),
+        const SizedBox(width: 30),
         Expanded(
-          child: GestureDetector(
-            onTap: () => launchUrlExternal('https://mini-cog.com/'),
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.black,
-                border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.cyanAccent),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.psychology,
-                          color: Colors.cyanAccent,
-                        ),
-                      ),
-                      const SizedBox(width: 15),
-                      const Text(
-                        "Mini-Cog",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.cyanAccent,
-                        ),
-                      ),
-                    ],
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.black,
+              border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.apple,
+                  color: Colors.cyanAccent,
+                  size: 60,
+                ),
+                const SizedBox(height: 15),
+                const Text(
+                  "iOS App",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.cyanAccent,
                   ),
-                  const SizedBox(height: 15),
-                  Text(
-                    "Learn more about the Mini-Cog test and its applications in dementia screening.",
-                    style: TextStyle(
-                      fontSize: 16,
-                      height: 1.5,
-                      color: Colors.cyanAccent.withOpacity(0.8),
-                    ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  "Available Now",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.cyanAccent.withOpacity(0.8),
                   ),
-                  const SizedBox(height: 15),
-                  Row(
-                    children: [
-                      const Text(
-                        "Visit Mini-Cog website",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.cyanAccent,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      const Icon(
-                        Icons.arrow_forward,
-                        color: Colors.cyanAccent,
-                        size: 16,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 20),
+                TechButton(
+                  onPressed: () => launchUrlExternal(
+                      'https://apps.apple.com/bs/app/debate-timer-pro/id1636160357'),
+                  label: "APP STORE",
+                ),
+              ],
             ),
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildContactOptions() {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.black,
+        border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Column(
+            children: [
+              const Icon(
+                Icons.email,
+                color: Colors.cyanAccent,
+                size: 40,
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                "Email Support",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.cyanAccent,
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                "support@rdotapps.com",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.cyanAccent.withOpacity(0.8),
+                ),
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              const Icon(
+                Icons.feedback,
+                color: Colors.cyanAccent,
+                size: 40,
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                "Feature Requests",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.cyanAccent,
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                "Submit through the app",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.cyanAccent.withOpacity(0.8),
+                ),
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              const Icon(
+                Icons.star,
+                color: Colors.cyanAccent,
+                size: 40,
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                "Rate on App Stores",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.cyanAccent,
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                "Your feedback matters",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.cyanAccent.withOpacity(0.8),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
