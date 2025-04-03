@@ -795,7 +795,7 @@ class _PortfolioHomeState extends State<PortfolioHome>
                           key: _sectionKeys[2],
                           child: const ProjectsPage(),
                         ),
-                        const SizedBox(height: 100),
+                        const SizedBox(height: 150),
 
                         // Experiences section
                         Container(
@@ -910,7 +910,7 @@ class _PortfolioHomeState extends State<PortfolioHome>
                                     color: Colors.cyanAccent, size: 16),
                                 SizedBox(width: 8),
                                 Text(
-                                  "2024 RISHIK BODDETI",
+                                  "2024 RDOT",
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.cyanAccent,

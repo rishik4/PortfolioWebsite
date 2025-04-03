@@ -51,74 +51,42 @@ class HomePage extends StatelessWidget {
               child: AnimatedTextKit(
                 animatedTexts: [
                   TypewriterAnimatedText(
-                    'ELECTRICAL & COMPUTER ENGINEERING STUDENT | APP DEVELOPER | INNOVATOR',
+                    'ELECTRICAL & COMPUTER ENGINEERING STUDENT',
                     textStyle: const TextStyle(
                       fontSize: 18,
-                      fontWeight: FontWeight.w300,
-                      letterSpacing: 2,
+                      fontWeight: FontWeight.w400,
+                      letterSpacing: 1.5,
                       color: Colors.cyanAccent,
                     ),
                     speed: const Duration(milliseconds: 50),
                   ),
                   TypewriterAnimatedText(
-                    '01010011 01000101 01000011 01010010 01000101 01010100',
+                    'CREATOR OF CINE MATCH PRO & ICOG',
                     textStyle: const TextStyle(
-                      fontSize: 14,
+                      fontSize: 16,
                       fontWeight: FontWeight.w300,
-                      letterSpacing: 1,
+                      letterSpacing: 1.2,
                       fontFamily: 'monospace',
                       color: Colors.cyanAccent,
                     ),
                     speed: const Duration(milliseconds: 50),
                   ),
                   TypewriterAnimatedText(
-                    'DECODING REALITY ONE BUG AT A TIME',
+                    'FOUNDER OF RDOT APPS',
                     textStyle: const TextStyle(
                       fontSize: 18,
-                      fontWeight: FontWeight.w300,
-                      letterSpacing: 2,
+                      fontWeight: FontWeight.w400,
+                      letterSpacing: 1.5,
                       color: Colors.cyanAccent,
                     ),
                     speed: const Duration(milliseconds: 50),
                   ),
                   TypewriterAnimatedText(
-                    '01001110 01001111 01010100 00100000 01000001 00100000 01000010 01010101 01000111',
-                    textStyle: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w300,
-                      letterSpacing: 1,
-                      fontFamily: 'monospace',
-                      color: Colors.cyanAccent,
-                    ),
-                    speed: const Duration(milliseconds: 50),
-                  ),
-                  TypewriterAnimatedText(
-                    'JUST A FEATURE IN DISGUISE',
+                    '01010010 01001001 01010011 01001000 01001001 01001011 00100000 01010111 01000001 01010011 00100000 01001000 01000101 01010010 01000101',
                     textStyle: const TextStyle(
                       fontSize: 18,
-                      fontWeight: FontWeight.w300,
-                      letterSpacing: 2,
-                      color: Colors.cyanAccent,
-                    ),
-                    speed: const Duration(milliseconds: 50),
-                  ),
-                  TypewriterAnimatedText(
-                    '01010000 01010010 01001111 01000111 01010010 01000001 01001101 01001101 01001001 01001110 01000111',
-                    textStyle: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w300,
-                      letterSpacing: 1,
-                      fontFamily: 'monospace',
-                      color: Colors.cyanAccent,
-                    ),
-                    speed: const Duration(milliseconds: 50),
-                  ),
-                  TypewriterAnimatedText(
-                    'TURNING COFFEE INTO CODE SINCE 2015',
-                    textStyle: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w300,
-                      letterSpacing: 2,
+                      fontWeight: FontWeight.w400,
+                      letterSpacing: 1.5,
                       color: Colors.cyanAccent,
                     ),
                     speed: const Duration(milliseconds: 50),

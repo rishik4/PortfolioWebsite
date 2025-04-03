@@ -52,28 +52,47 @@ class ProjectsPage extends StatelessWidget {
                         technologies: project.technologies,
                         imageUrl: project.imageUrl,
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) =>
-                                      DetailPage(
-                                title: project.title,
-                                content: ProjectDetailContent(project: {
-                                  'title': project.title,
-                                  'longDescription': project.longDescription,
-                                  'achievements': project.achievements,
-                                  'technologies': project.technologies,
-                                  'imageUrl': project.imageUrl,
-                                }),
+                          // Use custom detail page if available
+                          if (project.isCustom &&
+                              project.detailPageBuilder != null) {
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) =>
+                                        project.detailPageBuilder!(context),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  return FadeTransition(
+                                      opacity: animation, child: child);
+                                },
                               ),
-                              transitionsBuilder: (context, animation,
-                                  secondaryAnimation, child) {
-                                return FadeTransition(
-                                    opacity: animation, child: child);
-                              },
-                            ),
-                          );
+                            );
+                          } else {
+                            // Regular detail page for normal projects
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) =>
+                                        DetailPage(
+                                  title: project.title,
+                                  content: ProjectDetailContent(project: {
+                                    'title': project.title,
+                                    'longDescription': project.longDescription,
+                                    'achievements': project.achievements,
+                                    'technologies': project.technologies,
+                                    'imageUrl': project.imageUrl,
+                                  }),
+                                ),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  return FadeTransition(
+                                      opacity: animation, child: child);
+                                },
+                              ),
+                            );
+                          }
                         },
                       ))
                   .toList(),

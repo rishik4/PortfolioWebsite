@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import '../screens/icog_detail_page.dart';
+
 class Project {
   final String title;
   final String description;
@@ -5,6 +8,8 @@ class Project {
   final List<String> achievements;
   final List<String> technologies;
   final String imageUrl;
+  final bool isCustom;
+  final Widget Function(BuildContext)? detailPageBuilder;
 
   const Project({
     required this.title,
@@ -13,10 +18,12 @@ class Project {
     required this.achievements,
     required this.technologies,
     required this.imageUrl,
+    this.isCustom = false,
+    this.detailPageBuilder,
   });
 
   // All projects data
-  static const List<Project> projects = [
+  static List<Project> projects = [
     Project(
       title: 'iCog Dementia Screening App',
       description:
@@ -30,10 +37,12 @@ class Project {
         'Achieved recognition in national competitions',
         'Currently working on research publication'
       ],
-      technologies: ['Flutter', 'Firebase', 'Google Cloud'],
+      technologies: ['Flutter', 'Firebase', 'AI/ML', 'Google Cloud'],
       imageUrl: 'https://via.placeholder.com/300x150',
+      isCustom: true,
+      detailPageBuilder: (context) => const ICogDetailPage(),
     ),
-    Project(
+    const Project(
       title: 'Smart Energy Monitor & Light Switch',
       description:
           'SCADA system measuring household appliance energy consumption with a custom PCB prototype and plans for large-scale production.',
@@ -48,7 +57,7 @@ class Project {
       technologies: ['IoT', 'PCB Design', 'Embedded Systems'],
       imageUrl: 'https://via.placeholder.com/300x150',
     ),
-    Project(
+    const Project(
       title: 'WakeSense Smart Pillow Alarm',
       description:
           'Smart pillow alarm using pressure sensors to track sleep quality and wake individuals with hearing impairments, connected via Flutter app.',
@@ -63,7 +72,7 @@ class Project {
       technologies: ['Flutter', 'Firebase', 'IoT'],
       imageUrl: 'https://via.placeholder.com/300x150',
     ),
-    Project(
+    const Project(
       title: 'Debate Timer App',
       description:
           'App to time, record, and improve debater performances, part of Rdot Apps with over 9k users across 5 apps.',
