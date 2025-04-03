@@ -10,8 +10,10 @@ class ICogDetailPage extends StatefulWidget {
   State<ICogDetailPage> createState() => _ICogDetailPageState();
 }
 
-class _ICogDetailPageState extends State<ICogDetailPage> {
+class _ICogDetailPageState extends State<ICogDetailPage>
+    with TickerProviderStateMixin {
   int _selectedTabIndex = 0;
+  int _previousTabIndex = 0;
   final List<String> _tabs = [
     'Overview',
     'Problem',
@@ -21,6 +23,62 @@ class _ICogDetailPageState extends State<ICogDetailPage> {
     'Impact',
     'Media'
   ];
+
+  // Animation controllers for tab transitions
+  late AnimationController _animationController;
+  late Animation<double> _fadeAnimation;
+  late Animation<Offset> _slideAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Initialize animation controller
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+
+    // Create fade animation
+    _fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    ));
+
+    // Create slide animation
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(0.0, 0.1),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeOut,
+    ));
+
+    // Start the animation for the initial tab
+    _animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  void _changeTab(int index) {
+    if (index == _selectedTabIndex) return;
+
+    setState(() {
+      _previousTabIndex = _selectedTabIndex;
+      _selectedTabIndex = index;
+    });
+
+    // Reset and start animation for the new tab
+    _animationController.reset();
+    _animationController.forward();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -211,8 +269,18 @@ class _ICogDetailPageState extends State<ICogDetailPage> {
                   ),
                   const SizedBox(height: 40),
 
-                  // Tab content
-                  _buildTabContent(),
+                  // Tab content with animation
+                  AnimatedBuilder(
+                      animation: _animationController,
+                      builder: (context, child) {
+                        return FadeTransition(
+                          opacity: _fadeAnimation,
+                          child: SlideTransition(
+                            position: _slideAnimation,
+                            child: _buildTabContent(),
+                          ),
+                        );
+                      }),
                 ],
               ),
             ),
@@ -225,11 +293,7 @@ class _ICogDetailPageState extends State<ICogDetailPage> {
   Widget _buildTab(int index) {
     final isSelected = _selectedTabIndex == index;
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          _selectedTabIndex = index;
-        });
-      },
+      onTap: () => _changeTab(index),
       child: Container(
         padding: const EdgeInsets.symmetric(
           horizontal: 20,
@@ -695,6 +759,17 @@ class _ICogDetailPageState extends State<ICogDetailPage> {
         _buildVideoSection(),
         const SizedBox(height: 40),
         const Text(
+          "News Coverage",
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.cyanAccent,
+          ),
+        ),
+        const SizedBox(height: 20),
+        _buildNewsVideosSection(),
+        const SizedBox(height: 40),
+        const Text(
           "Recognition & Press Coverage",
           style: TextStyle(
             fontSize: 20,
@@ -883,6 +958,28 @@ class _ICogDetailPageState extends State<ICogDetailPage> {
                 const SizedBox(width: 12),
                 Text(
                   'iCog Web Version',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.cyanAccent.withOpacity(0.9),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 15),
+          GestureDetector(
+            onTap: () => launchUrlExternal(
+                'https://www.congressionalappchallenge.us/22-tx10/'),
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.emoji_events,
+                  color: Colors.cyanAccent,
+                  size: 20,
+                ),
+                const SizedBox(width: 12),
+                Text(
+                  'Congressional App Challenge Project Page',
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.cyanAccent.withOpacity(0.9),
@@ -1648,6 +1745,97 @@ class _ICogDetailPageState extends State<ICogDetailPage> {
                   const SizedBox(height: 8),
                   Text(
                     "Presentation explaining the project's goals, implementation, and impact",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.cyanAccent.withOpacity(0.8),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  // News videos section for Media tab
+  Widget _buildNewsVideosSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "CBS Austin News Coverage",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.cyanAccent,
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Container(
+                    height: 200,
+                    decoration: BoxDecoration(
+                      border:
+                          Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+                    ),
+                    child: Center(
+                      child: TechButton(
+                        onPressed: () => launchUrlExternal(
+                            'https://www.youtube.com/watch?v=6Y4QOJyGtJc'),
+                        label: "WATCH NEWS CLIP",
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "CBS Austin news coverage about the iCog app and its impact",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.cyanAccent.withOpacity(0.8),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 30),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "KVUE News Feature",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.cyanAccent,
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Container(
+                    height: 200,
+                    decoration: BoxDecoration(
+                      border:
+                          Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+                    ),
+                    child: Center(
+                      child: TechButton(
+                        onPressed: () => launchUrlExternal(
+                            'https://www.youtube.com/watch?v=3D-XUG3nF6Q'),
+                        label: "WATCH NEWS FEATURE",
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "KVUE's feature story on how the iCog app is helping screen for dementia",
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.cyanAccent.withOpacity(0.8),

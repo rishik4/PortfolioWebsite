@@ -38,7 +38,8 @@ class Project {
         'Currently working on research publication'
       ],
       technologies: ['Flutter', 'Firebase', 'AI/ML', 'Google Cloud'],
-      imageUrl: 'https://via.placeholder.com/300x150',
+      imageUrl:
+          'https://i.ytimg.com/vi/3D-XUG3nF6Q/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBvH3LT7H3hYB8YsHsS90A6KTEjEQ',
       isCustom: true,
       detailPageBuilder: (context) => const ICogDetailPage(),
     ),
