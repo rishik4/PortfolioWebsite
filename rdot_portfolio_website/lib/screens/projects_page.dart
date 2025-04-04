@@ -6,11 +6,38 @@ import '../widgets/tech_project_card.dart';
 import 'detail_page.dart';
 import 'all_projects_page.dart';
 
-class ProjectsPage extends StatelessWidget {
+enum ProjectFilter {
+  all,
+  hardware,
+  software,
+}
+
+class ProjectsPage extends StatefulWidget {
   const ProjectsPage({super.key});
 
   @override
+  State<ProjectsPage> createState() => _ProjectsPageState();
+}
+
+class _ProjectsPageState extends State<ProjectsPage> {
+  ProjectFilter _currentFilter = ProjectFilter.all;
+
+  List<Project> _getFilteredProjects() {
+    switch (_currentFilter) {
+      case ProjectFilter.hardware:
+        return Project.projects.where((p) => p.type == 'hardware').toList();
+      case ProjectFilter.software:
+        return Project.projects.where((p) => p.type == 'software').toList();
+      case ProjectFilter.all:
+      default:
+        return Project.projects;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final filteredProjects = _getFilteredProjects();
+
     return Container(
       constraints: const BoxConstraints(maxWidth: 1200),
       padding: const EdgeInsets.all(20.0),
@@ -34,7 +61,23 @@ class ProjectsPage extends StatelessWidget {
               height: 2,
               color: Colors.cyanAccent,
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
+
+            // Filter buttons
+            Row(
+              mainAxisAlignment: ResponsiveLayout.isMobile(context)
+                  ? MainAxisAlignment.center
+                  : MainAxisAlignment.start,
+              children: [
+                _buildFilterChip(ProjectFilter.all, "All"),
+                const SizedBox(width: 10),
+                _buildFilterChip(ProjectFilter.hardware, "Hardware"),
+                const SizedBox(width: 10),
+                _buildFilterChip(ProjectFilter.software, "Software"),
+              ],
+            ),
+
+            const SizedBox(height: 20),
 
             // Project grid with responsive layout
             GridView.count(
@@ -44,7 +87,7 @@ class ProjectsPage extends StatelessWidget {
               childAspectRatio: ResponsiveLayout.isMobile(context) ? 1.2 : 1.5,
               crossAxisSpacing: 20,
               mainAxisSpacing: 20,
-              children: Project.projects
+              children: filteredProjects
                   .take(4)
                   .map((project) => TechProjectCard(
                         title: project.title,
@@ -107,7 +150,7 @@ class ProjectsPage extends StatelessWidget {
                     context,
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                          const AllProjectsPage(),
+                          AllProjectsPage(initialFilter: _currentFilter),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {
                         const begin = Offset(1.0, 0.0);
@@ -135,6 +178,27 @@ class ProjectsPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildFilterChip(ProjectFilter filter, String label) {
+    return FilterChip(
+      label: Text(
+        label,
+        style: TextStyle(
+          color: _currentFilter == filter ? Colors.black : Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      selected: _currentFilter == filter,
+      selectedColor: Colors.cyanAccent,
+      checkmarkColor: Colors.black,
+      backgroundColor: Colors.grey[800],
+      onSelected: (bool selected) {
+        setState(() {
+          _currentFilter = filter;
+        });
+      },
     );
   }
 }

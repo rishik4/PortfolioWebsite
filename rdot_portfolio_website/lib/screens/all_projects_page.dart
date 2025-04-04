@@ -4,9 +4,15 @@ import '../utils/painters.dart';
 import '../widgets/tech_button.dart';
 import '../widgets/tech_project_card.dart';
 import 'detail_page.dart';
+import 'projects_page.dart'; // Import for ProjectFilter enum
 
 class AllProjectsPage extends StatefulWidget {
-  const AllProjectsPage({super.key});
+  final ProjectFilter initialFilter;
+
+  const AllProjectsPage({
+    super.key,
+    this.initialFilter = ProjectFilter.all,
+  });
 
   @override
   State<AllProjectsPage> createState() => _AllProjectsPageState();
@@ -15,11 +21,13 @@ class AllProjectsPage extends StatefulWidget {
 class _AllProjectsPageState extends State<AllProjectsPage> {
   final ScrollController _scrollController = ScrollController();
   bool _showScrollToTop = false;
+  late ProjectFilter _currentFilter;
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_handleScroll);
+    _currentFilter = widget.initialFilter;
   }
 
   @override
@@ -43,8 +51,38 @@ class _AllProjectsPageState extends State<AllProjectsPage> {
     );
   }
 
+  List<Project> _getFilteredProjects() {
+    switch (_currentFilter) {
+      case ProjectFilter.hardware:
+        return Project.projects.where((p) => p.type == 'hardware').toList();
+      case ProjectFilter.software:
+        return Project.projects.where((p) => p.type == 'software').toList();
+      case ProjectFilter.all:
+      default:
+        return Project.projects;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final filteredProjects = _getFilteredProjects();
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    // Calculate responsive grid columns based on screen width
+    int crossAxisCount = 2; // Default
+    double aspectRatio = 1.5; // Default
+
+    if (screenWidth > 1200) {
+      crossAxisCount = 4; // 4 columns for large screens
+      aspectRatio = 1.0; // More square-like for smaller boxes
+    } else if (screenWidth > 800) {
+      crossAxisCount = 3; // 3 columns for medium screens
+      aspectRatio = 1.2;
+    } else if (screenWidth <= 600) {
+      crossAxisCount = 1; // 1 column for very small screens
+      aspectRatio = 1.5;
+    }
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Stack(
@@ -92,15 +130,28 @@ class _AllProjectsPageState extends State<AllProjectsPage> {
                   ),
                   const SizedBox(height: 40),
 
-                  // Projects grid
+                  // Filter buttons
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      _buildFilterChip(ProjectFilter.all, "All"),
+                      const SizedBox(width: 10),
+                      _buildFilterChip(ProjectFilter.hardware, "Hardware"),
+                      const SizedBox(width: 10),
+                      _buildFilterChip(ProjectFilter.software, "Software"),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Projects grid - updated configuration
                   GridView.count(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    crossAxisCount: 2,
-                    childAspectRatio: 1.5,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 20,
-                    children: Project.projects
+                    crossAxisCount: crossAxisCount,
+                    childAspectRatio: aspectRatio,
+                    crossAxisSpacing: 15, // Reduced spacing
+                    mainAxisSpacing: 15, // Reduced spacing
+                    children: filteredProjects
                         .map((project) => TechProjectCard(
                               title: project.title,
                               description: project.description,
@@ -174,6 +225,27 @@ class _AllProjectsPageState extends State<AllProjectsPage> {
             ),
         ],
       ),
+    );
+  }
+
+  Widget _buildFilterChip(ProjectFilter filter, String label) {
+    return FilterChip(
+      label: Text(
+        label,
+        style: TextStyle(
+          color: _currentFilter == filter ? Colors.black : Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      selected: _currentFilter == filter,
+      selectedColor: Colors.cyanAccent,
+      checkmarkColor: Colors.black,
+      backgroundColor: Colors.grey[800],
+      onSelected: (bool selected) {
+        setState(() {
+          _currentFilter = filter;
+        });
+      },
     );
   }
 }

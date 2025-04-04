@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import '../screens/cinematch_detail_page.dart';
 import '../screens/debate_timer_pro.dart';
 import '../screens/icog_detail_page.dart';
+import '../screens/scada.dart'; // Add import for SCADA detail page
+import '../screens/pillow_alarm.dart'; // Add import for WakeSense detail page
+import '../screens/breakout_board.dart'; // Add import for ESP32 breakout board detail page
 
 class Project {
   final String title;
@@ -12,6 +15,7 @@ class Project {
   final String imageUrl;
   final bool isCustom;
   final Widget Function(BuildContext)? detailPageBuilder;
+  final String type; // Add type property for filtering
 
   const Project({
     required this.title,
@@ -22,6 +26,7 @@ class Project {
     required this.imageUrl,
     this.isCustom = false,
     this.detailPageBuilder,
+    required this.type, // Add to constructor
   });
 
   // All projects data
@@ -44,6 +49,7 @@ class Project {
           'https://i.ytimg.com/vi/3D-XUG3nF6Q/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBvH3LT7H3hYB8YsHsS90A6KTEjEQ',
       isCustom: true,
       detailPageBuilder: (context) => const ICogDetailPage(),
+      type: 'software',
     ),
     Project(
       title: 'CineMatch Pro',
@@ -62,6 +68,7 @@ class Project {
       imageUrl: 'https://via.placeholder.com/300x150',
       isCustom: true,
       detailPageBuilder: (context) => CineMatchDetailPage(),
+      type: 'software',
     ),
     Project(
       title: 'Debate Timer Pro',
@@ -74,14 +81,15 @@ class Project {
         'Implemented speech recording and analysis tools for performance improvement',
         'Designed a distraction-free, user-friendly interface for competitive environments',
         'Adopted by over 200 high schools and colleges for debate programs',
-        'Maintains 4.7/5 star rating on app stores with positive user feedback'
+        'Maintains 5/5 star rating on app stores with positive user feedback'
       ],
       technologies: ['Flutter', 'Dart', 'Native Audio APIs', 'Local Storage'],
       imageUrl: 'https://via.placeholder.com/300x150',
       isCustom: true,
       detailPageBuilder: (context) => const DebateTimerDetailPage(),
+      type: 'software',
     ),
-    const Project(
+    Project(
       title: 'Smart Energy Monitor & Light Switch',
       description:
           'SCADA system measuring household appliance energy consumption with a custom PCB prototype and plans for large-scale production.',
@@ -95,8 +103,12 @@ class Project {
       ],
       technologies: ['IoT', 'PCB Design', 'Embedded Systems'],
       imageUrl: 'https://via.placeholder.com/300x150',
+      type: 'hardware',
+      isCustom: true, // Change to true to use custom detail page
+      detailPageBuilder: (context) =>
+          const ScadaDetailPage(), // Add custom detail page
     ),
-    const Project(
+    Project(
       title: 'WakeSense Smart Pillow Alarm',
       description:
           'Smart pillow alarm using pressure sensors to track sleep quality and wake individuals with hearing impairments, connected via Flutter app.',
@@ -110,6 +122,28 @@ class Project {
       ],
       technologies: ['Flutter', 'Firebase', 'IoT'],
       imageUrl: 'https://via.placeholder.com/300x150',
+      type: 'hardware',
+      isCustom: true, // Change to true to use custom detail page
+      detailPageBuilder: (context) =>
+          const WakeSenseDetailPage(), // Add custom detail page
+    ),
+    Project(
+      title: 'ESP32 Custom Breakout Board',
+      description:
+          'Custom-designed PCB with enhanced I/O, power management, and specialized connectivity for ESP32-based IoT development.',
+      longDescription:
+          'A custom ESP32 breakout board designed to address the limitations of standard development boards by providing robust power regulation, expanded GPIO capabilities, and specialized connectors for rapid prototyping and integration into larger systems.',
+      achievements: [
+        'Designed complete schematic and PCB layout from scratch',
+        'Implemented multi-source power management with battery support',
+        'Created specialized I/O protection for robust operation',
+        'Optimized design for manufacturability and reliability'
+      ],
+      technologies: ['PCB Design', 'EasyEDA/Altium', 'ESP32', 'Electronics'],
+      imageUrl: 'https://via.placeholder.com/300x150',
+      type: 'hardware',
+      isCustom: true,
+      detailPageBuilder: (context) => const ESP32BreakoutDetailPage(),
     ),
   ];
 }
