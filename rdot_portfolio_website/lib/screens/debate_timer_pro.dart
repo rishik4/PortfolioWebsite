@@ -184,17 +184,11 @@ class _DebateTimerDetailPageState extends State<DebateTimerDetailPage>
                               // App Icon
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(15),
-                                child: Container(
-                                  width: 100,
-                                  height: 100,
-                                  color: Colors.black,
-                                  child: const Center(
-                                    child: Icon(
-                                      Icons.timer,
-                                      color: Colors.cyanAccent,
-                                      size: 60,
-                                    ),
-                                  ),
+                                child: Image.asset(
+                                  'assets/dtp/dtp.png',
+                                  width: 200,
+                                  height: 200,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                               const SizedBox(width: 25),
@@ -791,6 +785,50 @@ class _DebateTimerDetailPageState extends State<DebateTimerDetailPage>
                 ),
                 const SizedBox(height: 40),
                 _buildTechnologyCards(),
+                const SizedBox(height: 40),
+                // Add diagram image
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "App Architecture",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.cyanAccent,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        border: Border.all(
+                            color: Colors.cyanAccent.withOpacity(0.3)),
+                      ),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            'assets/dtp.png',
+                            height: 300,
+                            fit: BoxFit.contain,
+                          ),
+                          const SizedBox(height: 15),
+                          Text(
+                            "Application architecture showing how the timer, audio recording, and user interface components interact",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontStyle: FontStyle.italic,
+                              color: Colors.cyanAccent.withOpacity(0.8),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 40),
               ],
             )),
@@ -1434,130 +1472,104 @@ class _DebateTimerDetailPageState extends State<DebateTimerDetailPage>
     );
   }
 
+  // Replace the _buildInterfacePreview function to show actual screenshots
   Widget _buildInterfacePreview() {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          child: Container(
-            height: 300,
-            decoration: BoxDecoration(
-              color: Colors.black,
-              border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-            ),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.phone_android,
-                    color: Colors.cyanAccent,
-                    size: 60,
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    "App Screenshots",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.cyanAccent,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    "View on App Stores",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.cyanAccent.withOpacity(0.8),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TechButton(
-                        onPressed: () => launchUrlExternal(
-                            'https://play.google.com/store/apps/details?id=com.rdotapps.debatetimer'),
-                        label: "GOOGLE PLAY",
+        Row(
+          children: [
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Timer Interface",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.cyanAccent,
                       ),
-                      const SizedBox(width: 15),
-                      TechButton(
-                        onPressed: () => launchUrlExternal(
-                            'https://apps.apple.com/bs/app/debate-timer-pro/id1636160357'),
-                        label: "APP STORE",
+                    ),
+                    const SizedBox(height: 15),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        'assets/dtp/dtpInterface4.webp',
+                        height: 400,
+                        fit: BoxFit.contain,
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      "Main timer interface showing speech countdown and controls",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontStyle: FontStyle.italic,
+                        color: Colors.cyanAccent.withOpacity(0.8),
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
+            const SizedBox(width: 20),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Format Selection",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.cyanAccent,
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        'assets/dtp/dtpInterface3.webp',
+                        height: 400,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      "Format selection screen with preset debate formats",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontStyle: FontStyle.italic,
+                        color: Colors.cyanAccent.withOpacity(0.8),
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
-        const SizedBox(width: 20),
-        Expanded(
-          child: Container(
-            height: 300,
-            decoration: BoxDecoration(
-              color: Colors.black,
-              border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "HOW IT WORKS",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.cyanAccent,
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  Text(
-                    "1. Select your debate format or create a custom one",
-                    style: TextStyle(
-                      fontSize: 16,
-                      height: 1.8,
-                      color: Colors.cyanAccent.withOpacity(0.9),
-                    ),
-                  ),
-                  Text(
-                    "2. Configure specific settings like alerts and sounds",
-                    style: TextStyle(
-                      fontSize: 16,
-                      height: 1.8,
-                      color: Colors.cyanAccent.withOpacity(0.9),
-                    ),
-                  ),
-                  Text(
-                    "3. Start the timer for the appropriate speech",
-                    style: TextStyle(
-                      fontSize: 16,
-                      height: 1.8,
-                      color: Colors.cyanAccent.withOpacity(0.9),
-                    ),
-                  ),
-                  Text(
-                    "4. Receive visual and audio cues as time progresses",
-                    style: TextStyle(
-                      fontSize: 16,
-                      height: 1.8,
-                      color: Colors.cyanAccent.withOpacity(0.9),
-                    ),
-                  ),
-                  Text(
-                    "5. Optionally record speech for later analysis",
-                    style: TextStyle(
-                      fontSize: 16,
-                      height: 1.8,
-                      color: Colors.cyanAccent.withOpacity(0.9),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+        const SizedBox(height: 20),
+        Center(
+          child: TechButton(
+            onPressed: () => launchUrlExternal(
+                'https://play.google.com/store/apps/details?id=com.rdotapps.debatetimer'),
+            label: "DOWNLOAD THE APP",
           ),
         ),
       ],

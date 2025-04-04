@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:rdot_portfolio_website/screens/all_projects_page.dart';
 import '../widgets/glitch_text.dart';
 import '../widgets/tech_button.dart';
+import 'portfolio_home.dart';
 
 class HomePage extends StatelessWidget {
   final bool showGlitch;
@@ -115,12 +117,18 @@ class HomePage extends StatelessWidget {
             TechButton(
               onPressed: () {
                 // Get portfolio home state for navigation
-                final portfolioState =
-                    context.findAncestorStateOfType<_PortfolioHomeState>();
-                if (portfolioState != null) {
-                  portfolioState._scrollToSection(
-                      2); // 2 is the index of the projects section
-                }
+
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const AllProjectsPage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return FadeTransition(opacity: animation, child: child);
+                    },
+                  ),
+                );
               },
               label: "VIEW PROJECTS",
             ),
