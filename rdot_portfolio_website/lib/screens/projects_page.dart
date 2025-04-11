@@ -41,46 +41,56 @@ class _ProjectsPageState extends State<ProjectsPage> {
     return Container(
       constraints: const BoxConstraints(maxWidth: 1200),
       padding: const EdgeInsets.all(20.0),
-      child: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              "PROJECTS",
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 2,
-                color: Colors.cyanAccent,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Container(
-              width: 100,
-              height: 2,
+      child: Column(
+        // Changed from Center(child: Column()) to just Column()
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment:
+            MainAxisAlignment.start, // Changed from MainAxisAlignment.center
+        mainAxisSize:
+            MainAxisSize.min, // Added to make column take minimum space
+        children: [
+          const Text(
+            "PROJECTS",
+            style: TextStyle(
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 2,
               color: Colors.cyanAccent,
             ),
-            const SizedBox(height: 20),
+          ),
+          const SizedBox(height: 10),
+          Container(
+            width: 100,
+            height: 2,
+            color: Colors.cyanAccent,
+          ),
+          const SizedBox(height: 20),
 
-            // Filter buttons
-            Row(
-              mainAxisAlignment: ResponsiveLayout.isMobile(context)
-                  ? MainAxisAlignment.center
-                  : MainAxisAlignment.start,
-              children: [
-                _buildFilterChip(ProjectFilter.all, "All"),
-                const SizedBox(width: 10),
-                _buildFilterChip(ProjectFilter.hardware, "Hardware"),
-                const SizedBox(width: 10),
-                _buildFilterChip(ProjectFilter.software, "Software"),
-              ],
+          // Filter buttons
+          Row(
+            mainAxisAlignment: ResponsiveLayout.isMobile(context)
+                ? MainAxisAlignment.center
+                : MainAxisAlignment.start,
+            children: [
+              _buildFilterChip(ProjectFilter.all, "All"),
+              const SizedBox(width: 10),
+              _buildFilterChip(ProjectFilter.hardware, "Hardware"),
+              const SizedBox(width: 10),
+              _buildFilterChip(ProjectFilter.software, "Software"),
+            ],
+          ),
+
+          const SizedBox(height: 20),
+
+          // Project grid with responsive layout and height constraints
+          ConstrainedBox(
+            constraints: BoxConstraints(
+              // Set max height based on number of rows and device size
+              maxHeight: (ResponsiveLayout.isMobile(context)
+                  ? filteredProjects.take(4).length * 270.0
+                  : (filteredProjects.take(4).length / 2).ceil() * 220.0),
             ),
-
-            const SizedBox(height: 20),
-
-            // Project grid with responsive layout
-            GridView.count(
+            child: GridView.count(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               crossAxisCount: ResponsiveLayout.isMobile(context) ? 1 : 2,
@@ -140,10 +150,13 @@ class _ProjectsPageState extends State<ProjectsPage> {
                       ))
                   .toList(),
             ),
-            const SizedBox(height: 40),
+          ),
 
-            // View all projects button
-            Center(
+          // Spacer and button in separate container to ensure visibility
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 30.0),
+            child: Center(
               child: TechButton(
                 onPressed: () {
                   Navigator.push(
@@ -175,8 +188,8 @@ class _ProjectsPageState extends State<ProjectsPage> {
                 label: "VIEW ALL PROJECTS",
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

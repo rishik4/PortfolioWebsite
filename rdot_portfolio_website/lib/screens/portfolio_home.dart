@@ -419,14 +419,14 @@ class _PortfolioHomeState extends State<PortfolioHome>
             },
           ),
 
-          // Grid texture overlay
+          // Grid texture overlay - now using asset
           Positioned.fill(
             child: Opacity(
               opacity: 0.05,
               child: Container(
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage('https://i.imgur.com/vzePCxZ.png'),
+                    image: AssetImage('assets/images/grid_texture.png'),
                     repeat: ImageRepeat.repeat,
                     fit: BoxFit.none,
                   ),

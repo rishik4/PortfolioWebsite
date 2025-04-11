@@ -52,26 +52,23 @@ class _TechProjectCardState extends State<TechProjectCard> {
                     child: Stack(
                       children: [
                         Positioned.fill(
-                          child: Image.network(
+                          child: Image.asset(
                             widget.imageUrl,
                             fit: BoxFit.cover,
                             color: Colors.cyanAccent.withOpacity(0.1),
                             colorBlendMode: BlendMode.darken,
-                          ),
-                        ),
-                        Positioned.fill(
-                          child: Opacity(
-                            opacity: 0.1,
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                      'https://i.imgur.com/vzePCxZ.png'),
-                                  repeat: ImageRepeat.repeat,
-                                  fit: BoxFit.none,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                color: Colors.black,
+                                child: const Center(
+                                  child: Icon(
+                                    Icons.image_not_supported,
+                                    color: Colors.cyanAccent,
+                                    size: 40,
+                                  ),
                                 ),
-                              ),
-                            ),
+                              );
+                            },
                           ),
                         ),
                       ],

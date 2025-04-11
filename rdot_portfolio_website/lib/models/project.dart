@@ -45,8 +45,7 @@ class Project {
         'Currently working on research publication'
       ],
       technologies: ['Flutter', 'Firebase', 'AI/ML', 'Google Cloud'],
-      imageUrl:
-          'https://i.ytimg.com/vi/3D-XUG3nF6Q/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBvH3LT7H3hYB8YsHsS90A6KTEjEQ',
+      imageUrl: 'assets/iCog/iCogShow.png',
       isCustom: true,
       detailPageBuilder: (context) => const ICogDetailPage(),
       type: 'software',
@@ -65,7 +64,7 @@ class Project {
         'Designed simple, intuitive user interface'
       ],
       technologies: ['Flutter', 'Firebase', 'Web Scraping', 'Google Cloud'],
-      imageUrl: 'https://via.placeholder.com/300x150',
+      imageUrl: 'assets/cineMoviePic.png',
       isCustom: true,
       detailPageBuilder: (context) => CineMatchDetailPage(),
       type: 'software',
@@ -84,7 +83,7 @@ class Project {
         'Maintains 5/5 star rating on app stores with positive user feedback'
       ],
       technologies: ['Flutter', 'Dart', 'Native Audio APIs', 'Local Storage'],
-      imageUrl: 'https://via.placeholder.com/300x150',
+      imageUrl: 'assets/dtp/dtpShow.png',
       isCustom: true,
       detailPageBuilder: (context) => const DebateTimerDetailPage(),
       type: 'software',
@@ -102,7 +101,7 @@ class Project {
         'Created scalable architecture for future production'
       ],
       technologies: ['IoT', 'PCB Design', 'Embedded Systems'],
-      imageUrl: 'https://via.placeholder.com/300x150',
+      imageUrl: 'assets/images/projects/scada.jpg',
       type: 'hardware',
       isCustom: true, // Change to true to use custom detail page
       detailPageBuilder: (context) =>
@@ -121,7 +120,7 @@ class Project {
         'Created adaptive wake-up algorithms based on sleep patterns'
       ],
       technologies: ['Flutter', 'Firebase', 'IoT'],
-      imageUrl: 'https://via.placeholder.com/300x150',
+      imageUrl: 'assets/images/projects/wakesense.jpg',
       type: 'hardware',
       isCustom: true, // Change to true to use custom detail page
       detailPageBuilder: (context) =>
@@ -140,7 +139,7 @@ class Project {
         'Optimized design for manufacturability and reliability'
       ],
       technologies: ['PCB Design', 'EasyEDA/Altium', 'ESP32', 'Electronics'],
-      imageUrl: 'https://via.placeholder.com/300x150',
+      imageUrl: 'assets/images/projects/esp32.jpg',
       type: 'hardware',
       isCustom: true,
       detailPageBuilder: (context) => const ESP32BreakoutDetailPage(),
