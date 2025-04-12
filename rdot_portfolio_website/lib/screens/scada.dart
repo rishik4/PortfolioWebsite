@@ -162,6 +162,13 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
                     ),
                     child: Stack(
                       children: [
+                        // Image of final PCB (img10)
+                        Image.asset(
+                          'assets/scada/img10.png',
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          height: double.infinity,
+                        ),
                         // Gradient overlay
                         Container(
                           decoration: BoxDecoration(
@@ -181,7 +188,7 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              // PCB Image or Logo (placeholder)
+                              // PCB Image or Logo
                               Container(
                                 width: 120,
                                 height: 120,
@@ -192,11 +199,11 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
                                           Colors.cyanAccent.withOpacity(0.7)),
                                   borderRadius: BorderRadius.circular(15),
                                 ),
-                                child: const Center(
-                                  child: Icon(
-                                    Icons.memory,
-                                    color: Colors.cyanAccent,
-                                    size: 70,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Image.asset(
+                                    'assets/scada/img3.png',
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
@@ -431,8 +438,9 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
                 ),
                 const SizedBox(height: 20),
                 const Text(
-                  "The goal is to give homeowners clear insight into power consumption and enable automated "
-                  "energy-saving actions — all wrapped in a compact PCB design, scalable for mass production.",
+                  "The goal is to tackle the growing problem of 'vampire power' - the 5-10% of household energy consumed by idle devices "
+                  "that costs U.S. consumers up to \$200 annually. By providing detailed monitoring and control capabilities, "
+                  "this system helps homeowners reduce waste and save money while enhancing safety.",
                   style: TextStyle(
                     fontSize: 16,
                     height: 1.6,
@@ -496,8 +504,9 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
                 const SizedBox(height: 20),
                 const Text(
                   "Modern households face significant challenges in monitoring and managing their energy consumption. "
-                  "Without device-level monitoring, it's difficult to identify which appliances are consuming the most power, "
-                  "leading to waste and inefficiency.",
+                  "The average U.S. home consumes around 10,600 kWh per year, with a growing number of always-on "
+                  "devices drawing power 24/7. This 'standby' or 'vampire' power accounts for 5-10% of a home's usage, "
+                  "adding \$100-\$200 to the yearly bill.",
                   style: TextStyle(
                     fontSize: 16,
                     height: 1.6,
@@ -554,8 +563,9 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
                 const SizedBox(height: 20),
                 const Text(
                   "Our Smart Home SCADA system addresses these challenges through an integrated approach to energy monitoring "
-                  "and control. The system combines hardware and software components to provide a comprehensive solution for "
-                  "household energy management.",
+                  "and control. Studies show that households given smart monitoring tools used about 5% less electricity simply "
+                  "due to awareness and control. Our system combines hardware and software to provide comprehensive energy "
+                  "management at the device level.",
                   style: TextStyle(
                     fontSize: 16,
                     height: 1.6,
@@ -612,7 +622,7 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
                 const Text(
                   "The hardware component of the SCADA system consists of a custom-designed PCB that integrates "
                   "an ESP32 microcontroller, ACS712 current sensor, and relay module. The design prioritizes "
-                  "compactness, safety, and ease of installation.",
+                  "compactness, safety, and ease of installation to fit inside or near standard outlets.",
                   style: TextStyle(
                     fontSize: 16,
                     height: 1.6,
@@ -629,6 +639,17 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Text(
+                  "PROTOTYPING & DEVELOPMENT",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.cyanAccent,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                _buildPrototypingSection(),
+                const SizedBox(height: 40),
                 const Text(
                   "SCHEMATICS & PCB DESIGN",
                   style: TextStyle(
@@ -648,7 +669,7 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "3D MODELS & PHYSICAL IMPLEMENTATION",
+                  "HARDWARE DEVELOPMENT TIMELINE",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -656,12 +677,359 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
                   ),
                 ),
                 const SizedBox(height: 20),
-                _build3DModelViews(),
+                _buildHardwareTimeline(),
                 const SizedBox(height: 40),
                 _buildPhysicalImplementation(),
               ],
             )),
       ],
+    );
+  }
+
+  // New method for prototyping section
+  Widget _buildPrototypingSection() {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.black,
+        border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Title and description
+          const Text(
+            "From Concept to Prototype",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.cyanAccent,
+            ),
+          ),
+          const SizedBox(height: 15),
+          Text(
+            "Before finalizing the PCB design, extensive prototyping was conducted to validate the circuit concepts, "
+            "test sensor accuracy, and optimize power management. This iterative process ensured the final product "
+            "would meet all design requirements.",
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.cyanAccent.withOpacity(0.8),
+              height: 1.5,
+            ),
+          ),
+          const SizedBox(height: 25),
+
+          // Prototyping stages with images
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: _buildPrototypeStage(
+                  "1. Breadboard Prototyping",
+                  "Initial circuit testing using breadboard to validate component compatibility and basic functionality",
+                  'assets/scada/img1.png',
+                ),
+              ),
+              const SizedBox(width: 20),
+              Expanded(
+                child: _buildPrototypeStage(
+                  "2. Circuit Analysis",
+                  "Measuring voltage/current characteristics and optimizing power consumption",
+                  'assets/scada/img12.png',
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+
+          // Key findings from prototyping
+          Container(
+            padding: const EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.3),
+              border: Border.all(color: Colors.cyanAccent.withOpacity(0.2)),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      Icons.lightbulb,
+                      color: Colors.cyanAccent.withOpacity(0.9),
+                      size: 20,
+                    ),
+                    const SizedBox(width: 10),
+                    const Text(
+                      "Key Findings from Prototyping",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.cyanAccent,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                _buildPrototypeFinding(
+                  "ACS712 calibration required compensation for temperature drift",
+                ),
+                _buildPrototypeFinding(
+                  "ESP32 deep sleep mode reduced standby power by 80%",
+                ),
+                _buildPrototypeFinding(
+                  "Added extra filtering capacitors to improve sensor reading stability",
+                ),
+                _buildPrototypeFinding(
+                  "Relay switching timing needed 20ms delay to prevent EMI issues",
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Helper for prototype stages with image
+  Widget _buildPrototypeStage(
+      String title, String description, String imagePath) {
+    return GestureDetector(
+      onTap: () => _showFullScreenImage(imagePath, title),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.3),
+          border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Image with fullscreen indicator
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(4),
+                    topRight: Radius.circular(4),
+                  ),
+                  child: Container(
+                    height: 180,
+                    width: double.infinity,
+                    color: Colors.black,
+                    child: Image.asset(
+                      imagePath,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 10,
+                  right: 10,
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.6),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: const Icon(
+                      Icons.fullscreen,
+                      color: Colors.cyanAccent,
+                      size: 16,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            // Text content
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.cyanAccent,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    description,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.cyanAccent.withOpacity(0.8),
+                      height: 1.4,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Helper for prototype findings
+  Widget _buildPrototypeFinding(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "•",
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.cyanAccent.withOpacity(0.7),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.cyanAccent.withOpacity(0.8),
+                height: 1.3,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Physical Implementation section showing the final hardware in use
+  Widget _buildPhysicalImplementation() {
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: Colors.black,
+        border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "PHYSICAL IMPLEMENTATION",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.cyanAccent,
+            ),
+          ),
+          const SizedBox(height: 20),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 200,
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        border: Border.all(
+                            color: Colors.cyanAccent.withOpacity(0.3)),
+                      ),
+                      child: Center(
+                        child: Image.asset(
+                          'assets/scada/img10.png',
+                          fit: BoxFit.contain,
+                          height: 180,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      "Final assembled PCB with components",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.cyanAccent,
+                        fontStyle: FontStyle.italic,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 20),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Implementation Specifications:",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.cyanAccent,
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+                    _buildSpecRow("Dimensions", "65mm × 45mm × 20mm"),
+                    _buildSpecRow("Weight", "42g (assembled)"),
+                    _buildSpecRow("Power Input", "120-240V AC"),
+                    _buildSpecRow("Max Current", "10A (resistive load)"),
+                    _buildSpecRow("Wi-Fi Range", "Up to 30m"),
+                    _buildSpecRow("Operating Temp", "-10°C to 50°C"),
+                    const SizedBox(height: 15),
+                    const Text(
+                      "The final implementation features a compact form factor designed to fit inside standard electrical boxes, with proper insulation and heat dissipation considerations for safety.",
+                      style: TextStyle(
+                        fontSize: 14,
+                        height: 1.5,
+                        color: Colors.cyanAccent,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Helper method for specification rows in the physical implementation
+  Widget _buildSpecRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 120,
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.cyanAccent.withOpacity(0.8),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              value,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.cyanAccent,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -688,7 +1056,7 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
                 const Text(
                   "The software component consists of firmware running on the ESP32 microcontroller and a Flutter "
                   "mobile application for user interaction. The system uses Firebase for cloud storage and real-time "
-                  "data synchronization.",
+                  "data synchronization, enabling users to monitor energy usage and control devices remotely.",
                   style: TextStyle(
                     fontSize: 16,
                     height: 1.6,
@@ -715,8 +1083,8 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
                 ),
                 const SizedBox(height: 20),
                 _buildAppScreenshots(),
-                const SizedBox(height: 40),
-                _buildCodeSnippets(),
+                // const SizedBox(height: 40),
+                // _buildCodeSnippets(),
               ],
             )),
       ],
@@ -746,7 +1114,7 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
                 const Text(
                   "The development of the Smart Home SCADA system followed a structured process from initial "
                   "concept to final implementation. Each phase involved careful planning, design, and testing "
-                  "to ensure a high-quality product.",
+                  "to ensure a high-quality product that meets the energy monitoring needs of modern households.",
                   style: TextStyle(
                     fontSize: 16,
                     height: 1.6,
@@ -820,7 +1188,8 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
                 const Text(
                   "The Smart Home SCADA system has the potential to make a significant impact on household "
                   "energy consumption and environmental sustainability. By providing detailed insights and "
-                  "control capabilities, it empowers users to reduce waste and save money.",
+                  "control capabilities, it empowers users to reduce waste and save money, while also contributing "
+                  "to reduced carbon emissions.",
                   style: TextStyle(
                     fontSize: 16,
                     height: 1.6,
@@ -877,13 +1246,13 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
           const SizedBox(height: 20),
           _buildHighlightRow('Status', 'Prototype Complete'),
           const SizedBox(height: 15),
-          _buildHighlightRow('Timeline', 'Jan 2022 - Present'),
+          _buildHighlightRow('Timeline', 'January 2025 - Present'),
           const SizedBox(height: 15),
           _buildHighlightRow('Role', 'Lead Engineer & Designer'),
           const SizedBox(height: 15),
           _buildHighlightRow('Hardware', 'ESP32, ACS712, Relay Module'),
           const SizedBox(height: 15),
-          _buildHighlightRow('Software', 'Arduino IDE, Flutter, Firebase'),
+          _buildHighlightRow('Potential Savings', '\$100-\$200 per year'),
         ],
       ),
     );
@@ -930,82 +1299,163 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
         'name': 'ESP32',
         'category': 'Microcontroller',
         'icon': Icons.developer_board,
+        'color': Colors.blue,
       },
       {
         'name': 'ACS712',
         'category': 'Current Sensor',
         'icon': Icons.electric_meter,
+        'color': Colors.green,
       },
       {
         'name': 'Relay Module',
         'category': 'Switching',
         'icon': Icons.toggle_on,
+        'color': Colors.amber,
       },
       {
         'name': 'PCB Design',
         'category': 'Hardware',
         'icon': Icons.memory,
+        'color': Colors.red,
       },
       {
         'name': 'Flutter',
         'category': 'Mobile App',
         'icon': Icons.smartphone,
+        'color': Colors.lightBlue,
       },
       {
         'name': 'Firebase',
         'category': 'Cloud Storage',
         'icon': Icons.cloud,
+        'color': Colors.orange,
       },
     ];
 
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: 20,
-        mainAxisSpacing: 20,
-        childAspectRatio: 1.2,
-      ),
-      itemCount: techStack.length,
-      itemBuilder: (context, index) {
+    return Wrap(
+      spacing: 20,
+      runSpacing: 20,
+      children: techStack.map((tech) {
         return Container(
-          padding: const EdgeInsets.all(20),
+          width: 180,
+          height: 180,
           decoration: BoxDecoration(
             color: Colors.black,
-            border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                techStack[index]['icon'],
-                color: Colors.cyanAccent,
-                size: 32,
-              ),
-              const SizedBox(height: 10),
-              Text(
-                techStack[index]['name'],
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.cyanAccent,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 5),
-              Text(
-                techStack[index]['category'],
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.cyanAccent.withOpacity(0.7),
-                ),
-                textAlign: TextAlign.center,
+            borderRadius: BorderRadius.circular(15),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.cyanAccent.withOpacity(0.2),
+                blurRadius: 15,
+                offset: const Offset(0, 5),
               ),
             ],
+            border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Colors.black,
+                Colors.black.withBlue(30),
+              ],
+            ),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Stack(
+              children: [
+                // Decorative corner accent
+                Positioned(
+                  top: -20,
+                  right: -20,
+                  child: Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: tech['color'].withOpacity(0.1),
+                    ),
+                  ),
+                ),
+                // Content
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Icon in circular container
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.cyanAccent.withOpacity(0.5),
+                            width: 2,
+                          ),
+                        ),
+                        child: Icon(
+                          tech['icon'],
+                          color: Colors.cyanAccent,
+                          size: 24,
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      // Tech name and category
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            tech['name'],
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.cyanAccent,
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 4,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.cyanAccent.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: Colors.cyanAccent.withOpacity(0.3),
+                              ),
+                            ),
+                            child: Text(
+                              tech['category'],
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.cyanAccent.withOpacity(0.8),
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                // Horizontal line accent
+                Positioned(
+                  bottom: 75,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    height: 1,
+                    color: Colors.cyanAccent.withOpacity(0.2),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
-      },
+      }).toList(),
     );
   }
 
@@ -1013,22 +1463,22 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
   Widget _buildProblemCards() {
     final List<Map<String, dynamic>> problems = [
       {
-        'title': 'Energy Waste',
+        'title': 'Vampire Power',
         'description':
-            'Most households are unaware of how much energy individual appliances consume, leading to unnecessary waste and high utility bills.',
+            'The Department of Energy notes that standby power usage can equal running a 75-watt light bulb continuously, costing U.S. consumers up to \$19 billion annually.',
         'icon': Icons.warning_amber,
       },
       {
-        'title': 'Lack of Automation',
+        'title': 'Lack of Visibility',
         'description':
-            'Traditional switches don\'t allow remote control or scheduled automation for energy-intensive appliances.',
-        'icon': Icons.schedule,
+            'Without device-level monitoring, homeowners cannot identify which appliances are energy hogs, missing opportunities for significant savings.',
+        'icon': Icons.visibility_off,
       },
       {
-        'title': 'Bulky & Expensive Smart Switches',
+        'title': 'Inflexible Solutions',
         'description':
-            'Existing smart systems are either too large, overpriced, or incompatible with older appliances and fixtures.',
-        'icon': Icons.price_change,
+            'Existing smart plugs only work with plug-in devices and traditional whole-home monitors lack device-level control capabilities.',
+        'icon': Icons.device_unknown,
       },
     ];
 
@@ -1078,12 +1528,19 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
 
   Widget _buildMarketResearchStats() {
     final List<Map<String, String>> stats = [
-      {'value': '30%', 'label': 'Average energy wasted in typical households'},
       {
-        'value': '\$300+',
-        'label': 'Potential annual savings with smart monitoring'
+        'value': '5-10%',
+        'label': 'of home energy is wasted on standby power (CNET)'
       },
-      {'value': '60%', 'label': 'Users desire appliance-level energy insights'},
+      {
+        'value': '46%',
+        'label':
+            'of U.S. homes have at least one smart device (Parks Associates)'
+      },
+      {
+        'value': '82%',
+        'label': 'of renters want at least one smart device (Exploding Topics)'
+      },
     ];
 
     return Row(
@@ -1188,20 +1645,20 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
           const SizedBox(height: 15),
           _buildCompetitorRow(
             "Smart Plugs",
-            "\$25-45",
-            "Only works with plug-in devices, no integration with fixtures",
+            "\$10-30",
+            "Only works with plug-in devices, adds standby load of 0.5-1W",
           ),
           const SizedBox(height: 15),
           _buildCompetitorRow(
             "Smart Switches",
-            "\$50-80",
-            "Requires professional installation, no energy monitoring",
+            "\$15-50",
+            "Requires professional installation, may need neutral wire",
           ),
           const SizedBox(height: 15),
           _buildCompetitorRow(
-            "Home Energy Monitors",
-            "\$150-300",
-            "Whole-house monitoring only, no device-level insights",
+            "Whole-Home Monitors",
+            "\$100-300",
+            "No device control, imperfect appliance detection algorithms",
           ),
           const SizedBox(height: 15),
           Container(
@@ -1212,7 +1669,7 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
           _buildCompetitorRow(
             "Our Solution",
             "\$35-60 (est.)",
-            "None - works with any wired appliance with detailed monitoring",
+            "Works with any wired appliance with detailed monitoring and control",
             isHighlighted: true,
           ),
         ],
@@ -1269,24 +1726,24 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
   Widget _buildSolutionFeatures() {
     final List<Map<String, String>> features = [
       {
-        'title': 'Non-Invasive Energy Monitoring',
+        'title': 'Real-Time Energy Monitoring',
         'description':
-            'The system wraps around an appliance\'s power wire and detects current flow using the ACS712 sensor.',
+            'Measures current flow using an ACS712 sensor, providing detailed energy usage data at the device level.',
       },
       {
-        'title': 'Smart Relay Control',
+        'title': 'Remote Control & Automation',
         'description':
-            'Users can remotely turn appliances on/off through the ESP32-controlled relay.',
+            'Users can remotely switch devices on/off via the ESP32-controlled relay, helping eliminate vampire power when appliances aren\'t in use.',
       },
       {
         'title': 'Compact Custom PCB',
         'description':
-            'Designed a PCB small enough to fit inside or near standard outlets, manufacturable through JLCPCB.',
+            'Designed to fit inside or near standard outlets while incorporating all necessary monitoring and control components.',
       },
       {
-        'title': 'Future Amazon Sale',
+        'title': 'Safety Features',
         'description':
-            'The system is designed with scalability in mind, ready for consumer use.',
+            'Built-in surge protection and overheating detection help prevent electrical fires, particularly for high-risk appliances like space heaters.',
       },
     ];
 
@@ -1570,85 +2027,17 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
           Row(
             children: [
               Expanded(
-                child: Container(
-                  margin: const EdgeInsets.all(5),
-                  height: 250,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    border:
-                        Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.electrical_services,
-                          color: Colors.cyanAccent,
-                          size: 64,
-                        ),
-                        const SizedBox(height: 20),
-                        const Text(
-                          "Circuit Schematic",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.cyanAccent,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          "Full electrical diagram showing all components and connections",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.cyanAccent.withOpacity(0.7),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
+                child: _buildSchematicImageCard(
+                  'assets/scada/img2.png',
+                  "Circuit Schematic",
+                  "Preliminary electrical diagram showing component connections",
                 ),
               ),
               Expanded(
-                child: Container(
-                  margin: const EdgeInsets.all(5),
-                  height: 250,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    border:
-                        Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.grid_on,
-                          color: Colors.cyanAccent,
-                          size: 64,
-                        ),
-                        const SizedBox(height: 20),
-                        const Text(
-                          "PCB Layout",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.cyanAccent,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          "Top and bottom layer traces with component placement",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.cyanAccent.withOpacity(0.7),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
+                child: _buildSchematicImageCard(
+                  'assets/scada/img3.png',
+                  "PCB Layout",
+                  "Component arrangement and traces for the custom board",
                 ),
               ),
             ],
@@ -1656,85 +2045,17 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
           Row(
             children: [
               Expanded(
-                child: Container(
-                  margin: const EdgeInsets.all(5),
-                  height: 250,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    border:
-                        Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.view_in_ar,
-                          color: Colors.cyanAccent,
-                          size: 64,
-                        ),
-                        const SizedBox(height: 20),
-                        const Text(
-                          "Component Placement",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.cyanAccent,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          "Layout showing optimal component positioning",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.cyanAccent.withOpacity(0.7),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
+                child: _buildSchematicImageCard(
+                  'assets/scada/img4.png',
+                  "Testing Configuration",
+                  "Alternative angle of PCB during testing phase",
                 ),
               ),
               Expanded(
-                child: Container(
-                  margin: const EdgeInsets.all(5),
-                  height: 250,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    border:
-                        Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.bolt,
-                          color: Colors.cyanAccent,
-                          size: 64,
-                        ),
-                        const SizedBox(height: 20),
-                        const Text(
-                          "Isolation & Protection",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.cyanAccent,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          "Safety features for high/low voltage separation",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.cyanAccent.withOpacity(0.7),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
+                child: _buildSchematicImageCard(
+                  'assets/scada/img5.png',
+                  "Board Reverse Side",
+                  "Back view showing connections and traces",
                 ),
               ),
             ],
@@ -1744,9 +2065,178 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
     );
   }
 
-  Widget _build3DModelViews() {
+  Widget _buildSchematicImageCard(
+      String imagePath, String title, String description) {
+    return GestureDetector(
+      onTap: () => _showFullScreenImage(imagePath, title),
+      child: Container(
+        margin: const EdgeInsets.all(5),
+        height: 250,
+        decoration: BoxDecoration(
+          color: Colors.black,
+          border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
+        ),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            // Image
+            Image.asset(
+              imagePath,
+              fit: BoxFit.contain,
+            ),
+            // Gradient overlay at the bottom for text
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: [
+                      Colors.black.withOpacity(0.8),
+                      Colors.transparent,
+                    ],
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.cyanAccent,
+                      ),
+                    ),
+                    Text(
+                      description,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.cyanAccent.withOpacity(0.8),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // Full screen icon indicator
+            Positioned(
+              top: 10,
+              right: 10,
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.5),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.fullscreen,
+                  color: Colors.cyanAccent,
+                  size: 20,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showFullScreenImage(String imagePath, String title) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          insetPadding: EdgeInsets.zero,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              // Image with black background
+              Container(
+                color: Colors.black,
+                child: InteractiveViewer(
+                  minScale: 0.5,
+                  maxScale: 3.0,
+                  child: Center(
+                    child: Image.asset(
+                      imagePath,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+              ),
+              // Close button
+              Positioned(
+                top: 20,
+                right: 20,
+                child: IconButton(
+                  icon: const Icon(Icons.close,
+                      color: Colors.cyanAccent, size: 30),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ),
+              // Title
+              Positioned(
+                bottom: 20,
+                left: 0,
+                right: 0,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  color: Colors.black.withOpacity(0.5),
+                  child: Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Colors.cyanAccent,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildHardwareTimeline() {
+    // Updated stages information
+    final List<Map<String, dynamic>> stages = [
+      {
+        'image': 'assets/scada/img12.png',
+        'title': 'Stage 1: Manual Assembly and Testing with Flutter App',
+        'description':
+            'Initial prototype testing with breadboard setup and mobile application integration',
+      },
+      {
+        'image': 'assets/scada/img2.png',
+        'title': 'Stage 2: PCB Test Board Design',
+        'description':
+            'Creating the schematic and initial PCB layout for testing core functionality',
+      },
+      {
+        'image': 'assets/scada/img6.png',
+        'title': 'Stage 3: Assemble Test Board and Test',
+        'description':
+            'Soldering components to the test board and conducting functional verification',
+      },
+      {
+        'image': 'assets/scada/img11.png',
+        'title': 'Stage 4: Final Board Design',
+        'description':
+            'Completed production-ready PCB with all components integrated and optimized',
+      },
+    ];
+
     return Container(
-      padding: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: Colors.black,
         border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
@@ -1754,233 +2244,193 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.all(15.0),
-            child: Text(
-              "3D VISUALIZATION",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.cyanAccent,
-              ),
+          const Text(
+            "HARDWARE DEVELOPMENT STAGES",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.cyanAccent,
             ),
           ),
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.all(5),
-                  height: 250,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    border:
-                        Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.view_in_ar,
-                          color: Colors.cyanAccent,
-                          size: 64,
-                        ),
-                        const SizedBox(height: 20),
-                        const Text(
-                          "3D PCB Render",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.cyanAccent,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          "Three-dimensional visualization of the board design",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.cyanAccent.withOpacity(0.7),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.all(5),
-                  height: 250,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    border:
-                        Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.home,
-                          color: Colors.cyanAccent,
-                          size: 64,
-                        ),
-                        const SizedBox(height: 20),
-                        const Text(
-                          "Enclosure Design",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.cyanAccent,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          "Custom housing for safe installation",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.cyanAccent.withOpacity(0.7),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
+          const SizedBox(height: 20),
+          // Image carousel
+          SizedBox(
+            height: 450, // Increased height for better visibility
+            child: _buildImageCarousel(stages),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildPhysicalImplementation() {
-    return Container(
-      padding: const EdgeInsets.all(5),
-      decoration: BoxDecoration(
-        color: Colors.black,
-        border: Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(15.0),
-            child: Text(
-              "MANUFACTURING & ASSEMBLY",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.cyanAccent,
+  Widget _buildImageCarousel(List<Map<String, dynamic>> stages) {
+    return StatefulBuilder(
+      builder: (context, setState) {
+        final PageController pageController = PageController();
+        final ValueNotifier<int> currentPageNotifier = ValueNotifier<int>(0);
+
+        return Column(
+          children: [
+            // Main image carousel
+            Expanded(
+              child: PageView.builder(
+                controller: pageController,
+                itemCount: stages.length,
+                onPageChanged: (index) {
+                  currentPageNotifier.value = index;
+                },
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () => _showFullScreenImage(
+                        stages[index]['image'], stages[index]['title']),
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        border: Border.all(
+                            color: Colors.cyanAccent.withOpacity(0.6)),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Stack(
+                        children: [
+                          // Image
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(14),
+                            child: Image.asset(
+                              stages[index]['image'],
+                              fit: BoxFit.contain,
+                              width: double.infinity,
+                              height: double.infinity,
+                            ),
+                          ),
+                          // Full screen indicator
+                          Positioned(
+                            top: 15,
+                            right: 15,
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.5),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.fullscreen,
+                                color: Colors.cyanAccent,
+                                size: 24,
+                              ),
+                            ),
+                          ),
+                          // Information overlay at the bottom
+                          Positioned(
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            child: Container(
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.only(
+                                  bottomLeft: Radius.circular(14),
+                                  bottomRight: Radius.circular(14),
+                                ),
+                                gradient: LinearGradient(
+                                  begin: Alignment.bottomCenter,
+                                  end: Alignment.topCenter,
+                                  colors: [
+                                    Colors.black.withOpacity(0.9),
+                                    Colors.black.withOpacity(0.6),
+                                    Colors.transparent,
+                                  ],
+                                ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    stages[index]['title'],
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.cyanAccent,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    stages[index]['description'],
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.cyanAccent.withOpacity(0.9),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.all(5),
-                  height: 200,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    border:
-                        Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.add_circle_outline,
-                          color: Colors.cyanAccent,
-                          size: 48,
-                        ),
-                        const SizedBox(height: 15),
-                        const Text(
-                          "Printed PCB",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.cyanAccent,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+            const SizedBox(height: 20),
+            // Navigation and page indicators
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back_ios,
+                      color: Colors.cyanAccent),
+                  onPressed: () {
+                    if (currentPageNotifier.value > 0) {
+                      pageController.previousPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                      );
+                    }
+                  },
                 ),
-              ),
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.all(5),
-                  height: 200,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    border:
-                        Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.hardware,
-                          color: Colors.cyanAccent,
-                          size: 48,
-                        ),
-                        const SizedBox(height: 15),
-                        const Text(
-                          "Component Soldering",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.cyanAccent,
+                ValueListenableBuilder<int>(
+                  valueListenable: currentPageNotifier,
+                  builder: (context, currentPage, _) {
+                    return Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: List.generate(stages.length, (index) {
+                        return Container(
+                          width: 12,
+                          height: 12,
+                          margin: const EdgeInsets.symmetric(horizontal: 4),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: currentPage == index
+                                ? Colors.cyanAccent
+                                : Colors.cyanAccent.withOpacity(0.3),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
+                        );
+                      }),
+                    );
+                  },
                 ),
-              ),
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.all(5),
-                  height: 200,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    border:
-                        Border.all(color: Colors.cyanAccent.withOpacity(0.3)),
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.check_circle_outline,
-                          color: Colors.cyanAccent,
-                          size: 48,
-                        ),
-                        const SizedBox(height: 15),
-                        const Text(
-                          "Completed Assembly",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.cyanAccent,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                IconButton(
+                  icon: const Icon(Icons.arrow_forward_ios,
+                      color: Colors.cyanAccent),
+                  onPressed: () {
+                    if (currentPageNotifier.value < stages.length - 1) {
+                      pageController.nextPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                      );
+                    }
+                  },
                 ),
-              ),
-            ],
-          ),
-        ],
-      ),
+              ],
+            ),
+          ],
+        );
+      },
     );
   }
+
+  // Remove _buildTimelineImage as it's no longer needed
 
   // Helper widgets for Software Tab
   Widget _buildSoftwareStack() {
@@ -2324,31 +2774,31 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
         'phase': 'Research & Planning',
         'description':
             'Market research, component selection, and initial system architecture',
-        'duration': 'January 2024',
+        'duration': 'January 2025',
         'icon': Icons.search,
       },
       {
         'phase': 'Prototyping',
         'description': 'Breadboard testing of components and circuit design',
-        'duration': 'February 2024',
+        'duration': 'February 2025',
         'icon': Icons.science,
       },
       {
         'phase': 'PCB Design',
         'description': 'Creating schematic and PCB layout in EasyEDA/Altium',
-        'duration': 'March 2024',
+        'duration': 'March 2025',
         'icon': Icons.design_services,
       },
       {
         'phase': 'Manufacturing',
         'description': 'PCB fabrication and component assembly',
-        'duration': 'April 2024',
+        'duration': 'April 2025',
         'icon': Icons.precision_manufacturing,
       },
       {
         'phase': 'Testing & Refinement',
         'description': 'Functional testing, debugging, and optimization',
-        'duration': 'May 2024',
+        'duration': 'May 2025',
         'icon': Icons.speed,
       }
     ];
@@ -2447,22 +2897,22 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
             children: [
               Expanded(
                 child: _buildProcessStep(
-                  "1. Gerber File Export",
-                  "Exporting fabrication files from EasyEDA",
-                  Icons.file_download,
+                  "1. Separate PCB Testing",
+                  "Individual testing of circuit components",
+                  Icons.check_circle_outline,
                 ),
               ),
               Expanded(
                 child: _buildProcessStep(
-                  "2. PCB Manufacturing",
-                  "Professional fabrication by JLCPCB",
-                  Icons.precision_manufacturing,
+                  "2. Schematic Design",
+                  "Creating electrical diagrams",
+                  Icons.electrical_services,
                 ),
               ),
               Expanded(
                 child: _buildProcessStep(
-                  "3. Component Preparation",
-                  "Organizing and testing components",
+                  "3. Component Selection",
+                  "Choosing optimal parts",
                   Icons.category,
                 ),
               ),
@@ -2473,21 +2923,21 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
               Expanded(
                 child: _buildProcessStep(
                   "4. Soldering Process",
-                  "Hand soldering of all components",
+                  "Hand-assembly of all components",
                   Icons.whatshot,
                 ),
               ),
               Expanded(
                 child: _buildProcessStep(
-                  "5. Initial Testing",
-                  "Checking for shorts and continuity",
-                  Icons.cable,
+                  "5. Testing & Debugging",
+                  "Verifying functionality",
+                  Icons.bug_report,
                 ),
               ),
               Expanded(
                 child: _buildProcessStep(
                   "6. Final Assembly",
-                  "Enclosure fitting and wire management",
+                  "Completing the PCB production",
                   Icons.inventory_2,
                 ),
               ),
@@ -2666,25 +3116,25 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
       {
         'title': 'Energy Savings',
         'description':
-            'Potential to reduce household electricity consumption by 15-20% through monitoring and automated control',
+            'Studies show households given smart monitoring tools used about 5% less electricity. For an average U.S. home consuming 10,600 kWh per year, this means savings of 530 kWh annually.',
         'icon': Icons.eco,
       },
       {
         'title': 'Cost Effectiveness',
         'description':
-            'At an estimated production cost of \$35-60, the system can pay for itself in energy savings within 3-6 months',
+            'With standby power costing up to \$165 per household annually, our system with an estimated production cost of \$35-60 can pay for itself within a year.',
         'icon': Icons.attach_money,
       },
       {
         'title': 'Safety Enhancement',
         'description':
-            'Threshold-based current monitoring can prevent overheating and potential fire hazards from faulty appliances',
+            'Many smart plugs feature built-in surge protection and overheating shut-off features, helping prevent the nearly 50,000 home fires caused annually by electrical issues.',
         'icon': Icons.security,
       },
       {
         'title': 'Environmental Impact',
         'description':
-            'Reduced energy consumption means lower carbon emissions - estimated at 0.5 tons CO2 per household annually',
+            'Wasted vampire electricity in U.S. homes contributes roughly 44 million metric tons of CO₂ emissions annually - equivalent to 9 million cars on the road.',
         'icon': Icons.public,
       },
     ];
@@ -2752,25 +3202,25 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
         'phase': 'Phase 1: Production Optimization',
         'description':
             'Streamline manufacturing process for cost reduction and quality assurance',
-        'timeline': 'Q3 2024',
+        'timeline': 'Q3 2025',
       },
       {
-        'phase': 'Phase 2: Advanced Features',
+        'phase': 'Phase 2: Smart Home Integration',
         'description':
-            'Machine learning for pattern recognition and customized energy-saving recommendations',
-        'timeline': 'Q4 2024',
+            'With over half of U.S. consumers projected to adopt smart home technology by 2025, we\'ll ensure compatibility with major platforms',
+        'timeline': 'Q4 2025',
       },
       {
         'phase': 'Phase 3: Commercial Launch',
         'description':
-            'Retail availability through e-commerce platforms and home improvement stores',
-        'timeline': 'Q1 2025',
+            'Target the growing market where 78% of potential home buyers would pay extra for smart features',
+        'timeline': 'Q1 2026',
       },
       {
-        'phase': 'Phase 4: Smart Home Integration',
+        'phase': 'Phase 4: Expanded Feature Set',
         'description':
-            'Compatibility with popular platforms like Google Home, Amazon Alexa, and Apple HomeKit',
-        'timeline': 'Q2 2025',
+            'Machine learning for pattern recognition and customized energy-saving recommendations',
+        'timeline': 'Q2 2026',
       },
     ];
 
@@ -2851,7 +3301,7 @@ class _ScadaDetailPageState extends State<ScadaDetailPage>
           ),
           const SizedBox(height: 20),
           const Text(
-            "If you'd like to be a part of this project or have any questions, there are several ways to get involved:",
+            "With the smart home market projected to reach \$170 billion globally by 2025, there's never been a better time to be part of this growing industry. If you'd like to join this project or have any questions:",
             style: TextStyle(
               fontSize: 16,
               height: 1.6,

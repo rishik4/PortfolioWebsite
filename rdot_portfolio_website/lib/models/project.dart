@@ -101,7 +101,7 @@ class Project {
         'Created scalable architecture for future production'
       ],
       technologies: ['IoT', 'PCB Design', 'Embedded Systems'],
-      imageUrl: 'assets/images/projects/scada.jpg',
+      imageUrl: 'assets/scada/img11.png',
       type: 'hardware',
       isCustom: true, // Change to true to use custom detail page
       detailPageBuilder: (context) =>

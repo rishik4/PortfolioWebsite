@@ -13,6 +13,5 @@ void main() {
     DeviceOrientation.landscapeRight,
   ]);
 
-  // Run the app
   runApp(const PortfolioApp());
 }
