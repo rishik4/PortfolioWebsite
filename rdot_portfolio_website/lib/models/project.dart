@@ -139,7 +139,7 @@ class Project {
         'Optimized design for manufacturability and reliability'
       ],
       technologies: ['PCB Design', 'EasyEDA/Altium', 'ESP32', 'Electronics'],
-      imageUrl: 'assets/images/projects/esp32.jpg',
+      imageUrl: 'assets/breakoutboard/imgCover.png',
       type: 'hardware',
       isCustom: true,
       detailPageBuilder: (context) => const ESP32BreakoutDetailPage(),

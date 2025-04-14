@@ -456,10 +456,10 @@ class _DebateTimerDetailPageState extends State<DebateTimerDetailPage>
       children: [
         _buildAnimatedSection(
             0,
-            Column(
+            const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   "ABOUT DEBATE TIMER PRO",
                   style: TextStyle(
                     fontSize: 24,
@@ -481,7 +481,7 @@ class _DebateTimerDetailPageState extends State<DebateTimerDetailPage>
                   ),
                 ),
                 const SizedBox(height: 20),
-                const Text(
+                Text(
                   "With integrated speech recording capabilities and analysis tools, Debate Timer Pro goes "
                   "beyond simple timing to help debaters improve their skills through practice and review. "
                   "The app is designed with simplicity in mind, allowing users to focus on their debate "
@@ -492,7 +492,7 @@ class _DebateTimerDetailPageState extends State<DebateTimerDetailPage>
                     color: Colors.cyanAccent,
                   ),
                 ),
-                const SizedBox(height: 40),
+                SizedBox(height: 40),
               ],
             )),
         _buildAnimatedSection(

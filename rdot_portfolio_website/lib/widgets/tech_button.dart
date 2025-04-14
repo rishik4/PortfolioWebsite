@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 class TechButton extends StatefulWidget {
   final VoidCallback onPressed;
   final String label;
+  final double fontSize;
+  final EdgeInsetsGeometry padding;
 
   const TechButton({
     super.key,
     required this.onPressed,
     required this.label,
+    this.fontSize = 16,
+    this.padding = const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
   });
 
   @override
@@ -23,10 +27,11 @@ class _TechButtonState extends State<TechButton> {
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovering = true),
       onExit: (_) => setState(() => _isHovering = false),
+      cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: widget.onPressed,
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 12),
+          padding: widget.padding,
           decoration: BoxDecoration(
             color: _isHovering ? Colors.cyanAccent : Colors.transparent,
             border: Border.all(color: Colors.cyanAccent),
@@ -43,7 +48,7 @@ class _TechButtonState extends State<TechButton> {
               Text(
                 widget.label,
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: widget.fontSize,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1,
                   color: _isHovering ? Colors.black : Colors.cyanAccent,

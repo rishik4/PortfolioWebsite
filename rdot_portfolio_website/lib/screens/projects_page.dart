@@ -200,27 +200,12 @@ class _ProjectsPageState extends State<ProjectsPage> {
                             PageRouteBuilder(
                               pageBuilder:
                                   (context, animation, secondaryAnimation) =>
-                                      AllProjectsPage(
-                                          initialFilter: _currentFilter),
+                                      const AllProjectsPage(),
                               transitionsBuilder: (context, animation,
                                   secondaryAnimation, child) {
-                                const begin = Offset(1.0, 0.0);
-                                const end = Offset.zero;
-                                const curve = Curves.easeInOutCubic;
-                                var tween = Tween(begin: begin, end: end).chain(
-                                  CurveTween(curve: curve),
-                                );
-                                var offsetAnimation = animation.drive(tween);
-                                return SlideTransition(
-                                  position: offsetAnimation,
-                                  child: FadeTransition(
-                                    opacity: animation,
-                                    child: child,
-                                  ),
-                                );
+                                return FadeTransition(
+                                    opacity: animation, child: child);
                               },
-                              transitionDuration:
-                                  const Duration(milliseconds: 800),
                             ),
                           );
                         },
