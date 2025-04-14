@@ -40,6 +40,9 @@ class _ProjectTransitionPageState extends State<ProjectTransitionPage>
   final List<String> _projectThumbnails =
       Project.projects.map((project) => project.imageUrl).take(8).toList();
 
+  // Add a seed value to ensure consistent randomness in a single session
+  final int _randomSeed = DateTime.now().millisecondsSinceEpoch;
+
   @override
   void initState() {
     super.initState();
@@ -164,7 +167,7 @@ class _ProjectTransitionPageState extends State<ProjectTransitionPage>
         opacity: _fadeOutAnimation,
         child: Stack(
           children: [
-            // Circuit and pulse animation
+            // Circuit and pulse animation - pass the seed to ensure consistency
             AnimatedBuilder(
               animation: Listenable.merge([_circuitAnimation, _pulseAnimation]),
               builder: (context, _) {
@@ -172,6 +175,8 @@ class _ProjectTransitionPageState extends State<ProjectTransitionPage>
                   painter: HorizontalCircuitPainter(
                     circuitProgress: _circuitAnimation.value,
                     pulseProgress: _pulseAnimation.value,
+                    randomSeed:
+                        _randomSeed, // Pass seed for consistent randomization
                   ),
                   size: Size.infinite,
                 );
@@ -340,10 +345,10 @@ class _ProjectTransitionPageState extends State<ProjectTransitionPage>
 class HorizontalCircuitPainter extends CustomPainter {
   final double circuitProgress;
   final double pulseProgress;
+  final int randomSeed;
 
-  // Random generator with non-fixed seed for variation each time
-  final math.Random _random =
-      math.Random(DateTime.now().millisecondsSinceEpoch);
+  // Random generator with fixed seed for consistent but random patterns
+  late final math.Random _random;
 
   // Store the main circuit path and its segments
   late final Path _mainCircuitPath;
@@ -352,10 +357,15 @@ class HorizontalCircuitPainter extends CustomPainter {
   // Store branch pulse positions for mini-pulses
   late final List<double> _branchPulsePositions;
 
+  // Track if paths have been generated
+  bool _pathsGenerated = false;
+
   HorizontalCircuitPainter({
     required this.circuitProgress,
     required this.pulseProgress,
+    required this.randomSeed,
   }) {
+    _random = math.Random(randomSeed);
     _mainCircuitPath = Path();
     _branchPaths = List.generate(5, (_) => Path());
     _nodePaths = List.generate(8, (_) => Path());
@@ -365,11 +375,12 @@ class HorizontalCircuitPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    // Generate the main circuit path if it's empty
-    if (_mainCircuitPath.computeMetrics().isEmpty) {
+    // Generate paths only once
+    if (!_pathsGenerated) {
       _generateMainCircuitPath(size);
       _generateBranchPaths(size);
       _generateNodePaths(size);
+      _pathsGenerated = true;
     }
 
     // Paint settings for the circuit
