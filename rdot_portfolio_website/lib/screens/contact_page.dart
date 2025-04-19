@@ -70,7 +70,7 @@ class ContactPage extends StatelessWidget {
                     icon: Icons.article,
                     label: "RESUME",
                     onTap: () => launchUrlExternal(
-                        'https://drive.google.com/file/d/1EOm_7cDInpJut7-bUdAPiLElzXW3wrZF/view?usp=sharing'),
+                        'https://drive.google.com/file/d/157bQ4Aa0KGxpoYNUtTab1vmwwFqhcE2V/view?usp=sharing'),
                   ),
                 ],
               ),
